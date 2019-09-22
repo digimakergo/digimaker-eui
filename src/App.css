@@ -1,0 +1,39 @@
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+
+.treemenu, .treemenu ul{
+   padding-left: 10px;
+}
+
+.treemenu li{ 
+   list-style: none;
+}
+
+.left{
+  background: #f0f0f0;
+  height: 100vh;
+  width: 20%;
+  float: left;
+}
+
+.main{
+  width: 79%
+}
