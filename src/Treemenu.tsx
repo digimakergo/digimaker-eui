@@ -22,7 +22,7 @@ this.state = {data : ''};
  }
 
  renderNode(node: any): string{
-   var currentStr = '<li><a href="#">'+node.name+'</a>'; 
+   var currentStr = '<li><a href="/main/'+node.id+'">'+node.name+'</a>'; 
    if( node.children ) 
    {
    currentStr = currentStr+'<ul>';
@@ -39,7 +39,7 @@ this.state = {data : ''};
 
   render () {
     return (
-         <ul className="treemenu" dangerouslySetInnerHTML={{__html: this.renderNode(this.state.data)}} />
+         <ul className="treemenu" dangerouslySetInnerHTML={{__html: this.state.data?this.renderNode(this.state.data):''}} />
     );
   }
 }

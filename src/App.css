@@ -35,5 +35,11 @@
 }
 
 .main{
+  display: inline-block;
   width: 79%
+}
+
+.table{
+
+
 }
