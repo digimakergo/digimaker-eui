@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 export default class Treemenu extends React.Component<{},{data:any}> {
   
 constructor(props:any) {
@@ -21,25 +21,17 @@ this.state = {data : ''};
   this.fetchData();
  }
 
- renderNode(node: any): string{
-   var currentStr = '<li><a href="/main/'+node.id+'">'+node.name+'</a>'; 
-   if( node.children ) 
-   {
-   currentStr = currentStr+'<ul>';
-   for( var i=0; i< node.children.length;i++ )
-   {
-      currentStr = currentStr + this.renderNode(node.children[i]);
-   }
-   currentStr = currentStr + '</ul>';
-   }
-   currentStr = currentStr+'</li>';
-   return currentStr;
+ renderNode(node: any): any{
+   return( <li>
+           <Link to={`/main/${node.id}`}>{node.name}</Link>
+           <ul>{node.children?node.children.map((value)=>{ return this.renderNode( value ) }):''}</ul>
+          </li> );
 }
 
 
   render () {
     return (
-         <ul className="treemenu" dangerouslySetInnerHTML={{__html: this.state.data?this.renderNode(this.state.data):''}} />
+         <ul className="treemenu">{this.state.data?this.renderNode(this.state.data):''} </ul>
     );
   }
 }

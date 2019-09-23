@@ -9,11 +9,11 @@ const App: React.FC = () => {
     <Router>
     <div className="App">
        <div className="left">
-          <div><Link to="/main/1">Dashboard</Link></div>
+          <div><Link to="/1">Dashboard</Link></div>
           <Treemenu />
        </div>
        <div className="main">
-         <Route path="/main/:id" component={Main} />
+	 <Route path="/main/:id" component={Main} />
        </div>
     </div>
     </Router>
