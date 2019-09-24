@@ -10,17 +10,21 @@ constructor(props:any) {
     }
 
 
-  fetchData(){
-   fetch('http://demo.digimaker.no:8089/api/content/list/'+this.props.id )
+  fetchData(id){
+   fetch('http://demo.digimaker.no:8089/api/content/list/'+id )
          .then(res=>res.json())
          .then( (data) => {
            this.setState({list : data});
 
          } )
   }
+  componentWillMount(){
+   this.fetchData(this.props.id);
+  }
 
- componentWillMount(){
-  this.fetchData();
+
+ componentWillReceiveProps(nextProps){
+  this.fetchData(nextProps.id);
  }
 
   renderList( list ){
