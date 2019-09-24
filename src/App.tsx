@@ -9,7 +9,7 @@ const App: React.FC = () => {
     <Router>
     <div className="App">
        <div className="left">
-          <div><Link to="/1">Dashboard</Link></div>
+          <div><Link to="/1"><i className="far fa-folder" /> Dashboard</Link></div>
           <Treemenu />
        </div>
        <div className="main">

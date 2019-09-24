@@ -23,7 +23,7 @@ this.state = {data : ''};
 
  renderNode(node: any): any{
    return( <li>
-           <Link to={`/main/${node.id}`}>{node.name}</Link>
+           <Link to={`/main/${node.id}`}><i className="far fa-folder"></i> {node.name}</Link>
            <ul>{node.children?node.children.map((value)=>{ return this.renderNode( value ) }):''}</ul>
           </li> );
 }

@@ -18,6 +18,19 @@
   color: #09d3ac;
 }
 
+body{
+ font-size: 0.95em;
+}
+
+a, .btn-link{
+ color: #183d56
+}
+
+a:hover{
+ text-decoration: none;
+ color: rgb(230, 120, 0);
+}
+
 
 .treemenu, .treemenu ul{
    padding-left: 10px;
@@ -36,10 +49,99 @@
 
 .main{
   display: inline-block;
-  width: 79%
+  width: 79%;
+  padding-left: 8px;
 }
 
 .table{
 
 
+}
+
+.side{
+  width: 24%;
+  float: right;
+}
+
+.main .list{
+  width: 75%;
+}
+
+.list h3{
+    font-weight: 400;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+td.content-name{
+  width: 35%;
+  max-width:10px;
+
+}
+td.content-name span{
+  display:block;
+  white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+
+}
+
+.tool-block{
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 1px 1px 3px 0px #e4e3e3;
+    border-radius: 3px;
+    border: 1px solid #d8d8d8;
+   margin-bottom: 15px;
+}
+
+.block-title{
+ background: #f3f3f3;
+ padding:4px 6px;
+  
+}
+
+.block-body{
+ padding: 5px 10px 10px 10px;
+}
+
+.block-body > *{
+   padding: 2px 0px;
+}
+
+.tool-block .block-body{
+}
+
+.tool-block a{
+color: #272727
+}
+
+.content-list-tools{
+  float: right;
+}
+
+.content-list-tools select{
+  display: inline-block; 
+  width: 100px;
+  height: 30px;
+  font-size: 14px
+}
+
+.left{
+  background: #525a5f
+}
+
+.left a{
+ color: #ffffff
+}
+
+.table td, .table th{
+   padding: 7px 5px;
+
+}
+
+.path{
+    font-size: 20px;
+    font-weight: 400;
+    cursor: default;
 }
