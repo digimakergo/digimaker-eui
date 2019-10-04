@@ -1,0 +1,12 @@
+{
+  "remote_server":  "http://demo.digimaker.no:8089/api",
+  "theme": "default",
+  "leftmenu":{},
+  "list":{ "default_sort": "",
+           "columns":"",
+           "actions": "move,export "},
+  "actions":{  "preview":  "",
+                "copy ": " ",
+                "move":  " ",
+                "export":  " " }
+}

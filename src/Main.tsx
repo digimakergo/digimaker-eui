@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { RouteProps } from 'react-router';
+import Config from './config.json';
 import List from './List';
 import MetaInfo from './MetaInfo';
 import Actions from './Actions';
+import Service from './Service';
 
 export default class Main extends React.Component<RouteProps,{content:any,list:any}> {
 
@@ -13,7 +15,7 @@ constructor(props:any) {
 
 
 fetchData(id){
-fetch('http://demo.digimaker.no:8089/api/content/get/'+id )
+fetch(Config.remote_server+'/content/get/'+id )
          .then(res=>res.json())
          .then( (data) => {
            this.setState({content : data});

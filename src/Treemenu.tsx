@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Config from './config.json';
+
 export default class Treemenu extends React.Component<{},{data:any}> {
   
 constructor(props:any) {
@@ -9,7 +11,7 @@ this.state = {data : ''};
 
 
   fetchData(){
-   fetch('http://demo.digimaker.no:8089/api/content/treemenu/55' )
+   fetch(Config.remote_server+'/content/treemenu/55' )
          .then(res=>res.json())
          .then( (data1) => {
            this.setState({data : data1});
@@ -22,7 +24,7 @@ this.state = {data : ''};
  }
 
  renderNode(node: any): any{
-   return( <li>
+   return( <li><a href="#" className="expand">{node.children?<i className="fas fa-chevron-down"></i>:''}</a>
            <Link to={`/main/${node.id}`}><i className="far fa-folder"></i> {node.name}</Link>
            <ul>{node.children?node.children.map((value)=>{ return this.renderNode( value ) }):''}</ul>
           </li> );
@@ -31,7 +33,7 @@ this.state = {data : ''};
 
   render () {
     return (
-         <ul className="treemenu">{this.state.data?this.renderNode(this.state.data):''} </ul>
+         <ul className="treemenu">{this.state.data?this.renderNode(this.state.data):''}</ul>
     );
   }
 }

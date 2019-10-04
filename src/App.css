@@ -26,18 +26,22 @@ a, .btn-link{
  color: #183d56
 }
 
-a:hover{
+a:hover, .left a:hover{
  text-decoration: none;
  color: rgb(230, 120, 0);
 }
 
+.treemenu{
+  padding-left:0px
+}
 
-.treemenu, .treemenu ul{
+.treemenu ul{
    padding-left: 10px;
 }
 
 .treemenu li{ 
    list-style: none;
+   padding: 2px 0px;
 }
 
 .left{
@@ -144,4 +148,50 @@ color: #272727
     font-size: 20px;
     font-weight: 400;
     cursor: default;
+}
+
+.left .settings{
+  float: right;
+  margin-right: 5px
+}
+
+.treemenu .expand{
+  display: inline-block;
+  width: 10px;
+  margin-right: 10px;
+}
+
+.logomenu{
+ border-bottom: 1px solid #464646;
+ padding: 5px 5px 5px 10px;
+}
+
+.menuitem{
+   border-bottom: 1px solid #464646;
+   border-top: 1px solid #6d6d6d;
+   padding:4px 4px 5px 10px
+}
+
+.logomenu img{
+  filter:invert(1);
+  width: 28px;
+}
+
+.menuitem:last-child{
+   border-bottom: none
+}
+
+.logomenu a.profile{
+  float: right;
+  padding: 6px;
+}
+
+.logomenu .logo{
+  display: inline-block;
+  padding: 5px;
+}
+
+.logomenu .logo:hover{
+  border-radius: 4px;
+  background: #000000
 }

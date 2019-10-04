@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Moment from 'react-moment';
-
+import Config from './config.json';
 
 export default class List extends React.Component<{id:string},{content:any,list:any}> {
 
@@ -11,7 +11,7 @@ constructor(props:any) {
 
 
   fetchData(id){
-   fetch('http://demo.digimaker.no:8089/api/content/list/'+id )
+   fetch(Config.remote_server+'/content/list/'+id )
          .then(res=>res.json())
          .then( (data) => {
            this.setState({list : data});
@@ -31,13 +31,21 @@ constructor(props:any) {
     let rows:Array<any> =[];
     for( let i=0;i<list.length;i++ ){
      var item = list[i]
-     rows.push(<tr><td><input type="checkbox" /></td><td>{item.id}</td><td className="content-name"><span><a href="#">{item.name}</a></span></td><td>{item.author}</td><td><Moment unix format="DD.MM.YYYY HH:mm">{item.modified}</Moment></td><td><Moment unix format="DD.MM.YYYY HH:mm">{item.published}</Moment></td><td>{item.priority}</td><td className="list-tool">
+     rows.push(<tr><td><input type="checkbox" /></td><td>{item.id}</td><td className="content-name"><span><a href="#">{item.name}</a></span></td><td>Chen</td><td><Moment unix format="DD.MM.YYYY HH:mm">{item.modified}</Moment></td><td><Moment unix format="DD.MM.YYYY HH:mm">{item.published}</Moment></td><td className="list-tool">
             <a href="/admindesign/content/view/120" className="action" title="Edit"><i className="far fa-edit"></i></a>&nbsp; 
             <a href="/content/delete/76" className="action" title="Remove"><i className="far fa-trash-alt"></i></a>&nbsp;
              <a href="#" className="action" title="More"><i className="fas fa-ellipsis-h"></i></a>
         </td></tr>)
    }
   return rows;
+  }
+
+  renderAList(data){
+return(<div>
+<h3>Articles({data.length})</h3>
+<table className="table">{this.renderList(data)}</table>
+</div>
+)
   }
 
   render () {
@@ -60,8 +68,8 @@ constructor(props:any) {
 </select>
 </span>
 </div>
-<h3>Articles {this.state.list['article']?this.state.list['article'].length:''}</h3>
-{this.state.list?<table className="table">{this.renderList(this.state.list['article'])}</table>:''}</div>
+{this.state.list?this.renderAList(this.state.list['article']):''}
+</div>
     );
   }
 }
