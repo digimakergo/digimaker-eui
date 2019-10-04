@@ -39,7 +39,7 @@ a:hover, .left a:hover{
    padding-left: 10px;
 }
 
-.treemenu li{ 
+.treemenu li{
    list-style: none;
    padding: 2px 0px;
 }
@@ -102,7 +102,7 @@ td.content-name span{
 .block-title{
  background: #f3f3f3;
  padding:4px 6px;
-  
+
 }
 
 .block-body{
@@ -125,7 +125,7 @@ color: #272727
 }
 
 .content-list-tools select{
-  display: inline-block; 
+  display: inline-block;
   width: 100px;
   height: 30px;
   font-size: 14px
@@ -194,4 +194,50 @@ color: #272727
 .logomenu .logo:hover{
   border-radius: 4px;
   background: #000000
+}
+
+
+.hidden{
+    display: none;
+}
+
+
+.container-new{
+    position: fixed;
+    width: 100%;
+    min-width: 1280px;
+    left: 0px;
+    height: 100%;
+    top: 0px;
+    background: rgba(100, 100, 100, 0.9);
+}
+
+.container-new >div{
+    width: 80%;
+    margin: auto;
+    background-color: #ffffff;
+    height: 100%;
+}
+
+.container-new .form-main{
+    width: 80%;
+    height: 100%;
+    padding: 10px;
+}
+
+.form-tool{
+    float: right;
+    background-color: #cccccc;
+    height: 100%;
+    width: 20%;
+    padding: 10px;
+}
+
+.form-actions{
+    position: absolute;
+    bottom: 10px;
+}
+
+.form-main textarea{
+    height: 200px;
 }

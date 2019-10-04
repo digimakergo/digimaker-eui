@@ -8,5 +8,9 @@
   "actions":{  "preview":  "",
                 "copy ": " ",
                 "move":  " ",
-                "export":  " " }
+                "export":  " " },
+  "fieldtypes":{
+      "text":"Text",
+      "richtext":"RichText"
+  }
 }

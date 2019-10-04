@@ -1,12 +1,13 @@
 import * as React from 'react';
 import Moment from 'react-moment';
 import Config from './config.json';
+import New from './actions/New';
 
-export default class List extends React.Component<{id:string},{content:any,list:any}> {
+export default class List extends React.Component<{id:number},{content:any,list:any, actionNew: boolean}> {
 
 constructor(props:any) {
       super(props);
-      this.state = {content:'',list : ''};
+      this.state = {content:'',list : '', actionNew: false};
     }
 
 
@@ -32,7 +33,7 @@ constructor(props:any) {
     for( let i=0;i<list.length;i++ ){
      var item = list[i]
      rows.push(<tr><td><input type="checkbox" /></td><td>{item.id}</td><td className="content-name"><span><a href="#">{item.name}</a></span></td><td>Chen</td><td><Moment unix format="DD.MM.YYYY HH:mm">{item.modified}</Moment></td><td><Moment unix format="DD.MM.YYYY HH:mm">{item.published}</Moment></td><td className="list-tool">
-            <a href="/admindesign/content/view/120" className="action" title="Edit"><i className="far fa-edit"></i></a>&nbsp; 
+            <a href="/admindesign/content/view/120" className="action" title="Edit"><i className="far fa-edit"></i></a>&nbsp;
             <a href="/content/delete/76" className="action" title="Remove"><i className="far fa-trash-alt"></i></a>&nbsp;
              <a href="#" className="action" title="More"><i className="fas fa-ellipsis-h"></i></a>
         </td></tr>)
@@ -41,18 +42,28 @@ constructor(props:any) {
   }
 
   renderAList(data){
-return(<div>
-<h3>Articles({data.length})</h3>
-<table className="table">{this.renderList(data)}</table>
-</div>
-)
+    return(<div>
+    <h3>Articles({data.length})</h3>
+    <table className="table">{this.renderList(data)}</table>
+    </div>
+    )
   }
+
+  newContent = ()=>{
+      this.setState({actionNew: true});
+  }
+
+
 
   render () {
     return (
        <div>
 <div className="content-list-tools">
-     <a href="/content/new/frontpage/1" className="btn btn-link btn-sm"><i className="fas fa-plus-square"></i> New</a>
+     <a href="#" className="btn btn-link btn-sm" onClick={this.newContent}>
+        <i className="fas fa-plus-square"></i> New
+     </a>
+             <New show={this.state.actionNew?'true':'false'} contenttype="article" parent={this.props.id} />
+
      <a href="/content/new/frontpage/1" className="btn btn-link btn-sm">     <input type="checkbox" value="" />
          &nbsp;All
      </a>
