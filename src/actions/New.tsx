@@ -61,11 +61,22 @@ constructor(props:any) {
 
     handleSubmit(event){
         event.preventDefault();
-        const data = new FormData(event.target);
-        fetch(Config.remote_server+'/content/publish/'+this.props.parent+'/'+this.props.contenttype, {
+        const form = new FormData(event.target);
+        const dataObject = {};
+        for( let key of Array.from( form.keys() ) ){
+            dataObject[key] = form.get( key );
+        };
+        fetch(Config.remote_server+'/content/new/'+this.props.parent+'/'+this.props.contenttype, {
              method: 'POST',
-             body: data,
-           });
+             body: JSON.stringify(dataObject),
+         }).then((res)=>{
+             if( res.ok )
+             {
+
+             }else{
+                console.log( res )
+             }
+         });
     }
 
 render(){
@@ -74,7 +85,7 @@ render(){
 
     return (<div onKeyUp={this.keyUpHandler} className={this.props.show=='true'?'container-new':'hidden'}>
             <div>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={(e) => this.handleSubmit(e)}>
                 <div className="form-tool">
                     <div>
                         <label>Resources</label>

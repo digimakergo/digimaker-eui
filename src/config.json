@@ -1,5 +1,5 @@
 {
-  "remote_server":  "http://demo.digimaker.no:8089/api",
+  "remote_server":  "http://localhost:8089/api",
   "theme": "default",
   "leftmenu":{},
   "list":{ "default_sort": "",
