@@ -1,16 +1,46 @@
 {
-  "remote_server":  "http://localhost:8089/api",
-  "theme": "default",
-  "leftmenu":{},
-  "list":{ "default_sort": "",
-           "columns":"",
-           "actions": "move,export "},
-  "actions":{  "preview":  "",
-                "copy ": " ",
-                "move":  " ",
-                "export":  " " },
-  "fieldtypes":{
-      "text":"Text",
-      "richtext":"RichText"
-  }
+    "remote_server": "http://localhost:8089/api",
+    "theme": "default",
+    "leftmenu": [
+        "folder",
+        "frontpage"
+    ],
+    "main": {
+        "folder": {
+            "list": "article",
+            "actions": [
+                "preview in frontpage",
+                "copy",
+                "move",
+                "delete",
+                "export"
+            ],
+            "new": [
+                "folder",
+                "frontpage"
+            ]
+        },
+        "frontpage": {
+            "list": "frontpage_block",
+            "actions": [
+                "preview",
+                "copy",
+                "move",
+                "delete",
+                "export"
+            ],
+            "new": ""
+        }
+    },
+    "content_list": {
+        "article": {
+            "default_sort": "",
+            "columns": "",
+            "actions": "move,export "
+        }
+    },
+    "fieldtypes": {
+        "text": "Text",
+        "richtext": "RichText"
+    }
 }
