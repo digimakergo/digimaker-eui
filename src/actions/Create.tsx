@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Moment from 'react-moment';
 import { RouteProps } from 'react-router';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Config from '../config.json';
 
 export default class Create extends React.Component<RouteProps, { definition: any, components: {} }> {
@@ -70,7 +70,8 @@ export default class Create extends React.Component<RouteProps, { definition: an
             body: JSON.stringify(dataObject),
         }).then((res) => {
             if (res.ok) {
-
+                this.props.history.push('/main/' + this.props.match.params.parent);
+                //todo: use redirect parameters
             } else {
                 console.log(res)
             }
@@ -83,20 +84,24 @@ export default class Create extends React.Component<RouteProps, { definition: an
             <div>
                 <form onSubmit={(e) => this.handleSubmit(e)}>
                     <div className="form-tool">
-                    <div className="form-actions">
-                        <div className="block-title">Actions</div>
-                        <div className="block-body">
-                            <div>
-                                <button type="submit" className="btn btn-primary btn-sm">Submit</button>
-                            </div>
-                            <div>
-                                <button type="button" className="btn btn-sm">Save draft</button>
-                            </div>
-                            <div>
-                                <Link to={`/main/${this.props.match.params.parent}`}><button type="button" className="btn btn-sm">Cancel</button></Link>
+                        <div className="form-actions">
+                            <div className="block-title">Actions</div>
+                            <div className="block-body">
+                                <div>
+                                    <button type="submit" className="btn btn-primary btn-sm"><i className="fas fa-paper-plane"></i> Submit</button>
+                                </div>
+                                <div>
+                                    <button type="button" className="btn btn-sm btn-secondary"><i className="fas fa-save"></i> Save draft</button>
+                                </div>
+                                <div>
+                                    <Link to={`/main/${this.props.match.params.parent}`}>
+                                        <button type="button" className="btn btn-sm btn-secondary">
+                                            <i className="fas fa-window-close"></i> Cancel
+                                    </button>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
                         <div className="form-actions">
                             <div className="block-title">Resources</div>
