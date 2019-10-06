@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Config from './config.json';
 import Moment from 'react-moment';
+import { Link } from "react-router-dom";
 
 export default class Actions extends React.Component<{content:any}> {
 
@@ -25,9 +26,9 @@ export default class Actions extends React.Component<{content:any}> {
              <div>
              <i className="fas fa-plus"></i> Create &nbsp;
              {newTypes.map((value)=>{return (
-                 <a href="#" title={value}>
+                 <Link to={`/create/${this.props.content.id}/${value}`} title={value}>
                      <i className="far fa-folder"></i> &nbsp;
-                 </a>
+                 </Link>
                 )})}
              </div>:''
             }
