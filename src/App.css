@@ -203,20 +203,8 @@ color: #272727
 
 
 .container-new{
-    position: fixed;
     width: 100%;
     min-width: 1280px;
-    left: 0px;
-    height: 100%;
-    top: 0px;
-    background: rgba(100, 100, 100, 0.9);
-}
-
-.container-new >div{
-    width: 80%;
-    margin: auto;
-    background-color: #ffffff;
-    height: 100%;
 }
 
 .container-new .form-main{
@@ -227,15 +215,12 @@ color: #272727
 
 .form-tool{
     float: right;
-    background-color: #cccccc;
     height: 100%;
     width: 20%;
     padding: 10px;
 }
 
 .form-actions{
-    position: absolute;
-    bottom: 10px;
 }
 
 .form-main textarea{

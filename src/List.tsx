@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Moment from 'react-moment';
 import Config from './config.json';
-import New from './actions/New';
+import Create from './actions/Create';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 export default class List extends React.Component<{ id: number }, { content: any, list: any, actionNew: boolean }> {
 
@@ -59,12 +60,12 @@ export default class List extends React.Component<{ id: number }, { content: any
         return (
             <div>
                 <div className="content-list-tools">
-                    <a href="#" className="btn btn-link btn-sm" onClick={this.newContent}>
+                     <Link to={`/create/${this.props.id}/article`} className="btn btn-link btn-sm">
                         <i className="fas fa-plus-square"></i> New
-     </a>
-                    <New show={this.state.actionNew ? 'true' : 'false'} contenttype="article" parent={this.props.id} />
+                     </Link>
 
-                    <a href="/content/new/frontpage/1" className="btn btn-link btn-sm">     <input type="checkbox" value="" />
+                    <a href="/content/new/frontpage/1" className="btn btn-link btn-sm">
+                     <input type="checkbox" value="" />
                         &nbsp;All
      </a>
                     <a href="#" className="btn btn-link btn-sm" title="Move"><i className="fas fa-cut"></i> Move</a>

@@ -4,6 +4,7 @@ import './App.css';
 import Config from './config.json';
 import Treemenu from './Treemenu';
 import Main from './Main'
+import Create from './actions/Create'
 
 const App: React.FC = () => {
     return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
                 </div>
                 <div className="main">
                     <Route path="/main/:id" component={Main} />
+                    <Route path="/create/:parent/:contenttype" component={Create} />
                 </div>
             </div>
         </Router>

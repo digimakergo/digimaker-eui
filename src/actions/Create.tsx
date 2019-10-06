@@ -1,8 +1,10 @@
 import * as React from 'react';
 import Moment from 'react-moment';
+import { RouteProps } from 'react-router';
+import { Link } from "react-router-dom";
 import Config from '../config.json';
 
-export default class New extends React.Component<{ show: string, contenttype: string, parent: number }, { definition: any, components: {} }> {
+export default class Create extends React.Component<RouteProps, { definition: any, components: {} }> {
 
     constructor(props: any) {
         super(props);
@@ -46,7 +48,7 @@ export default class New extends React.Component<{ show: string, contenttype: st
             })
     }
 
-    componentWillReceiveProps() {
+    componentWillMount() {
         this.fetchData();
     }
 
@@ -63,7 +65,7 @@ export default class New extends React.Component<{ show: string, contenttype: st
         for (let key of Array.from(form.keys())) {
             dataObject[key] = form.get(key);
         };
-        fetch(Config.remote_server + '/content/new/' + this.props.parent + '/' + this.props.contenttype, {
+        fetch(Config.remote_server + '/content/new/' + this.props.match.params.parent + '/' + this.props.match.params.contenttype, {
             method: 'POST',
             body: JSON.stringify(dataObject),
         }).then((res) => {
@@ -77,15 +79,28 @@ export default class New extends React.Component<{ show: string, contenttype: st
 
     render() {
         if (!this.state.definition) return <div>loading</div>;
-
-
-        return (<div onKeyUp={this.keyUpHandler} className={this.props.show == 'true' ? 'container-new' : 'hidden'}>
+        return (<div onKeyUp={this.keyUpHandler} className="container-new">
             <div>
                 <form onSubmit={(e) => this.handleSubmit(e)}>
                     <div className="form-tool">
-                        <div>
-                            <label>Resources</label>
+                    <div className="form-actions">
+                        <div className="block-title">Actions</div>
+                        <div className="block-body">
                             <div>
+                                <button type="submit" className="btn btn-primary btn-sm">Submit</button>
+                            </div>
+                            <div>
+                                <button type="button" className="btn btn-sm">Save draft</button>
+                            </div>
+                            <div>
+                                <Link to={`/main/${this.props.match.params.parent}`}><button type="button" className="btn btn-sm">Cancel</button></Link>
+                            </div>
+                        </div>
+                    </div>
+
+                        <div className="form-actions">
+                            <div className="block-title">Resources</div>
+                            <div className="block-body">
                                 <ul className="nav nav-tabs">
                                     <li className="active"><a data-toggle="images" href="#images">Images</a></li>
                                     <li><a data-toggle="contents" href="#images">Contents</a></li>
@@ -95,18 +110,7 @@ export default class New extends React.Component<{ show: string, contenttype: st
 
                         </div>
 
-                        <div className="form-actions">
-                            <label>Actions</label>
-                            <div>
-                                <button type="submit" className="btn btn-primary btn-sm">Submit</button>
-                            </div>
-                            <div>
-                                <button type="button" className="btn btn-sm">Save draft</button>
-                            </div>
-                            <div>
-                                <button type="button" className="btn btn-sm">Cancel</button>
-                            </div>
-                        </div>
+
                     </div>
 
                     <div className="form-main">
