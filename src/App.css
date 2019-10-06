@@ -226,3 +226,14 @@ color: #272727
 .form-main textarea{
     height: 200px;
 }
+
+.loading::before{
+    content: '...'
+}
+
+.loading{
+    text-align: center;
+    position: absolute;
+    height: 50px;
+    width: 100%;
+}

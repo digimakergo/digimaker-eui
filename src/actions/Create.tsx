@@ -31,7 +31,7 @@ export default class Create extends React.Component<RouteProps, { definition: an
 
 
     fetchData() {
-        fetch(Config.remote_server + '/contenttype/get/article')
+        fetch(Config.remote_server + '/contenttype/get/'+this.props.match.params.contenttype)
             .then(res => res.json())
             .then((data) => {
                 this.setState({ definition: data });
@@ -79,7 +79,7 @@ export default class Create extends React.Component<RouteProps, { definition: an
     }
 
     render() {
-        if (!this.state.definition) return <div>loading</div>;
+        if (!this.state.definition) return <div className="loading"></div>;
         return (<div onKeyUp={this.keyUpHandler} className="container-new">
             <div>
                 <form onSubmit={(e) => this.handleSubmit(e)}>
@@ -119,7 +119,7 @@ export default class Create extends React.Component<RouteProps, { definition: an
                     </div>
 
                     <div className="form-main">
-                        <h2>New content</h2>
+                        <h2>Create {this.state.definition.name}</h2>
                         <div>
                             {this.state.definition ? this.state.definition.fields_display.map((key) => {
                                 const typeStr = this.state.definition.fields[key].type;
