@@ -9,11 +9,12 @@
         "folder": {
             "list": "article",
             "actions": [
-                "preview in frontpage",
-                "copy",
-                "move",
-                "delete",
-                "export"
+                "Preview in frontpage",
+                "Sort",
+                "Copy",
+                "Move",
+                "Delete",
+                "Export"
             ],
             "new": [
                 "folder",
