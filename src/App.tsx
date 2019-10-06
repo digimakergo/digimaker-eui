@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './App.css';
 import Config from './config.json';
 import Treemenu from './Treemenu';
-import Main from './Main'
+import Main from './main/Main'
 import Create from './actions/Create'
 
 const App: React.FC = () => {

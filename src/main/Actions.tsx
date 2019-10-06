@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Config from './config.json';
+import Config from '../config.json';
 import Moment from 'react-moment';
 import { Link } from "react-router-dom";
 

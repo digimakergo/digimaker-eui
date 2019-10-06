@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { RouteProps } from 'react-router';
-import Config from './config.json';
+import Config from '../config.json';
 import List from './List';
 import MetaInfo from './MetaInfo';
 import Actions from './Actions';
-import Service from './Service';
+import Service from '../Service';
 
 export default class Main extends React.Component<RouteProps, { content: any, list: any }> {
 
@@ -31,6 +31,8 @@ export default class Main extends React.Component<RouteProps, { content: any, li
     }
 
     render() {
+        const listContenttypes = Config.main["folder"].list;
+
         return (
             <div>
                 <div className="path">{this.state.content.name}</div>
@@ -39,8 +41,15 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                     <Actions content={this.state.content} />
                 </div>
                 <div className="list">
-                    <List id={this.props.match.params.id} />
+                {
+                    listContenttypes.map((value)=>{
+                        return(
+                        <List id={this.props.match.params.id} contenttype={value} />
+                        )
+                    })
+                }
                 </div>
+
             </div>
         );
     }

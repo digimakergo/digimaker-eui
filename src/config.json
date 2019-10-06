@@ -7,7 +7,11 @@
     ],
     "main": {
         "folder": {
-            "list": "article",
+            "list": [
+                "frontpage",
+                "article",
+                "image"
+            ],
             "actions": [
                 "Preview in frontpage",
                 "Sort",
@@ -18,11 +22,14 @@
             ],
             "new": [
                 "folder",
-                "frontpage"
+                "frontpage",
+                "image"
             ]
         },
         "frontpage": {
-            "list": "frontpage_block",
+            "list": [
+                "frontpage_block"
+            ],
             "actions": [
                 "preview",
                 "copy",
@@ -37,11 +44,12 @@
         "article": {
             "default_sort": "",
             "columns": "",
-            "actions": "move,export "
+            "actions": "move,export"
         }
     },
     "fieldtypes": {
         "text": "Text",
-        "richtext": "RichText"
+        "richtext": "RichText",
+        "image": "Image"
     }
 }

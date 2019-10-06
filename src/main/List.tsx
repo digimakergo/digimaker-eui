@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Moment from 'react-moment';
-import Config from './config.json';
-import Create from './actions/Create';
+import Config from '../config.json';
+import Create from '../actions/Create';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-export default class List extends React.Component<{ id: number }, { content: any, list: any, actionNew: boolean }> {
+export default class List extends React.Component<{ id: number, contenttype: string }, { content: any, list: any, actionNew: boolean }> {
 
     constructor(props: any) {
         super(props);
@@ -17,7 +17,6 @@ export default class List extends React.Component<{ id: number }, { content: any
             .then(res => res.json())
             .then((data) => {
                 this.setState({ list: data });
-
             })
     }
     componentWillMount() {
@@ -44,7 +43,7 @@ export default class List extends React.Component<{ id: number }, { content: any
 
     renderAList(data) {
         return (<div>
-            <h3>Articles({data.length})</h3>
+            <h3>{this.props.contenttype}({data.length})</h3>
             <table className="table">{this.renderList(data)}</table>
         </div>
         )
@@ -57,6 +56,9 @@ export default class List extends React.Component<{ id: number }, { content: any
 
 
     render() {
+        if( !this.state.list[this.props.contenttype] ){
+            return '';
+        }
         return (
             <div>
                 <div className="content-list-tools">
@@ -80,7 +82,7 @@ export default class List extends React.Component<{ id: number }, { content: any
                         </select>
                     </span>
                 </div>
-                {this.state.list ? this.renderAList(this.state.list['article']) : ''}
+                {this.renderAList(this.state.list[this.props.contenttype])}
             </div>
         );
     }
