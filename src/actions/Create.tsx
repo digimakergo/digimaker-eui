@@ -3,54 +3,17 @@ import Moment from 'react-moment';
 import { RouteProps } from 'react-router';
 import { Link, Redirect } from "react-router-dom";
 import Config from '../config.json';
+import LoadFields from '../ui/LoadFields';
 
-export default class Create extends React.Component<RouteProps, { definition: any, components: {} }> {
+export default class Create extends React.Component<RouteProps, {}> {
 
     constructor(props: any) {
         super(props);
-        this.state = { definition: '', components: {} };
+        this.state = {};
     }
 
 
-    loadFieldtype(type) {
-        var com: any;
-        import(`../fieldtype/${type}`)
-            .then(component => {
-                console.log(`${type} is loaded`);
-                if (!this.state.components[type]) {
-                    var coms = this.state.components;
-                    coms[type] = component.default;
-                    this.setState({ components: coms });
-                }
-            }
-            )
-            .catch(error => {
-                console.error(`"${type}" not yet supported`);
-            });
-    }
 
-
-    fetchData() {
-        fetch(Config.remote_server + '/contenttype/get/'+this.props.match.params.contenttype)
-            .then(res => res.json())
-            .then((data) => {
-                this.setState({ definition: data });
-                for (let identifier in this.state.definition.fields) {
-                    var fieldtype = this.state.definition.fields[identifier].type;
-                    const type = Config.fieldtypes[fieldtype];
-                    if (type) {
-                        this.loadFieldtype(type);
-                    }
-                    else {
-                        console.warn("field type" + fieldtype + " is not defined. Please define it in config.json");
-                    }
-                }
-            })
-    }
-
-    componentWillMount() {
-        this.fetchData();
-    }
 
     keyUpHandler(event) {
         if (event.keyCode == 27) {
@@ -79,7 +42,6 @@ export default class Create extends React.Component<RouteProps, { definition: an
     }
 
     render() {
-        if (!this.state.definition) return <div className="loading"></div>;
         return (<div onKeyUp={this.keyUpHandler} className="container-new">
             <div>
                 <form onSubmit={(e) => this.handleSubmit(e)}>
@@ -119,16 +81,8 @@ export default class Create extends React.Component<RouteProps, { definition: an
                     </div>
 
                     <div className="form-main">
-                        <h2>Create {this.state.definition.name}</h2>
-                        <div>
-                            {this.state.definition ? this.state.definition.fields_display.map((key) => {
-                                const typeStr = this.state.definition.fields[key].type;
-                                const Fieldtype: React.ReactType = this.state.components[Config.fieldtypes[typeStr]];
-                                return (<div>
-                                    {Fieldtype ? <Fieldtype identifier={key} definition={this.state.definition.fields[key]} /> : ''}
-                                </div>)
-                            }) : ''}
-                        </div>
+                        <h2>Create {this.props.match.params.contenttype}</h2>
+                        <LoadFields type={this.props.match.params.contenttype} />
                     </div>
                 </form>
             </div>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Moment from 'react-moment';
-import Config from '../config.json';
+import Config from '../../config.json';
 
 export default class RichText extends React.Component<{definition:any, identifier:string},{}> {
 

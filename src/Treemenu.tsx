@@ -3,15 +3,15 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Config from './config.json';
 
 export default class Treemenu extends React.Component<{},{data:any}> {
-  
+
 constructor(props:any) {
       super(props);
-this.state = {data : ''};
+      this.state = {data : ''};
     }
 
 
   fetchData(){
-   fetch(Config.remote_server+'/content/treemenu/55' )
+   fetch(Config.remote_server+'/content/treemenu/3' )
          .then(res=>res.json())
          .then( (data1) => {
            this.setState({data : data1});

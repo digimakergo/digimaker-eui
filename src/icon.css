@@ -1,0 +1,19 @@
+.icon{
+    font-family: "Font Awesome 5 Free";
+    font-style: normal;
+    font-weight: 900;
+}
+.icon-folder::before{
+    font-weight: 400;
+    content: '\f07b'
+}
+
+
+.icon-frontpage::before{
+    content: '\f015'
+}
+
+
+.icon-image::before{
+    content: '\f03e'
+}

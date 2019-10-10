@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Moment from 'react-moment';
-import Config from '../config.json';
+import Config from '../../config.json';
 
-export default class Text extends React.Component<{definition:any, identifier:string},{}> {
+export default class Image extends React.Component<{definition:any, identifier:string},{}> {
 
 constructor(props:any) {
       super(props);

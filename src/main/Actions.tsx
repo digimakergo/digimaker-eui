@@ -27,7 +27,7 @@ export default class Actions extends React.Component<{content:any}> {
              <i className="fas fa-plus"></i> Create &nbsp;
              {newTypes.map((value)=>{return (
                  <Link to={`/create/${this.props.content.id}/${value}`} title={value}>
-                     <i className="far fa-folder"></i> &nbsp;
+                     <i className={"icon icon-"+value}></i> &nbsp;
                  </Link>
                 )})}
              </div>:''
