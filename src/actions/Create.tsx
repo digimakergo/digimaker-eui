@@ -85,7 +85,7 @@ export default class Create extends React.Component<RouteProps, {validation:{}}>
 
                     <div className="form-main">
                         <h2>Create {this.props.match.params.contenttype}</h2>
-                        <LoadFields type={this.props.match.params.contenttype} validation={this.state.validation}/>
+                        <LoadFields type={this.props.match.params.contenttype} validation={this.state.validation} data=''/>
                     </div>
                 </form>
             </div>
