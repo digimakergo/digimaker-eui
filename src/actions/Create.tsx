@@ -5,11 +5,11 @@ import { Link, Redirect } from "react-router-dom";
 import Config from '../config.json';
 import LoadFields from '../ui/LoadFields';
 
-export default class Create extends React.Component<RouteProps, {}> {
+export default class Create extends React.Component<RouteProps, {validation:{}}> {
 
     constructor(props: any) {
         super(props);
-        this.state = {};
+        this.state = {validation:{}};
     }
 
 
@@ -37,7 +37,10 @@ export default class Create extends React.Component<RouteProps, {}> {
                 //todo: use redirect parameters
             } else {
                 console.log(res)
+                return res.json();
             }
+        }).then((data)=>{
+            this.setState( {validation: data} )
         });
     }
 
@@ -82,7 +85,7 @@ export default class Create extends React.Component<RouteProps, {}> {
 
                     <div className="form-main">
                         <h2>Create {this.props.match.params.contenttype}</h2>
-                        <LoadFields type={this.props.match.params.contenttype} />
+                        <LoadFields type={this.props.match.params.contenttype} validation={this.state.validation}/>
                     </div>
                 </form>
             </div>
