@@ -31,7 +31,7 @@ slideOut(){
                    </a>
                 </li>
                 <li>
-                  <a href="#">
+                  <a href="#" className="selected">
                   <i className="fas fa-desktop"></i>
                   <div>Sites</div>
                   </a>
@@ -41,7 +41,7 @@ slideOut(){
                   <i className="fas fa-users"></i>
                   <div>Users</div></a>
                 </li>
-                
+
             </ul>
         </div>
     );

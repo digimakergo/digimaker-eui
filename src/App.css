@@ -274,8 +274,9 @@ color: #272727
     font-size: 1.6em;
 }
 
-.slidemenu a:hover{
+.slidemenu a:hover, .slidemenu .selected{
     background: #333a3e;
+    color: rgb(230, 120, 0);
 }
 
 .slidemenu .logo{
