@@ -9,7 +9,7 @@ export default class Create extends React.Component<RouteProps, {validation:{}}>
 
     constructor(props: any) {
         super(props);
-        this.state = {validation:{}};
+        this.state = {validation:''};
     }
 
 

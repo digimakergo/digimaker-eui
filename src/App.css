@@ -244,3 +244,61 @@ color: #272727
     padding: 10px;
     margin-top: 10px;
 }
+
+.slidemenu{
+    position: fixed;
+    width: 60px;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: #272d31;
+    border-right: 1px solid #464040;
+    box-shadow: 1px 7px 4px #464040;
+    transition: 0.3s;
+    z-index: 50;
+}
+
+.slidemenu.hide{
+    left:-70px;
+}
+
+.slidemenu a{
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    padding: 10px 0px;
+    font-size: 0.8em;
+}
+
+.slidemenu i{
+    font-size: 1.6em;
+}
+
+.slidemenu a:hover{
+    background: #333a3e;
+}
+
+.slidemenu .logo{
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.slidemenu .logo{
+    height: 50px;
+    width: 100%;
+
+}
+
+.slidemenu .logo img{
+    width: 30px;
+    filter: invert(1);
+}
+
+.slidemenu ul{
+    padding-left: 0px;
+}
+
+.slidemenu ul li{
+    list-style: none;
+}
