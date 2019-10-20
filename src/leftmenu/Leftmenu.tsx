@@ -15,6 +15,7 @@ constructor(props:any) {
   }
 
   render () {
+
     return (
         <div className="left">
             <Slidemenu show={this.state.showSidemenu} />

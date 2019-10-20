@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Config from '../Config'
 
 export default class Slidemenu extends React.Component<{show:boolean},{show:boolean}> {
 
@@ -21,6 +22,8 @@ slideOut(){
 }
 
   render () {
+    const sidemenus = Config.leftmenu;
+
     return (
          <div className={"slidemenu"+(this.state.show?'':' hide')}>
             <ul>
@@ -39,8 +42,10 @@ slideOut(){
                   <a href="#">
                   <i className="fas fa-users"></i>
                   <div>Users</div></a>
-                </li>                
-
+                </li>
+                {sidemenus.map((menu)=>{
+                    return (<Link to="/eth/dashboard" className={menu.identifier}><div>{menu.name}</div></Link>)
+                })}
             </ul>
         </div>
     );

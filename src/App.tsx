@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './App.css';
-import Config from './config.json';
 import Treemenu from './leftmenu/Treemenu';
 import Main from './main/Main'
 import Leftmenu from './leftmenu/Leftmenu'
