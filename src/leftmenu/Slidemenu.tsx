@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Config from './config.json';
 
 export default class Slidemenu extends React.Component<{show:boolean},{show:boolean}> {
 
@@ -40,7 +39,7 @@ slideOut(){
                   <a href="#">
                   <i className="fas fa-users"></i>
                   <div>Users</div></a>
-                </li>
+                </li>                
 
             </ul>
         </div>

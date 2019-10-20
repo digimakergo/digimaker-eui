@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Config from './config.json';
 import Slidemenu from './Slidemenu'
 import Treemenu from './Treemenu'
 

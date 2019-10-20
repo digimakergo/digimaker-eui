@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Config from './config.json';
-
+import Config from '../config.json';
 export default class Treemenu extends React.Component<{},{data:any}> {
 
 constructor(props:any) {
