@@ -13,7 +13,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
 
 
     fetchData(id) {
-        fetch(Config.remote_server + '/content/list/' + id)
+        fetch(process.env.REACT_APP_REMOTE_URL + '/content/list/' + id)
             .then(res => res.json())
             .then((data) => {
                 this.setState({ list: data });

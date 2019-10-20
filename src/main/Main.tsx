@@ -15,7 +15,7 @@ export default class Main extends React.Component<RouteProps, { content: any, li
 
 
     fetchData(id) {
-        fetch(Config.remote_server + '/content/get/' + id)
+        fetch(process.env.REACT_APP_REMOTE_URL + '/content/get/' + id)
             .then(res => res.json())
             .then((data) => {
                 this.setState({ content: data });

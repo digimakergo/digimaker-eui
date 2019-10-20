@@ -1,5 +1,4 @@
 {
-    "remote_server": "http://localhost:8089/api",
     "theme": "default",
     "leftmenu": [
         "folder",

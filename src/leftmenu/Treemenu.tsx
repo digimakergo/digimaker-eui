@@ -10,7 +10,7 @@ constructor(props:any) {
 
 
   fetchData(){
-   fetch(Config.remote_server+'/content/treemenu/3' )
+   fetch(process.env.REACT_APP_REMOTE_URL+'/content/treemenu/3' )
          .then(res=>res.json())
          .then( (data1) => {
            this.setState({data : data1});

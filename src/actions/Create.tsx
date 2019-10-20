@@ -28,7 +28,7 @@ export default class Create extends React.Component<RouteProps, {validation:{}}>
         for (let key of Array.from(form.keys())) {
             dataObject[key] = form.get(key);
         };
-        fetch(Config.remote_server + '/content/new/' + this.props.match.params.parent + '/' + this.props.match.params.contenttype, {
+        fetch(process.env.REACT_APP_REMOTE_URL + '/content/new/' + this.props.match.params.parent + '/' + this.props.match.params.contenttype, {
             method: 'POST',
             body: JSON.stringify(dataObject),
         }).then((res) => {
