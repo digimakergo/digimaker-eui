@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Config from '../config.json';
+import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 export default class Treemenu extends React.Component<{},{data:any}> {
 
 constructor(props:any) {
@@ -24,7 +23,7 @@ constructor(props:any) {
 
  renderNode(node: any): any{
    return( <li><a href="#" className="expand">{node.children?<i className="fas fa-chevron-down"></i>:''}</a>
-           <Link to={`/main/${node.id}`}><i className="far fa-folder"></i> {node.name}</Link>
+           <NavLink to={`/main/${node.id}`} activeClassName="selected"><i className="far fa-folder"></i> {node.name}</NavLink>
            <ul>{node.children?node.children.map((value)=>{ return this.renderNode( value ) }):''}</ul>
           </li> );
 }

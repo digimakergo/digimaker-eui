@@ -279,6 +279,10 @@ color: #272727
     color: rgb(230, 120, 0);
 }
 
+ .menuitem .selected{
+     color: rgb(230, 120, 0);
+ }
+
 .slidemenu .logo{
     text-align: center;
     padding: 10px;
