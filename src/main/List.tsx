@@ -68,9 +68,10 @@ export default class List extends React.Component<{ id: number, contenttype: str
         return (
             <div>
                 <div className="content-list-tools">
+                  {/*
                      <Link to={`/create/${this.props.id}/article`} className="btn btn-link btn-sm">
                         <i className="fas fa-plus-square"></i> New
-                     </Link>
+                     </Link> */}
 
                     <a href="/content/new/frontpage/1" className="btn btn-link btn-sm">
                      <input type="checkbox" value="" />
@@ -79,7 +80,6 @@ export default class List extends React.Component<{ id: number, contenttype: str
                     {this.config.actions.map((action)=>{
                         return (<a href="#" className="btn btn-link btn-sm" title="Move"><i className="fas fa-cut"></i> {action}</a>)
                     })}
-                    <a href="/content/delete/76" className="btn btn-link btn-sm" title="Remove"><i className="fas fa-filter"></i> Filter</a>
                     <span>
                         <i className="fas fa-sort-alpha-up"></i> &nbsp;
 <select className="form-control">

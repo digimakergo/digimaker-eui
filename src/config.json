@@ -43,7 +43,7 @@
         "article": {
             "default_sort": "",
             "columns": "",
-            "actions": ["new", "move", "delete", "export"],
+            "actions": ["new", "move", "delete", "export", "filter"],
             "rowactions":["Edit","Delete"]
         },
         "report":{
