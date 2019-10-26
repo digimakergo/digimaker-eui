@@ -6,9 +6,12 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 export default class List extends React.Component<{ id: number, contenttype: string }, { content: any, list: any, actionNew: boolean }> {
 
+   private config: any
+
     constructor(props: any) {
         super(props);
         this.state = { content: '', list: '', actionNew: false };
+        this.config = Config.list[this.props.contenttype]
     }
 
 
@@ -32,9 +35,12 @@ export default class List extends React.Component<{ id: number, contenttype: str
         let rows: Array<any> = [];
         for (let i = 0; i < list.length; i++) {
             var item = list[i]
-            rows.push(<tr><td><input type="checkbox" /></td><td>{item.id}</td><td className="content-name"><span><a href="#">{item.name}</a></span></td><td>Chen</td><td><Moment unix format="DD.MM.YYYY HH:mm">{item.modified}</Moment></td><td><Moment unix format="DD.MM.YYYY HH:mm">{item.published}</Moment></td><td className="list-tool">
-                <a href="/admindesign/content/view/120" className="action" title="Edit"><i className="far fa-edit"></i></a>&nbsp;
-            <a href="/content/delete/76" className="action" title="Remove"><i className="far fa-trash-alt"></i></a>&nbsp;
+            rows.push(<tr><td><input type="checkbox" /></td><td>{item.id}</td><td className="content-name"><span><a href="#">{item.name}</a></span></td><td>Chen</td><td><Moment unix format="DD.MM.YYYY HH:mm">{item.modified}</Moment></td><td><Moment unix format="DD.MM.YYYY HH:mm">{item.published}</Moment></td><td className="list-row-tool">
+
+            {this.config.rowactions.map( (action) =>{
+                return (<a href="/content/delete/76" className="action" title={action}><i className={"far icon-"+action}></i></a>)
+            } )}
+
              <a href="#" className="action" title="More"><i className="fas fa-ellipsis-h"></i></a>
             </td></tr>)
         }
@@ -70,9 +76,9 @@ export default class List extends React.Component<{ id: number, contenttype: str
                      <input type="checkbox" value="" />
                         &nbsp;All
      </a>
-                    <a href="#" className="btn btn-link btn-sm" title="Move"><i className="fas fa-cut"></i> Move</a>
-                    <a href="/content/export/76" className="btn btn-link btn-sm" title="Export"><i className="fas fa-file-export"></i> Export</a>
-                    <a href="/content/delete/76" className="btn btn-link btn-sm" title="Remove"><i className="far fa-trash-alt"></i> Delete</a>
+                    {this.config.actions.map((action)=>{
+                        return (<a href="#" className="btn btn-link btn-sm" title="Move"><i className="fas fa-cut"></i> {action}</a>)
+                    })}
                     <a href="/content/delete/76" className="btn btn-link btn-sm" title="Remove"><i className="fas fa-filter"></i> Filter</a>
                     <span>
                         <i className="fas fa-sort-alpha-up"></i> &nbsp;

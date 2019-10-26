@@ -39,11 +39,18 @@
             "new": ""
         }
     },
-    "content_list": {
+    "list": {
         "article": {
             "default_sort": "",
             "columns": "",
-            "actions": "move,export"
+            "actions": ["new", "move", "delete", "export"],
+            "rowactions":["Edit","Delete"]
+        },
+        "report":{
+          "sort":"",
+          "columns":"",
+          "actions":["Export", "Approve", "Columns"],
+          "rowactions":["approve"]
         }
     },
     "fieldtypes": {
