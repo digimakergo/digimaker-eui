@@ -35,12 +35,29 @@ export default class List extends React.Component<{ id: number, contenttype: str
         let rows: Array<any> = [];
         for (let i = 0; i < list.length; i++) {
             var item = list[i]
-            rows.push(<tr><td><input type="checkbox" /></td><td>{item.id}</td><td className="content-name"><span><a href="#">{item.name}</a></span></td><td>Chen</td><td><Moment unix format="DD.MM.YYYY HH:mm">{item.modified}</Moment></td><td><Moment unix format="DD.MM.YYYY HH:mm">{item.published}</Moment></td><td className="list-row-tool">
+            rows.push(<tr>
+              <td><input type="checkbox" /></td>
+              <td>{item.id}</td>
+              {this.config.columns.map((column)=>{
+                  switch(column){
+                    case 'name':
+                      return (<td className="content-name"><span><a href="#">{item.name}</a></span></td>);
+                    case 'author':
+                      return (<td>Chen</td>)
+                    case 'published':
+                      return (<td><Moment unix format="DD.MM.YYYY HH:mm">{item.published}</Moment></td>)
+                    case 'modified':
+                      return <td><Moment unix format="DD.MM.YYYY HH:mm">{item.modified}</Moment></td>
+                    default:
+                      return <td className={"column-"+column}>{item[column].Raw}</td>
+                    break;
+                  }
+              })}
 
+            <td className="list-row-tool">
             {this.config.rowactions.map( (action) =>{
                 return (<a href="/content/delete/76" className="action" title={action}><i className={"far icon-"+action}></i></a>)
             } )}
-
              <a href="#" className="action" title="More"><i className="fas fa-ellipsis-h"></i></a>
             </td></tr>)
         }
