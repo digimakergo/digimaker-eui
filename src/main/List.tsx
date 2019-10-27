@@ -55,10 +55,12 @@ export default class List extends React.Component<{ id: number, contenttype: str
               })}
 
             <td className="list-row-tool">
-            {this.config.rowactions.map( (action) =>{
+            {this.config.row_actions.map( (action) =>{
                 return (<a href="/content/delete/76" className="action" title={action}><i className={"far icon-"+action}></i></a>)
             } )}
+            {this.config.row_more.length>0&&
              <a href="#" className="action" title="More"><i className="fas fa-ellipsis-h"></i></a>
+             }
             </td></tr>)
         }
         return rows;
@@ -66,8 +68,21 @@ export default class List extends React.Component<{ id: number, contenttype: str
 
     renderAList(data) {
         return (<div>
-            <h3>{this.props.contenttype}({data.length})</h3>
-            <table className="table">{this.renderList(data)}</table>
+            {this.config.show_header&&<h3>{this.props.contenttype}({data.length})</h3>}
+            <table className="table">
+              {this.config['show_table_header']&&<tr>
+                <td></td>
+                <td>ID</td>
+                {this.config.columns.map( (column)=>{
+                  if( column == 'published' ){
+                    column = 'Sent';
+                  }
+                  return (<td>{column}</td>) //todo: use name from definition.
+                } )}
+                <td>Actions</td>
+                </tr>}
+              {this.renderList(data)}
+            </table>
         </div>
         )
     }
