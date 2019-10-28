@@ -16,7 +16,8 @@ export default class List extends React.Component<{ id: number, contenttype: str
 
 
     fetchData(id) {
-        fetch(process.env.REACT_APP_REMOTE_URL + '/content/list/' + id)
+        let sortby = "sortby="+this.config['sort_default'].join('%3B');
+        fetch(process.env.REACT_APP_REMOTE_URL + '/content/list/' + id+'?'+sortby)
             .then(res => res.json())
             .then((data) => {
                 this.setState({ list: data });
@@ -71,18 +72,25 @@ export default class List extends React.Component<{ id: number, contenttype: str
             {this.config.show_header&&<h3>{this.props.contenttype}({data.length})</h3>}
             <table className="table">
               {this.config['show_table_header']&&<tr>
-                <td></td>
+                <td><input type="checkbox" title="Select all"/></td>
                 <td>ID</td>
                 {this.config.columns.map( (column)=>{
                   if( column == 'published' ){
                     column = 'Sent';
                   }
-                  return (<td>{column}</td>) //todo: use name from definition.
+                  let sortable = this.config.sort.indexOf( column )!=-1;
+                  return (<td>{sortable?<a href="#" className="column-sortable">{column}</a>:column}</td>) //todo: use name from definition.
                 } )}
                 <td>Actions</td>
                 </tr>}
               {this.renderList(data)}
             </table>
+            <div className="text-right">
+              <a href="#">&lt;</a>&nbsp;&nbsp;
+              <a href="#">&gt;</a>&nbsp;&nbsp;
+              <a href="#">|&lt;</a>&nbsp;&nbsp;
+              <a href="#">&gt;|</a>
+            </div>
         </div>
         )
     }
@@ -105,13 +113,18 @@ export default class List extends React.Component<{ id: number, contenttype: str
                         <i className="fas fa-plus-square"></i> New
                      </Link> */}
 
-                    <a href="/content/new/frontpage/1" className="btn btn-link btn-sm">
-                     <input type="checkbox" value="" />
-                        &nbsp;All
-     </a>
+                     {!this.config.show_table_header&&
+                       <a href="/content/new/frontpage/1" className="btn btn-link btn-sm">
+                          <input type="checkbox" value="" />
+                          &nbsp;All
+                       </a>
+                     }
                     {this.config.actions.map((action)=>{
-                        return (<a href="#" className="btn btn-link btn-sm" title="Move"><i className="fas fa-cut"></i> {action}</a>)
+                        return (<a href="#" className="btn btn-link btn-sm" title={action}>
+                          <i className={"icon icon-"+action}></i>
+                          {action}</a>)
                     })}
+                    {!this.config.show_table_header&&
                     <span>
                         <i className="fas fa-sort-alpha-up"></i> &nbsp;
 <select className="form-control">
@@ -119,6 +132,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
                             <option>Modified</option>
                         </select>
                     </span>
+                  }
                 </div>
                 {this.renderAList(this.state.list[this.props.contenttype])}
             </div>

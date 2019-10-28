@@ -40,17 +40,60 @@
         }
     },
     "list": {
+      "folder": {
+          "sort_default": ["published, desc"],
+          "sort":[],
+          "columns": ["name","author","published", "modified"],
+          "show_header": true,
+          "show_table_header":false,
+          "actions": ["new", "move", "delete", "export", "filter"],
+          "row_actions":["Edit","Delete"],
+          "pagination":10,
+          "row_more":["export"]
+      },
         "article": {
-            "default_sort": "",
-            "columns": "",
+            "sort_default": ["published, desc"],
+            "sort":[],
+            "columns": ["name","author","published", "modified"],
+            "show_header": true,
+            "show_table_header":false,
             "actions": ["new", "move", "delete", "export", "filter"],
-            "rowactions":["Edit","Delete"]
+            "row_actions":["Edit","Delete"],
+            "pagination":10,
+            "row_more":["export"]
+        },
+        "frontpage": {
+            "sort_default": ["published, desc"],
+            "sort":[],
+            "columns": ["name","author","published", "modified"],
+            "show_header": true,
+            "show_table_header":false,
+            "actions": ["new", "move", "delete", "export", "filter"],
+            "row_actions":["Edit","Delete"],
+            "pagination":10,
+            "row_more":["export"]
+        },
+        "image": {
+            "sort_default": ["published, desc"],
+            "sort":[],
+            "columns": ["name","author","published", "modified"],
+            "show_header": true,
+            "show_table_header":false,
+            "actions": ["new", "move", "delete", "export", "filter"],
+            "row_actions":["Edit","Delete"],
+            "pagination":10,
+            "row_more":["export"]
         },
         "report":{
-          "sort":"",
-          "columns":"",
-          "actions":["Export", "Approve", "Columns"],
-          "rowactions":["approve"]
+          "sort_default": ["name, desc", "published, desc"],
+          "sort":["author", "Sent"],
+          "columns":["name","author","address_main_office","published"],
+          "show_header":false,
+          "show_table_header":true,
+          "actions":["export", "approve", "filter"],
+          "pagination":10,
+          "row_actions":["approve"],
+          "row_more":[]
         }
     },
     "fieldtypes": {
