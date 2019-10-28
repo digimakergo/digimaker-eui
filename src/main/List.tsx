@@ -17,7 +17,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
 
     fetchData(id) {
         let sortby = "sortby="+this.config['sort_default'].join('%3B');
-        fetch(process.env.REACT_APP_REMOTE_URL + '/content/list/' + id+'?'+sortby)
+        fetch(process.env.REACT_APP_REMOTE_URL + '/content/list/' + id+'/'+this.props.contenttype+'?'+sortby)
             .then(res => res.json())
             .then((data) => {
                 this.setState({ list: data });
@@ -86,10 +86,13 @@ export default class List extends React.Component<{ id: number, contenttype: str
               {this.renderList(data)}
             </table>
             <div className="text-right">
+            <span>Total: {this.state.list.count}</span>
+            <span>
               <a href="#">&lt;</a>&nbsp;&nbsp;
               <a href="#">&gt;</a>&nbsp;&nbsp;
               <a href="#">|&lt;</a>&nbsp;&nbsp;
               <a href="#">&gt;|</a>
+              </span>
             </div>
         </div>
         )
@@ -102,7 +105,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
 
 
     render() {
-        if( !this.state.list[this.props.contenttype] ){
+        if( !this.state.list ){
             return '';
         }
         return (
@@ -134,7 +137,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
                     </span>
                   }
                 </div>
-                {this.renderAList(this.state.list[this.props.contenttype])}
+                {this.renderAList(this.state.list.list)}
             </div>
         );
     }
