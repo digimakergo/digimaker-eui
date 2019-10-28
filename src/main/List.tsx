@@ -4,32 +4,39 @@ import Config from '../config.json';
 import Create from '../actions/Create';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-export default class List extends React.Component<{ id: number, contenttype: string }, { content: any, list: any, actionNew: boolean }> {
+export default class List extends React.Component<{ id: number, contenttype: string }, { content: any, list: any, actionNew: boolean, currentPage:number }> {
 
    private config: any
 
     constructor(props: any) {
         super(props);
-        this.state = { content: '', list: '', actionNew: false };
+        this.state = { content: '', list: '', actionNew: false, currentPage: 0};
         this.config = Config.list[this.props.contenttype]
     }
 
 
-    fetchData(id) {
+    fetchData() {
+        let id = this.props.id;
         let sortby = "sortby="+this.config['sort_default'].join('%3B');
-        fetch(process.env.REACT_APP_REMOTE_URL + '/content/list/' + id+'/'+this.props.contenttype+'?'+sortby)
+        let limit = "";
+        let pagination = this.config.pagination;
+        if(  pagination!= -1 ){
+            limit = "&limit="+pagination+"&offset="+pagination*this.state.currentPage
+        }
+        fetch(process.env.REACT_APP_REMOTE_URL + '/content/list/' + id+'/'+this.props.contenttype+'?'+sortby+limit)
             .then(res => res.json())
             .then((data) => {
                 this.setState({ list: data });
             })
     }
     componentWillMount() {
-        this.fetchData(this.props.id);
+      //todo: use correct event for fetchData, together with pagination.
+        this.fetchData();
     }
 
 
     componentWillReceiveProps(nextProps) {
-        this.fetchData(nextProps.id);
+        this.fetchData();
     }
 
     renderList(list) {
@@ -69,7 +76,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
 
     renderAList(data) {
         return (<div>
-            {this.config.show_header&&<h3>{this.props.contenttype}({data.length})</h3>}
+            {this.config.show_header&&<h3>{this.props.contenttype}({this.state.list.count})</h3>}
             <table className="table">
               {this.config['show_table_header']&&<tr>
                 <td><input type="checkbox" title="Select all"/></td>
@@ -87,11 +94,15 @@ export default class List extends React.Component<{ id: number, contenttype: str
             </table>
             <div className="text-right">
             <span>Total: {this.state.list.count}</span>
+            &nbsp;
+            <span>{this.state.currentPage+1}/{Math.ceil( this.state.list.count/this.config.pagination)}</span>
+            &nbsp;
             <span>
-              <a href="#">&lt;</a>&nbsp;&nbsp;
-              <a href="#">&gt;</a>&nbsp;&nbsp;
+              <a href="#" onClick={()=>{ this.setState({currentPage: this.state.currentPage-1}); this.fetchData(); }}>&lt;</a>&nbsp;&nbsp;
+              <a href="#" onClick={()=>{ this.setState({currentPage: this.state.currentPage+1}); this.fetchData(); }}>&gt;</a>&nbsp;&nbsp;
               <a href="#">|&lt;</a>&nbsp;&nbsp;
-              <a href="#">&gt;|</a>
+              <a href="#">&gt;|</a>&nbsp;&nbsp;
+              <a href="#">Refresh</a>
               </span>
             </div>
         </div>
