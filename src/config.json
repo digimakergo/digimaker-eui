@@ -39,6 +39,7 @@
             "new": ""
         }
     },
+    "comment":"---------Support default setting for list and others-------------",
     "list": {
       "folder": {
           "sort_default": ["published, desc"],
@@ -74,7 +75,7 @@
             "row_more":["export"]
         },
         "image": {
-            "sort_default": ["published, desc"],
+            "sort_default": [["published","desc"]],
             "sort":[],
             "columns": ["name","author","published", "modified"],
             "show_header": true,
@@ -85,13 +86,13 @@
             "row_more":["export"]
         },
         "report":{
-          "sort_default": ["name, desc", "published, desc"],
-          "sort":["author", "Sent"],
+          "sort_default": [["published","desc"]],
+          "sort":["name", "author", "published"],
           "columns":["name","author","address_main_office","published"],
           "show_header":false,
           "show_table_header":true,
           "actions":["export", "approve", "filter"],
-          "pagination":10,
+          "pagination":15,
           "row_actions":["approve"],
           "row_more":[]
         }

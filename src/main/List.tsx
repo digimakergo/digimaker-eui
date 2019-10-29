@@ -4,20 +4,31 @@ import Config from '../config.json';
 import Create from '../actions/Create';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-export default class List extends React.Component<{ id: number, contenttype: string }, { content: any, list: any, actionNew: boolean, currentPage:number }> {
+export default class List extends React.Component<{ id: number, contenttype: string }, { content: any, list: any, actionNew: boolean, currentPage:number, sortby: Array<Array<string>> }> {
 
    private config: any
 
     constructor(props: any) {
         super(props);
-        this.state = { content: '', list: '', actionNew: false, currentPage: 0};
         this.config = Config.list[this.props.contenttype]
+        this.state = { content: '', list: '', actionNew: false, currentPage: 0, sortby:this.config['sort_default']};
+
+    }
+
+
+    getSortbyStr(sortby:Array<Array<string>>){
+      let arr:Array<string> =[];
+      sortby.map((item)=>{
+        arr.push( item.join(',') );
+       });
+       return arr.join('%3B');
     }
 
 
     fetchData() {
         let id = this.props.id;
-        let sortby = "sortby="+this.config['sort_default'].join('%3B');
+        console.log( this.state.sortby );
+        let sortby = "sortby="+this.getSortbyStr( this.state.sortby );
         let limit = "";
         let pagination = this.config.pagination;
         if(  pagination!= -1 ){
@@ -30,6 +41,16 @@ export default class List extends React.Component<{ id: number, contenttype: str
             })
     }
 
+    sort(e, column){
+      e.preventDefault();
+      let sortby1 = this.state.sortby;
+      let order = 'desc';
+      if( sortby1[0][0] == column ){
+          order = sortby1[0][1]=='desc'?'asc':'desc';
+      }
+      this.setState({sortby:[[column, order]]});
+    }
+
     //when init
     componentDidMount() {
         this.fetchData();
@@ -37,7 +58,9 @@ export default class List extends React.Component<{ id: number, contenttype: str
 
     componentDidUpdate( prevProps, prevState, snapshot ){
       //when changing page
-      if( prevState.currentPage != this.state.currentPage )
+      if( prevState.currentPage != this.state.currentPage
+        || this.getSortbyStr( prevState.sortby ) != this.getSortbyStr( this.state.sortby )
+       )
       {
         this.fetchData();
       }
@@ -79,6 +102,8 @@ export default class List extends React.Component<{ id: number, contenttype: str
     }
 
     renderAList(data) {
+
+        let totalPage = Math.ceil( this.state.list.count/this.config.pagination);
         return (<div>
             {this.config.show_header&&<h3>{this.props.contenttype}({this.state.list.count})</h3>}
             <table className="table">
@@ -86,27 +111,23 @@ export default class List extends React.Component<{ id: number, contenttype: str
                 <td><input type="checkbox" title="Select all"/></td>
                 <td>ID</td>
                 {this.config.columns.map( (column)=>{
-                  if( column == 'published' ){
-                    column = 'Sent';
-                  }
                   let sortable = this.config.sort.indexOf( column )!=-1;
-                  return (<td>{sortable?<a href="#" className="column-sortable">{column}</a>:column}</td>) //todo: use name from definition.
+                  let sortOrder = this.state.sortby[0][0] == column? this.state.sortby[0][1]:'';
+                  return (<td>{sortable?<a href="#" onClick={(e)=>{this.sort(e, column);}} className={"column-sortable "+sortOrder}>{column}</a>:column}</td>) //todo: use name from definition.
                 } )}
                 <td>Actions</td>
                 </tr>}
               {this.renderList(data)}
             </table>
             <div className="text-right">
-            <span>Total: {this.state.list.count}</span>
-            &nbsp;
-            <span>{this.state.currentPage+1}/{Math.ceil( this.state.list.count/this.config.pagination)}</span>
-            &nbsp;
-            <span>
-              <a href="#" onClick={()=>{this.setState({currentPage: this.state.currentPage-1});}}>&lt;</a>&nbsp;&nbsp;
-              <a href="#" onClick={()=>{this.setState({currentPage: this.state.currentPage+1});}}>&gt;</a>&nbsp;&nbsp;
-              <a href="#">|&lt;</a>&nbsp;&nbsp;
-              <a href="#">&gt;|</a>&nbsp;&nbsp;
-              <a href="#">Refresh</a>
+            <span className="dm-pagination">
+              <a href="#" className="page-first" onClick={(e)=>{e.preventDefault();this.setState({currentPage: 0});}}><i className="fas fa-step-backward"></i></a>
+              <a href="#" className="page-previous" onClick={(e)=>{e.preventDefault();if(this.state.currentPage>0){this.setState({currentPage: this.state.currentPage-1});}}}><i className="fas fa-chevron-left"></i></a>
+              <a href="#" className="page-next" onClick={(e)=>{e.preventDefault();if(this.state.currentPage<totalPage-1){this.setState({currentPage: this.state.currentPage+1});}}}><i className="fas fa-chevron-right"></i></a>
+              <a href="#" className="page-last" onClick={(e)=>{e.preventDefault();this.setState({currentPage: totalPage-1});}}><i className="fas fa-step-forward"></i></a>
+              <a href="#" title="Reload data" onClick={(e)=>{e.preventDefault();this.fetchData();}}><i className="fas fa-sync"></i></a>
+
+              <span className="pagination-info">Page {this.state.currentPage+1} of {totalPage} from total {this.state.list.count}</span>
               </span>
             </div>
         </div>
