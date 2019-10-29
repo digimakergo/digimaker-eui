@@ -42,7 +42,7 @@
     "comment":"---------Support default setting for list and others-------------",
     "list": {
       "folder": {
-          "sort_default": ["published, desc"],
+          "sort_default": [["published","desc"]],
           "sort":[],
           "columns": ["name","author","published", "modified"],
           "show_header": true,
@@ -53,9 +53,9 @@
           "row_more":["export"]
       },
         "article": {
-            "sort_default": ["published, desc"],
+            "sort_default": [["published","desc"]],
             "sort":[],
-            "columns": ["name","author","published", "modified"],
+            "columns": ["name","author","published", "modified", "priority"],
             "show_header": true,
             "show_table_header":false,
             "actions": ["new", "move", "delete", "export", "filter"],
@@ -64,7 +64,7 @@
             "row_more":["export"]
         },
         "frontpage": {
-            "sort_default": ["published, desc"],
+            "sort_default": [["published","desc"]],
             "sort":[],
             "columns": ["name","author","published", "modified"],
             "show_header": true,
