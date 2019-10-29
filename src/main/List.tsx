@@ -29,14 +29,18 @@ export default class List extends React.Component<{ id: number, contenttype: str
                 this.setState({ list: data });
             })
     }
-    componentWillMount() {
-      //todo: use correct event for fetchData, together with pagination.
+
+    //when init
+    componentDidMount() {
         this.fetchData();
     }
 
-
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate( prevProps, prevState, snapshot ){
+      //when changing page
+      if( prevState.currentPage != this.state.currentPage )
+      {
         this.fetchData();
+      }
     }
 
     renderList(list) {
@@ -98,8 +102,8 @@ export default class List extends React.Component<{ id: number, contenttype: str
             <span>{this.state.currentPage+1}/{Math.ceil( this.state.list.count/this.config.pagination)}</span>
             &nbsp;
             <span>
-              <a href="#" onClick={()=>{ this.setState({currentPage: this.state.currentPage-1}); this.fetchData(); }}>&lt;</a>&nbsp;&nbsp;
-              <a href="#" onClick={()=>{ this.setState({currentPage: this.state.currentPage+1}); this.fetchData(); }}>&gt;</a>&nbsp;&nbsp;
+              <a href="#" onClick={()=>{this.setState({currentPage: this.state.currentPage-1});}}>&lt;</a>&nbsp;&nbsp;
+              <a href="#" onClick={()=>{this.setState({currentPage: this.state.currentPage+1});}}>&gt;</a>&nbsp;&nbsp;
               <a href="#">|&lt;</a>&nbsp;&nbsp;
               <a href="#">&gt;|</a>&nbsp;&nbsp;
               <a href="#">Refresh</a>
