@@ -57,6 +57,8 @@ a:hover, .left a:hover{
   width: 79%;
   padding-left: 8px;
   margin-left: 20%;
+  position: relative;
+  min-height: 100vh;
 }
 
 .table{
@@ -306,4 +308,42 @@ color: #272727
 
 .slidemenu ul li{
     list-style: none;
+}
+
+.list-row-tool > a{
+  margin-left: 5px;
+}
+
+.dm-pagination{
+    /* background: #f0f0f0; */
+}
+
+.dm-pagination > a{
+  padding: 8px;
+}
+
+.dm-pagination > a:hover{
+  background: #525a5f;
+  color: white;
+    border-radius: 3px;
+}
+
+.pagination-info{
+  margin-left: 5px;
+}
+
+.table th{
+  font-weight: 500;
+  font-size: 1.05em;
+  background: #ececec;
+}
+
+
+footer{
+  width: 100%;
+  bottom: 0px;
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  font-size: 0.85em;
 }

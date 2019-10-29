@@ -17,7 +17,7 @@ constructor(props:any) {
          } )
   }
 
- componentWillMount(){
+ componentDidMount(){
   this.fetchData();
  }
 

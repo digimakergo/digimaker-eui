@@ -13,7 +13,8 @@ export default class MetaInfo extends React.Component<{content:any}> {
          <div className="block-body">
          <div>ID: {this.props.content.id}</div>
          <div>Name: {this.props.content.name}</div>
-         <div>Author: {this.props.content.author}</div>          
+         <div>Author: {this.props.content.author}</div>
+         <div>Version: {this.props.content.version}</div>            
          <div>Published: <Moment unix format="DD.MM HH:mm">{this.props.content.published}</Moment></div>
          <div>Modified: <Moment unix format="DD.MM HH:mm">{this.props.content.published}</Moment></div>
          <div>CID: {this.props.content.cid}</div>

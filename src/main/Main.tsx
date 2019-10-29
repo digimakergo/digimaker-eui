@@ -22,12 +22,16 @@ export default class Main extends React.Component<RouteProps, { content: any, li
             })
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.fetchData(nextProps.match.params.id);
+    componentDidMount() {
+        this.fetchData(this.props.match.params.id);
     }
 
-    componentWillMount() {
+    componentDidUpdate( prevProps, prevState, snapshot ){
+      //when changing page
+      if( prevProps.match.params.id != this.props.match.params.id)
+      {
         this.fetchData(this.props.match.params.id);
+      }
     }
 
     render() {
@@ -49,7 +53,6 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                     })
                 }
                 </div>
-
             </div>
         );
     }

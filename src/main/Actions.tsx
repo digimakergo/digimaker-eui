@@ -5,14 +5,11 @@ import { Link } from "react-router-dom";
 
 export default class Actions extends React.Component<{content:any}> {
 
-
-
-
   render () {
     var type = this.props.content.content_type;
     var newTypes = [];
     var actions = [];
-    if( type )
+    if( type && Config.main[type] )
     {
         newTypes = Config.main[type]["new"];
         actions = Config.main[type]["actions"];

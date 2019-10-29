@@ -41,10 +41,11 @@ export default class List extends React.Component<{ id: number, contenttype: str
             })
     }
 
+    //sort by column
     sort(e, column){
       e.preventDefault();
       let sortby1 = this.state.sortby;
-      let order = 'desc';
+      let order = 'asc';
       if( sortby1[0][0] == column ){
           order = sortby1[0][1]=='desc'?'asc':'desc';
       }
@@ -56,35 +57,38 @@ export default class List extends React.Component<{ id: number, contenttype: str
         this.fetchData();
     }
 
+    //when state changed
     componentDidUpdate( prevProps, prevState, snapshot ){
       //when changing page
       if( prevState.currentPage != this.state.currentPage
         || this.getSortbyStr( prevState.sortby ) != this.getSortbyStr( this.state.sortby )
-       )
+        || prevProps.id != this.props.id)
       {
         this.fetchData();
       }
     }
 
-    renderList(list) {
+    renderRows(list) {
         let rows: Array<any> = [];
         for (let i = 0; i < list.length; i++) {
-            var item = list[i]
+            var content = list[i]
             rows.push(<tr>
               <td><input type="checkbox" /></td>
-              <td>{item.id}</td>
+              <td>{content.id}</td>
               {this.config.columns.map((column)=>{
                   switch(column){
                     case 'name':
-                      return (<td className="content-name"><span><a href="#">{item.name}</a></span></td>);
+                      return (<td className="content-name"><span><Link to={"/main/"+content.id}>{content.name}</Link></span></td>);
                     case 'author':
                       return (<td>Chen</td>)
                     case 'published':
-                      return (<td><Moment unix format="DD.MM.YYYY HH:mm">{item.published}</Moment></td>)
+                      return (<td><Moment unix format="DD.MM.YYYY HH:mm">{content.published}</Moment></td>)
                     case 'modified':
-                      return <td><Moment unix format="DD.MM.YYYY HH:mm">{item.modified}</Moment></td>
+                      return <td><Moment unix format="DD.MM.YYYY HH:mm">{content.modified}</Moment></td>
+                    case 'priority':
+                      return (<td>{content[column]}</td>)
                     default:
-                      return <td className={"column-"+column}>{item[column].Raw}</td>
+                      return <td className={"column-"+column}>{content[column].Raw}</td>
                     break;
                   }
               })}
@@ -101,23 +105,23 @@ export default class List extends React.Component<{ id: number, contenttype: str
         return rows;
     }
 
-    renderAList(data) {
+    renderList(data) {
 
         let totalPage = Math.ceil( this.state.list.count/this.config.pagination);
         return (<div>
             {this.config.show_header&&<h3>{this.props.contenttype}({this.state.list.count})</h3>}
             <table className="table">
               {this.config['show_table_header']&&<tr>
-                <td><input type="checkbox" title="Select all"/></td>
-                <td>ID</td>
+                <th><input type="checkbox" title="Select all"/></th>
+                <th>ID</th>
                 {this.config.columns.map( (column)=>{
                   let sortable = this.config.sort.indexOf( column )!=-1;
                   let sortOrder = this.state.sortby[0][0] == column? this.state.sortby[0][1]:'';
-                  return (<td>{sortable?<a href="#" onClick={(e)=>{this.sort(e, column);}} className={"column-sortable "+sortOrder}>{column}</a>:column}</td>) //todo: use name from definition.
+                  return (<th>{sortable?<a href="#" onClick={(e)=>{this.sort(e, column);}} className={"column-sortable "+sortOrder}>{column}</a>:column}</th>) //todo: use name from definition.
                 } )}
-                <td>Actions</td>
+                <th>Actions</th>
                 </tr>}
-              {this.renderList(data)}
+              {this.renderRows(data)}
             </table>
             <div className="text-right">
             <span className="dm-pagination">
@@ -166,14 +170,14 @@ export default class List extends React.Component<{ id: number, contenttype: str
                     {!this.config.show_table_header&&
                     <span>
                         <i className="fas fa-sort-alpha-up"></i> &nbsp;
-<select className="form-control">
+                        <select className="form-control">
                             <option>Published</option>
                             <option>Modified</option>
                         </select>
                     </span>
                   }
                 </div>
-                {this.renderAList(this.state.list.list)}
+                {this.renderList(this.state.list.list)}
             </div>
         );
     }
