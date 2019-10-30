@@ -146,7 +146,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
 
     render() {
         if( !this.state.list ){
-            return '<div className="loading"></div>';
+            return (<div className="loading"></div>);
         }
         return (
             <div>
