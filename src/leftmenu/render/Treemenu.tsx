@@ -31,7 +31,7 @@ constructor(props:any) {
 
   render () {
     return (
-         <ul className="treemenu">{this.state.data?this.renderNode(this.state.data):''}</ul>
+         this.state.data&&<ul className="treemenu">{this.renderNode(this.state.data)}</ul>
     );
   }
 }
