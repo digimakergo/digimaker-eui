@@ -5,6 +5,7 @@ import Treemenu from './render/Treemenu'
 import Config from '../Config'
 import Registry from '../ui/Registry'
 import { RouteProps, withRouter } from 'react-router';
+import {ContentContext} from '../Context';
 
 export default class Leftmenu extends React.Component<{}, { showSidemenu: boolean }> {
 
@@ -22,27 +23,28 @@ export default class Leftmenu extends React.Component<{}, { showSidemenu: boolea
     }
 
     render() {
-
         return (
-            <div className="left">
-                <Slidemenu show={this.state.showSidemenu} />
-                <div className="logomenu">
-                    <a className="logo" href="#" onClick={() => { this.showSide(); }}>
-                        <img src="/images/logo.png" width="28px" />
-                    </a>
-                    <Link to="/1" className="profile"> <i className="fas fa-user"></i>&nbsp;Chen Xiongjie</Link></div>
-                <div>
-                    <MenuList />
-                </div>
-            </div>
+              <div className="left">
+                  <Slidemenu show={this.state.showSidemenu} changed={(show)=>{this.setState( { showSidemenu: show } ); this.context.update( null ); } } />
+                  <div className="logomenu">
+                      <a className="logo" href="#" onClick={() => { this.showSide(); }}>
+                          <img src="/images/logo.png" width="28px" />
+                      </a>
+                      <Link to="/1" className="profile"> <i className="fas fa-user"></i>&nbsp;Chen Xiongjie</Link></div>
+                  <div>
+                      <MenuList content={this.context.data} />
+                  </div>
+              </div>
         );
     }
 };
 
-function MenuList() {
+Leftmenu.contextType = ContentContext;
+
+const MenuList = (props) => {
     let location = useLocation();
     let path = location.pathname;
-    let menus: any = getCurrentMenu(path);
+    let menus: any = getCurrentMenu(path, props.content);
     return (<div>
         {menus.map((menu) => {
             return (<div className="menuitem">
@@ -50,22 +52,17 @@ function MenuList() {
                             !menu.type?<NavLink to={menu.path} activeClassName="selected"><i className={"far "+menu.icon} /> {menu.name}</NavLink>
                             :(()=>{
                                 const Com:React.ReactType = Registry.getComponent(menu.type);
-                                return (<Com />)
+                                return (<Com config={menu} />)
                             })()
                         }
                     </div>)
         })}
-        {menus.length == 0 && <div><div className="menuitem">
-            <NavLink to="/1" activeClassName="selected"><i className="far fa-folder" /> Dashboard</NavLink></div>
-            <div className="menuitem"><a href="#" className="settings"> <i className="fas fa-wrench"></i> </a>
-                <Treemenu />
-            </div></div>
-        }
+
     </div>)
 }
 
 //get menu basic on location path
-function getCurrentMenu(path: string) {
+function getCurrentMenu(path: string, content:any) {
     let result = [];
     const leftmenuConfig = Config.leftmenu;
     for (let i = 0; i < leftmenuConfig.length; i++) {
@@ -78,6 +75,11 @@ function getCurrentMenu(path: string) {
             if (menuitem.path == path) {
                 result = menus;
                 break;
+            }else if(menuitem.type=="leftmenu:treemenu"){
+                if( content && menuitem.root && content.hierarchy.split( '/' ).includes( menuitem.root.toString() ) ){
+                  result =menus;
+                  break;
+                }
             }
         }
     }

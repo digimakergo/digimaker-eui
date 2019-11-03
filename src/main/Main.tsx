@@ -5,6 +5,8 @@ import List from './List';
 import MetaInfo from './MetaInfo';
 import Actions from './Actions';
 import Service from '../Service';
+import {ContentContext} from '../Context';
+
 
 export default class Main extends React.Component<RouteProps, { content: any, list: any }> {
 
@@ -19,6 +21,9 @@ export default class Main extends React.Component<RouteProps, { content: any, li
             .then(res => res.json())
             .then((data) => {
                 this.setState({ content: data });
+                let context = this.context;
+                context.update(data);
+
             })
     }
 
@@ -54,6 +59,10 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                 }
                 </div>
             </div>
+
         );
     }
 }
+
+
+Main.contextType = ContentContext;

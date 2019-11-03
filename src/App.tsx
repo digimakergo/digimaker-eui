@@ -7,17 +7,19 @@ import Create from './actions/Create'
 import Config from './Config'
 import './Init'
 import Registry from './ui/Registry'
+import ContextProvider from './ContextProvider';
 
 const App: React.FC = () => {
-    var showSidemenu = false
+    var showSidemenu = false;
 
     return (
+        <ContextProvider> {/*context between right and left area */}
         <Router>
             <Route>
             <div className="App">
                 <Leftmenu />
                 <div className="main">
-                    <Route path="/main/:id" component={Main} />
+                    <Route path="/main/:id" component={Main}  />
                     <Route path="/create/:parent/:contenttype" component={Create} />
                     {Object.keys(Config.main).map((key)=>{
                         let identifier:string = Config.main[key];
@@ -25,10 +27,14 @@ const App: React.FC = () => {
                         return (<Route path={key} component={com} />)
                     })
                     }
+                    <footer>
+                      {/*Powered by Digimaker CMF. Implemented by Digimaker AS.  */}
+                    </footer>
                 </div>
             </div>
             </Route>
         </Router>
+        </ContextProvider>
     );
 }
 
