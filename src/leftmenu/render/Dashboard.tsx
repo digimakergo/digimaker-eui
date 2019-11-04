@@ -4,7 +4,7 @@ export default class Dashboard extends React.Component<{config:any},{data:any}> 
 
   render () {
     return (
-         <a href="#"><i className="far fa-folder" /> {this.props.config.name}</a>
+         <div className="menuitem"><a href="#"><i className="far fa-folder" /> {this.props.config.name}</a></div>
     );
   }
 }

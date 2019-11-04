@@ -49,15 +49,13 @@ const MenuList = (props) => {
     let menus: any = getCurrentMenu(path, props.content);
     return (<div>
         {menus.map((menu) => {
-            return (<div className="menuitem">
-                        {
-                            !menu.type?<NavLink to={menu.path} activeClassName="selected"><i className={"far "+menu.icon} /> {menu.name}</NavLink>
+                        return(
+                            !menu.type?<div className="menuitem"><NavLink to={menu.path} activeClassName="selected"><i className={"far "+menu.icon} /> {menu.name}</NavLink></div>
                             :(()=>{
                                 const Com:React.ReactType = Registry.getComponent(menu.type);
                                 return (<Com config={menu} />)
                             })()
-                        }
-                    </div>)
+                        )
         })}
 
     </div>)

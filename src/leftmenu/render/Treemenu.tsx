@@ -31,7 +31,19 @@ constructor(props:any) {
 
   render () {
     return (
-         this.state.data&&<ul className="treemenu">{this.renderNode(this.state.data)}</ul>
+         this.state.data&&<div className="menuitem">
+                  <div>
+                    <NavLink to={`/main/${this.state.data.id}`} activeClassName="selected">
+                      <i className={this.props.config.icon}></i> {this.state.data.name}
+                    </NavLink>
+                    {this.props.config.is_site&&<span className="right">
+                    <a href="" title="Select site"><i className="fas fa-wrench"></i></a>&nbsp;</span>}
+
+                  </div>
+                  <ul className="treemenu">
+                    {this.state.data.children&&this.state.data.children.map((value)=>{ return this.renderNode( value ) })}
+                  </ul>
+                  </div>
     );
   }
 }

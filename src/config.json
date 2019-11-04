@@ -2,14 +2,16 @@
     "theme": "default",
     "leftmenu": [
         "folder",
-        "frontpage"
+        "frontpage",
+        "usergroup"
     ],
     "main": {
         "folder": {
             "list": [
-                "frontpage",
-                "article",
-                "image"
+                "frontpage:3",
+                "article:3",
+                "image",
+                "user:4"
             ],
             "actions": [
                 "Preview in frontpage",
@@ -22,7 +24,8 @@
             "new": [
                 "folder",
                 "frontpage",
-                "image"
+                "image",
+                "user"
             ]
         },
         "frontpage": {
@@ -37,6 +40,23 @@
                 "export"
             ],
             "new": ""
+        },
+        "usergroup": {
+            "list": [
+                "usergroup",
+                "user"
+            ],
+            "actions": [
+                "Sort",
+                "Copy",
+                "Move",
+                "Delete",
+                "Export"
+            ],
+            "new": [
+                "usergroup",
+                "user"
+            ]
         }
     },
     "comment":"---------Support default setting for list and others-------------",
@@ -60,7 +80,7 @@
             "show_table_header":false,
             "actions": ["new", "move", "delete", "export", "filter"],
             "row_actions":["Edit","Delete"],
-            "pagination":10,
+            "pagination":15,
             "row_more":["export"]
         },
         "frontpage": {
@@ -78,6 +98,28 @@
             "sort_default": [["published","desc"]],
             "sort":[],
             "columns": ["name","author","published", "modified"],
+            "show_header": true,
+            "show_table_header":false,
+            "actions": ["new", "move", "delete", "export", "filter"],
+            "row_actions":["Edit","Delete"],
+            "pagination":10,
+            "row_more":["export"]
+        },
+        "usergroup": {
+            "sort_default": [["published","desc"]],
+            "sort":[],
+            "columns": ["name","author","published", "modified", "priority"],
+            "show_header": true,
+            "show_table_header":false,
+            "actions": ["new", "move", "delete", "export", "filter"],
+            "row_actions":["Edit","Delete"],
+            "pagination":10,
+            "row_more":["export"]
+        },
+        "user": {
+            "sort_default": [["published","desc"]],
+            "sort":[],
+            "columns": ["name","author","published", "modified", "priority"],
             "show_header": true,
             "show_table_header":false,
             "actions": ["new", "move", "delete", "export", "filter"],
