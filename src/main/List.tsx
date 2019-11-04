@@ -110,7 +110,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
         let totalPage = Math.ceil( this.state.list.count/this.config.pagination);
         return (<div>
             {this.config.show_header&&<h3>{this.props.contenttype}({this.state.list.count})</h3>}
-            <table className="table">
+            <table className="table"><tbody>
               {this.config['show_table_header']&&<tr>
                 <th><input type="checkbox" title="Select all"/></th>
                 <th>ID</th>
@@ -122,6 +122,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
                 <th>Actions</th>
                 </tr>}
               {this.renderRows(data)}
+              </tbody>
             </table>
             <div className="text-right">
             <span className="dm-pagination">

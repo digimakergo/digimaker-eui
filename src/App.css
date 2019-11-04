@@ -33,7 +33,7 @@ a:hover, .left a:hover{
 }
 
 .treemenu{
-  padding-left:0px
+  padding-left:0px;
 }
 
 .treemenu ul{
@@ -346,4 +346,14 @@ footer{
   margin-top: 50px;
   margin-bottom: 30px;
   font-size: 0.85em;
+}
+
+.right{
+  float: right;
+}
+
+.menuitem .treemenu{
+  background: rgb(74, 81, 86);
+  padding: 0px 10px 10px 10px;
+  margin:7px -4px -5px -10px;
 }

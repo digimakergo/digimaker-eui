@@ -23,7 +23,6 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                 this.setState({ content: data });
                 let context = this.context;
                 context.update(data);
-
             })
     }
 
@@ -40,7 +39,27 @@ export default class Main extends React.Component<RouteProps, { content: any, li
     }
 
     render() {
-        const listContenttypes = Config.main["folder"].list;
+        if( !this.state.content ){
+          return '';
+        }
+        let configList = Config.main["folder"].list;
+        let listContenttypes: Array<string> = [];
+        configList.map((value:string)=>{
+            console.log( value );
+            let arr = value.split( ':' );
+            let type: string = arr[0];
+            console.log( 'length'+ arr.length );
+            if( arr.length == 1 ){
+              listContenttypes.push( type );
+            }else if( arr.length>1 ){
+                let conditions = arr[1];
+                if (this.state.content.hierarchy.split('/').includes( conditions )){
+                  listContenttypes.push( type );
+                }
+            }
+        });
+        console.log( 'type' );
+        console.log( listContenttypes );
 
         return (
             <div>

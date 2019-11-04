@@ -18,10 +18,6 @@ export default class Leftmenu extends React.Component<{}, { showSidemenu: boolea
         this.setState({ showSidemenu: true });
     }
 
-    componentWillReceiveProps(nextProps) {
-        // this.setState({showSidemenu:false})
-    }
-
 
     render() {
         console.log( 'rendering left menu' );
