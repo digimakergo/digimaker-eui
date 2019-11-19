@@ -9,17 +9,18 @@ export default class Actions extends React.Component<{content:any}> {
     var type = this.props.content.content_type;
     var newTypes = [];
     var actions = [];
-    if( type && Config.main[type] )
+    let mainConfig = Config.main[type];
+    if( type && mainConfig )
     {
-        newTypes = Config.main[type]["new"];
-        actions = Config.main[type]["actions"];
+        newTypes = mainConfig["new"];
+        actions = mainConfig["actions"];
     }
 
     return (
        <div className="tool-block">
          <div className="block-title">Actions</div>
          <div className="block-body">
-            {newTypes.length>0?
+            {newTypes&&
              <div>
              <i className="fas fa-plus"></i> Create &nbsp;
              {newTypes.map((value)=>{return (
@@ -27,11 +28,11 @@ export default class Actions extends React.Component<{content:any}> {
                      <i className={"icon icon-"+value}></i> &nbsp;
                  </Link>
                 )})}
-             </div>:''
+             </div>
             }
          <hr />
 
-            {actions.map( (value) => {
+            {actions&&actions.map( (value) => {
                 return (<div>
                  <a href="#"><i className="fas fa-tools"></i> {value}</a>
                 </div>)

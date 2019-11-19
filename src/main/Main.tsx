@@ -5,6 +5,7 @@ import List from './List';
 import MetaInfo from './MetaInfo';
 import Actions from './Actions';
 import Service from '../Service';
+import ViewContent from './ViewContent';
 import {ContentContext} from '../Context';
 
 
@@ -16,6 +17,7 @@ export default class Main extends React.Component<RouteProps, { content: any, li
     }
 
 
+    //fetch content and set to context
     fetchData(id) {
         fetch(process.env.REACT_APP_REMOTE_URL + '/content/get/' + id)
             .then(res => res.json())
@@ -42,41 +44,51 @@ export default class Main extends React.Component<RouteProps, { content: any, li
         if( !this.state.content ){
           return '';
         }
-        let configList = Config.main["folder"].list;
+        let contenttype = this.state.content.content_type;
+        let mainConfig = Config.main[contenttype];
         let listContenttypes: Array<string> = [];
-        configList.map((value:string)=>{
-            console.log( value );
-            let arr = value.split( ':' );
-            let type: string = arr[0];
-            console.log( 'length'+ arr.length );
-            if( arr.length == 1 ){
-              listContenttypes.push( type );
-            }else if( arr.length>1 ){
-                let conditions = arr[1];
-                if (this.state.content.hierarchy.split('/').includes( conditions )){
-                  listContenttypes.push( type );
-                }
-            }
-        });
-        console.log( 'type' );
-        console.log( listContenttypes );
+
+        let configList = mainConfig?mainConfig['list']:false;
+        if( configList ){
+          configList.map((value:string)=>{
+              let arr = value.split( ':' );
+              let type: string = arr[0];
+              if( arr.length == 1 ){
+                listContenttypes.push( type );
+              }else if( arr.length>1 ){
+                  let conditions = arr[1];
+                  if (this.state.content.hierarchy.split('/').includes( conditions )){
+                    listContenttypes.push( type );
+                  }
+              }
+          });
+        }
 
         return (
-            <div>
+            <div className={this.state.content.content_type}>
                 <div className="path">{this.state.content.name}</div>
+                {/* side info like meta, tools */}
                 <div className="side">
                     <MetaInfo content={this.state.content} />
                     <Actions content={this.state.content} />
                 </div>
+
+                {/* view content */}
+                {mainConfig&&mainConfig['view']&&<div className="view-content">
+                    <ViewContent content={this.state.content} />
+                </div>
+                }
+
+                {/* children list */}
+                {listContenttypes.length>0&&
                 <div className="list">
                 {
                     listContenttypes.map((value)=>{
-                        return(
-                        <List id={this.props.match.params.id} contenttype={value} />
-                        )
+                        return(<List id={this.props.match.params.id} contenttype={value} />)
                     })
                 }
                 </div>
+                }
             </div>
 
         );
