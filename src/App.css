@@ -242,9 +242,12 @@ color: #272727
 }
 
 .field-container{
-    border: 1px solid #cccccc;
+    border: 1px solid #d2d2d2;
     padding: 10px;
     margin-top: 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+
 }
 
 .slidemenu{
@@ -356,4 +359,31 @@ footer{
   background: rgb(74, 81, 86);
   padding: 0px 10px 10px 10px;
   margin:7px -4px -5px -10px;
+}
+
+.view-content{
+  width: 75%;
+}
+
+
+.view-content .view.field > label{
+  width: 10%;
+}
+
+.view-content .view.field > .field-value{
+  display: inline-block;
+  padding: 5px;
+}
+
+.report .view-content .view.field .field-value{
+  display: block;
+  min-height: 20px;
+  border: 1px solid #f0f0f0;
+  background: #f3f3f3;
+  border-radius: 4px;
+}
+
+.report .view-content .view.field > label{
+  width: auto;
+  font-weight: bold;
 }

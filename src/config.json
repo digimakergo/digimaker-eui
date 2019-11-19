@@ -57,6 +57,20 @@
                 "usergroup",
                 "user"
             ]
+        },
+        "article":{
+          "view": true
+        },
+        "report": {
+            "view": true,
+            "actions": [
+                "Approve",
+                "Reject",
+                "See workflow history",
+                "Export PDF",
+                "Remove the report"
+            ]
+
         }
     },
     "comment":"---------Support default setting for list and others-------------",
