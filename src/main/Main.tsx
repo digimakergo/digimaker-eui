@@ -6,6 +6,7 @@ import MetaInfo from './MetaInfo';
 import Actions from './Actions';
 import Service from '../Service';
 import ViewContent from './ViewContent';
+import Registry from '../ui/Registry';
 import {ContentContext} from '../Context';
 
 
@@ -71,6 +72,10 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                 <div className="side">
                     <MetaInfo content={this.state.content} />
                     <Actions content={this.state.content} />
+                    {mainConfig&&mainConfig['tools']&&mainConfig['tools'].map((tool)=>{
+                        let Com:React.ReactType = Registry.getComponent( tool );
+                        return <Com content={this.state.content}/>
+                    })}
                 </div>
 
                 {/* view content */}

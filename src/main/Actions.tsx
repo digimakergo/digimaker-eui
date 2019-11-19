@@ -39,11 +39,6 @@ export default class Actions extends React.Component<{content:any}> {
 
                 } )}
 
-<hr />
-<div>
-             <a href="#"><i className="fas fa-tools"></i> Sync with clusers</a>
-            </div>
-
          </div>
        </div>
     );

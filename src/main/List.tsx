@@ -87,6 +87,8 @@ export default class List extends React.Component<{ id: number, contenttype: str
                       return <td><Moment unix format="DD.MM.YYYY HH:mm">{content.modified}</Moment></td>
                     case 'priority':
                       return (<td>{content[column]}</td>)
+                    case 'status':
+                        return (<td>{content[column]==0&&"Applied"}{content[column]==1&&"Approved"}{content[column]==2&&"Rejected"}</td>)
                     default:
                       return <td className={"column-"+column}>{content[column].Raw}</td>
                     break;
