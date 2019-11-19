@@ -357,3 +357,7 @@ footer{
   padding: 0px 10px 10px 10px;
   margin:7px -4px -5px -10px;
 }
+
+.column-company_name{
+   width: 200px;
+}
