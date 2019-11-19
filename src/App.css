@@ -361,6 +361,10 @@ footer{
   margin:7px -4px -5px -10px;
 }
 
+.column-company_name{
+   width: 200px;
+}
+
 .view-content{
   width: 75%;
 }
