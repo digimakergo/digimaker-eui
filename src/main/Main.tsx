@@ -71,7 +71,9 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                 {/* side info like meta, tools */}
                 <div className="side">
                     <MetaInfo content={this.state.content} />
-                    <Actions content={this.state.content} />
+                    {mainConfig&&mainConfig['actions']&&
+                      <Actions content={this.state.content} />
+                    }
                     {mainConfig&&mainConfig['tools']&&mainConfig['tools'].map((tool)=>{
                         let Com:React.ReactType = Registry.getComponent( tool );
                         return <Com content={this.state.content}/>

@@ -88,7 +88,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
                     case 'priority':
                       return (<td>{content[column]}</td>)
                     case 'status':
-                        return (<td>{content[column]==0&&"Applied"}{content[column]==1&&"Approved"}{content[column]==2&&"Rejected"}</td>)
+                        return (<td>{content[column]==0&&"Submitted for review"}{content[column]==1&&"Approved"}{content[column]==2&&"Returned"}</td>)
                     default:
                       return <td className={"column-"+column}>{content[column].Raw}</td>
                     break;
