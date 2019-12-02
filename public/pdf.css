@@ -6,7 +6,7 @@ body{
   counter-reset: page 1
 }
 
-.level1{
+.level1, h1{
     page-break-before: always;
 }
 
@@ -51,4 +51,8 @@ body{
 
 .checkbox > label >div{
   display: inline;
+}
+
+input[type=checkbox]{
+  border:1px solid #333333;
 }
