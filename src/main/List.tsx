@@ -80,7 +80,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
                     case 'name':
                       return (<td className="content-name"><span><Link to={"/main/"+content.id}>{content.name}</Link></span></td>);
                     case 'author':
-                      return (<td>Chen</td>)
+                      return (<td>{content.author}</td>)
                     case 'published':
                       return (<td><Moment unix format="DD.MM.YYYY HH:mm">{content.published}</Moment></td>)
                     case 'modified':
