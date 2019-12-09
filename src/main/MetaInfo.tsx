@@ -16,7 +16,7 @@ export default class MetaInfo extends React.Component<{content:any}> {
          <div>Author: {this.props.content.author}</div>
          <div>Version: {this.props.content.version}</div>
          <div>Published: <Moment unix format="DD.MM HH:mm">{this.props.content.published}</Moment></div>
-         <div>Modified: <Moment unix format="DD.MM HH:mm">{this.props.content.published}</Moment></div>
+         <div>Modified: <Moment unix format="DD.MM HH:mm">{this.props.content.modified}</Moment></div>
          <div>Status: {this.props.content.status}</div>
          <div>CID: {this.props.content.cid}</div>
          <div>UID: {this.props.content.uid}</div>
