@@ -37,7 +37,7 @@ export default class Edit extends React.Component<RouteProps, {content:any,valid
             body: JSON.stringify(dataObject),
         }).then((res) => {
             if (res.ok) {
-                this.props.history.push('/main/' + this.state.content.parent_id);
+                this.props.history.push('/main/' + this.props.match.params.id);
                 //todo: use redirect parameters
             }else {
                 console.log(res)
@@ -71,7 +71,7 @@ export default class Edit extends React.Component<RouteProps, {content:any,valid
                                     <button type="submit" className="btn btn-primary btn-sm"><i className="fas fa-paper-plane"></i> Submit</button>
                                 </div>
                                 <div>
-                                    <Link to={`/main/${this.props.match.params.parent}`}>
+                                    <Link to={`/main/${this.props.match.params.id}`}>
                                         <button type="button" className="btn btn-sm btn-secondary">
                                             <i className="fas fa-window-close"></i> Cancel
                                     </button>
