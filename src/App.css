@@ -120,6 +120,10 @@ td.content-name span{
 .tool-block .block-body{
 }
 
+.block{
+  margin-top: 10px;
+}
+
 .tool-block a{
 color: #272727
 }
@@ -416,4 +420,9 @@ footer{
 .block-body h3{
   font-size: 1em;
   font-weight: normal;
+}
+
+.metainfo{
+  font-style: italic;
+  font-size: 90%;
 }
