@@ -4,6 +4,7 @@ import { RouteProps } from 'react-router';
 import { Link, Redirect } from "react-router-dom";
 import Config from '../config.json';
 import LoadFields from '../ui/LoadFields';
+import Registry from '../ui/Registry';
 
 export default class Edit extends React.Component<RouteProps, {content:any,validation:{}}> {
 
@@ -60,6 +61,8 @@ export default class Edit extends React.Component<RouteProps, {content:any,valid
             data[key] = content[key].Raw;
           }
         });
+
+        const Com:React.ReactType = Registry.getComponent("edit:before");
         return (<div className="container-new">
             <div>
                 <form onSubmit={(e) => this.handleSubmit(e)}>
@@ -84,7 +87,9 @@ export default class Edit extends React.Component<RouteProps, {content:any,valid
                     </div>
 
                     <div className="form-main">
-                        <h2></h2>
+                        <h2>Edit {content.name}</h2>
+                        <Com />
+
                         <LoadFields type={content.content_type} data={data} validation={this.state.validation}  />
                     </div>
                 </form>
