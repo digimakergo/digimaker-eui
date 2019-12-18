@@ -12,10 +12,17 @@ export default class ViewContent extends React.Component<{content:any},{}> {
 
 
   render () {
+
+    let data:any = {};
     let content = this.props.content;
+    Object.keys(content).map((key)=>{
+      if( content[key].Raw != undefined ){
+        data[key] = content[key].Raw;
+      }
+    });
     return (
        <div>
-              <LoadFields type={content.content_type} validation='' mode='view' data={content} afterField={()=>{}} />
+              <LoadFields type={content.content_type} validation='' mode='view' data={data} afterField={()=>{}} />
        </div>
     );
   }
