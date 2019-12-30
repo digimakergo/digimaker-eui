@@ -381,7 +381,10 @@ footer{
 }
 
 .column-company_name{
-   width: 200px;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .view-content{
@@ -425,4 +428,16 @@ footer{
 .metainfo{
   font-style: italic;
   font-size: 90%;
+}
+
+.user .view-content{
+   margin-top: 20px;   
+}
+
+.main > .user{
+   margin-left: 20px;
+}
+
+.main > .user .view-content .view > label{
+   width: 200px;
 }
