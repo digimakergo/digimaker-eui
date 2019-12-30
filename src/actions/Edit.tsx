@@ -88,9 +88,9 @@ export default class Edit extends React.Component<RouteProps, {content:any,valid
 
                     <div className="form-main">
                         <h2>Edit {content.name}</h2>
-                        <Com />
+                        {Com!=null?<Com />:''}
 
-                        <LoadFields type={content.content_type} data={data} validation={this.state.validation}  />
+                        <LoadFields mode='edit' type={content.content_type} data={data} validation={this.state.validation}  />
                     </div>
                 </form>
             </div>
