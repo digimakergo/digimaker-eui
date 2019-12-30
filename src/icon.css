@@ -15,6 +15,17 @@
     content: '\f015'
 }
 
+.icon-user::before{
+    content: '\f007'
+}
+
+.icon-article::before{
+    content: '\f1ea'
+}
+
+.icon-usergroup:before{
+   content: '\f0c0'
+}
 
 .icon-image::before{
     content: '\f03e'
