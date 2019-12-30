@@ -426,3 +426,9 @@ footer{
   font-style: italic;
   font-size: 90%;
 }
+
+.login{
+    max-width: 300px;
+    margin: auto;
+    margin-top: 10%;
+}
