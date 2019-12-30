@@ -41,7 +41,7 @@ export default class Slidemenu extends React.Component<{ show: boolean, changed:
                     })}
                 </ul>
                 <div className="logout">
-                  <Link title="Logout" to={process.env.PUBLIC_URL+"/logout"}><i className="fas fa-sign-out-alt"></i></Link>
+                  <Link title="Logout" to="/logout"><i className="fas fa-sign-out-alt"></i></Link>
                 </div>
             </div>
         );
