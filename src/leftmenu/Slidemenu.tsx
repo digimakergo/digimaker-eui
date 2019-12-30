@@ -29,7 +29,7 @@ export default class Slidemenu extends React.Component<{ show: boolean, changed:
                 <ul>
                     <li>
                         <a className="logo" onClick={() => { this.slideOut(); }}>
-                            <img src="/images/logo.png" />
+                            <img src={process.env.PUBLIC_URL+"/images/logo.png"} />
                         </a>
                     </li>
                     {sidemenus.map((menu) => {
