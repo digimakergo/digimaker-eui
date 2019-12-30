@@ -4,6 +4,7 @@ import './App.css';
 import Main from './main/Main'
 import Leftmenu from './leftmenu/Leftmenu'
 import Login from './user/Login'
+import Logout from './user/Logout'
 import Create from './actions/Create'
 import Edit from './actions/Edit'
 import ViewVersion from './main/ViewVersion'
@@ -20,6 +21,7 @@ const App: React.FC = () => {
         <Router>
           <Switch>
             <Route path="/login" component={Login}  />
+            <Route path="/logout" component={Logout}  />
 
             <Route>
             <div className="App">

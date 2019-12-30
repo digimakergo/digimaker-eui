@@ -447,3 +447,13 @@ footer{
     margin: auto;
     margin-top: 10%;
 }
+
+.slidemenu .logout{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+.slidemenu .logout a{
+  color: rgb(230, 120, 0)
+}

@@ -38,6 +38,7 @@ export default class Login extends React.Component<{}, {username:string, passwor
     render() {
         return (
             <div className="login">
+                <form>
                 <h2>Login</h2>
                 <div>
                     <label>Username:</label> <input value={this.state.username} onChange={(e)=>this.updateUsername(e)} type="text" className="form-control" />
@@ -52,6 +53,7 @@ export default class Login extends React.Component<{}, {username:string, passwor
 
                 {this.state.sending&&<span className="loading"></span>}
                 {this.state.error&&<div className="block alert alert-warning">{this.state.error}</div>}
+                </form>
             </div>
         );
     }
