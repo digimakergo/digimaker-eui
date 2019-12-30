@@ -1,8 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, useLocation } from "react-router-dom";
+import { Switch, BrowserRouter as Router, Route, Link, useLocation } from "react-router-dom";
 import './App.css';
 import Main from './main/Main'
 import Leftmenu from './leftmenu/Leftmenu'
+import Login from './user/Login'
 import Create from './actions/Create'
 import Edit from './actions/Edit'
 import ViewVersion from './main/ViewVersion'
@@ -17,6 +18,9 @@ const App: React.FC = () => {
     return (
         <ContextProvider> {/*context between right and left area */}
         <Router>
+          <Switch>
+            <Route path="/login" component={Login}  />
+
             <Route>
             <div className="App">
                 <Leftmenu />
@@ -37,6 +41,7 @@ const App: React.FC = () => {
                 </div>
             </div>
             </Route>
+            </Switch>
         </Router>
         </ContextProvider>
     );

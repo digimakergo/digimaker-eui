@@ -7,11 +7,11 @@ import Registry from '../ui/Registry'
 import { RouteProps, withRouter } from 'react-router';
 import {ContentContext} from '../Context';
 
-export default class Leftmenu extends React.Component<{}, { showSidemenu: boolean }> {
+export default class Leftmenu extends React.Component<{}, { current: any, showSidemenu: boolean }> {
 
     constructor(props: any) {
         super(props);
-        this.state = { showSidemenu: false };
+        this.state = { current: '', showSidemenu: false };
     }
 
     showSide() {
@@ -19,8 +19,33 @@ export default class Leftmenu extends React.Component<{}, { showSidemenu: boolea
     }
 
 
+    componentDidMount(){
+      this.fetchCurrent();
+    }
+
+    fetchCurrent() {
+      fetch(process.env.REACT_APP_REMOTE_URL + '/user/current/admin') //todo: make site name configable
+        .then(res => {
+          if (res.ok) {
+            res.json().then((content) => {
+              this.setState({current: content});
+            });
+          }
+          else {
+            this.setState({ current: false });
+          }
+        }).catch(() => {
+          this.setState({ current: false });
+        });
+    }
+
     render() {
-        console.log( 'rendering left menu' );
+        if( this.state.current === '' ){
+          return <div className="loading"></div>
+        }else if( this.state.current === false ){
+          window.location.href= process.env.PUBLIC_URL+'/login';
+          return '';
+        }
         return (
               <div className="left">
                   <Slidemenu show={this.state.showSidemenu} changed={(show)=>{this.setState( { showSidemenu: show } ); this.context.update( null ); } } />
@@ -28,7 +53,7 @@ export default class Leftmenu extends React.Component<{}, { showSidemenu: boolea
                       <a className="logo" href="#" onClick={() => { this.showSide(); }}>
                           <img src="/images/logo.png" width="28px" />
                       </a>
-                      <Link to="/1" className="profile"> <i className="fas fa-user"></i>&nbsp;Chen Xiongjie</Link></div>
+                      <Link to="/1" className="profile"> <i className="fas fa-user"></i>&nbsp;{this.state.current.name}</Link></div>
                   <div>
                       <MenuList content={this.context.data} />
                   </div>
