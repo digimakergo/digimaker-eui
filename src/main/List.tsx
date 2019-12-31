@@ -96,14 +96,14 @@ export default class List extends React.Component<{ id: number, contenttype: str
                   }
               })}
 
-            <td className="list-row-tool">
+            {this.config['row_actions'].length>0&&<td className="list-row-tool">
             {this.config.row_actions.map( (action) =>{
                 return (<a href="/content/delete/76" className="action" title={action}><i className={"far icon-"+action}></i></a>)
             } )}
             {this.config.row_more.length>0&&
              <a href="#" className="action" title="More"><i className="fas fa-ellipsis-h"></i></a>
              }
-            </td></tr>)
+            </td>}</tr>)
         }
         return rows;
     }
@@ -122,7 +122,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
                   let sortOrder = this.state.sortby[0][0] == column? this.state.sortby[0][1]:'';
                   return (<th>{sortable?<a href="#" onClick={(e)=>{this.sort(e, column);}} className={"column-sortable "+sortOrder}>{column}</a>:column}</th>) //todo: use name from definition.
                 } )}
-                <th>Actions</th>
+                {this.config['row_actions'].length>0&&<th>Actions</th>}
                 </tr>}
               {this.renderRows(data)}
               </tbody>
