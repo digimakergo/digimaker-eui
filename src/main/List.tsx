@@ -62,7 +62,8 @@ export default class List extends React.Component<{ id: number, contenttype: str
       //when changing page
       if( prevState.currentPage != this.state.currentPage
         || this.getSortbyStr( prevState.sortby ) != this.getSortbyStr( this.state.sortby )
-        || prevProps.id != this.props.id)
+        || prevProps.id != this.props.id
+        || prevProps.contenttype != this.props.contenttype)
       {
         this.fetchData();
       }
