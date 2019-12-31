@@ -27,7 +27,6 @@ export default class List extends React.Component<{ id: number, contenttype: str
 
     fetchData() {
         let id = this.props.id;
-        console.log( this.state.sortby );
         let sortby = "sortby="+this.getSortbyStr( this.state.sortby );
         let limit = "";
         let pagination = this.config.pagination;
