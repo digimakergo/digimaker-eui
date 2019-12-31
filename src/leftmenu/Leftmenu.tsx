@@ -82,7 +82,7 @@ const MenuList = (props) => {
     </div>)
 }
 
-//get menu basic on location path
+//get menu based on location path
 function getCurrentMenu(path: string, content:any) {
     let result = [];
     const leftmenuConfig = Config.leftmenu;
@@ -96,8 +96,8 @@ function getCurrentMenu(path: string, content:any) {
             if (menuitem.path == path) {
                 result = menus;
                 break;
-            }else if(menuitem.type=="leftmenu:treemenu"){
-                if( content && menuitem.root && content.hierarchy.split( '/' ).includes( menuitem.root.toString() ) ){
+            }else if(menuitem.root){
+                if( content && content.hierarchy.split( '/' ).includes( menuitem.root.toString() ) ){
                   result =menus;
                   break;
                 }
