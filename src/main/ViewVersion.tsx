@@ -47,7 +47,13 @@ export default class ViewContent extends React.Component<RouteProps,{version:any
       return <div className="loading"></div>
     }
 
-    let data = JSON.parse( version.data );
+    let content = JSON.parse( version.data );
+    let data:any = {};
+    Object.keys(content).map((key)=>{
+      if( content[key].Raw != undefined ){
+        data[key] = content[key].Raw;
+      }
+    });
     return (
        <div>
             <h2>{data.name}</h2>
