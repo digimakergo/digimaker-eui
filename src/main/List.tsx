@@ -4,15 +4,14 @@ import Config from '../config.json';
 import Create from '../actions/Create';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-export default class List extends React.Component<{ id: number, contenttype: string }, { content: any, list: any, actionNew: boolean, currentPage:number, sortby: Array<Array<string>> }> {
+export default class List extends React.Component<{ id: number, contenttype: string }, { content: any, loading:boolean, list: any, actionNew: boolean, currentPage:number, sortby: Array<Array<string>> }> {
 
    private config: any
 
     constructor(props: any) {
         super(props);
         this.config = Config.list[this.props.contenttype]
-        this.state = { content: '', list: '', actionNew: false, currentPage: 0, sortby:this.config['sort_default']};
-
+        this.state = { content: '', list: '', loading: true, actionNew: false, currentPage: 0, sortby:this.config['sort_default']};
     }
 
 
@@ -33,10 +32,11 @@ export default class List extends React.Component<{ id: number, contenttype: str
         if(  pagination!= -1 ){
             limit = "&limit="+pagination+"&offset="+pagination*this.state.currentPage
         }
+        this.setState({loading: true});
         fetch(process.env.REACT_APP_REMOTE_URL + '/content/list/' + id+'/'+this.props.contenttype+'?'+sortby+limit)
             .then(res => res.json())
             .then((data) => {
-                this.setState({ list: data });
+                this.setState({ loading: false, list: data });
             })
     }
 
@@ -128,6 +128,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
             </table>
             <div className="text-right">
             <span className="dm-pagination">
+              {this.state.loading&&<span className="loading"></span>}
               <a href="#" className="page-first" onClick={(e)=>{e.preventDefault();this.setState({currentPage: 0});}}><i className="fas fa-step-backward"></i></a>
               <a href="#" className="page-previous" onClick={(e)=>{e.preventDefault();if(this.state.currentPage>0){this.setState({currentPage: this.state.currentPage-1});}}}><i className="fas fa-chevron-left"></i></a>
               <a href="#" className="page-next" onClick={(e)=>{e.preventDefault();if(this.state.currentPage<totalPage-1){this.setState({currentPage: this.state.currentPage+1});}}}><i className="fas fa-chevron-right"></i></a>
