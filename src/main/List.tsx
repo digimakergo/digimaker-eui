@@ -115,7 +115,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
             <table className="table"><tbody>
               {this.config['show_table_header']&&<tr>
                 <th><input type="checkbox" title="Select all"/></th>
-                <th>ID</th>
+                <th><a href="#" onClick={(e)=>{this.sort(e, 'id');}} className={'column-sortable '+(this.state.sortby[0][0] == 'id'? this.state.sortby[0][1]:'')}>ID</a></th>
                 {this.config.columns.map( (column)=>{
                   let sortable = this.config.sort.indexOf( column )!=-1;
                   let sortOrder = this.state.sortby[0][0] == column? this.state.sortby[0][1]:'';
