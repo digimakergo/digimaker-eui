@@ -18,7 +18,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
     getSortbyStr(sortby:Array<Array<string>>){
       let arr:Array<string> =[];
       sortby.map((item)=>{
-        arr.push( item.join(',') );
+        arr.push( item.join(' ') );
        });
        return arr.join('%3B');
     }
