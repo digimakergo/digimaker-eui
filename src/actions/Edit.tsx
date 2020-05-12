@@ -56,11 +56,7 @@ export default class Edit extends React.Component<RouteProps, {content:any,valid
 
         let data:any = {};
         let content = this.state.content;
-        Object.keys(content).map((key)=>{
-          if( content[key].Raw != undefined ){
-            data[key] = content[key].Raw;
-          }
-        });
+
 
         const Com:React.ReactType = Registry.getComponent("edit:before");
         return (<div className="container-new">
@@ -90,7 +86,7 @@ export default class Edit extends React.Component<RouteProps, {content:any,valid
                         <h2>Edit {content.name}</h2>
                         {Com!=null?<Com />:''}
 
-                        <LoadFields mode='edit' type={content.content_type} data={data} validation={this.state.validation}  />
+                        <LoadFields mode='edit' type={content.content_type} data={content} validation={this.state.validation}  />
                     </div>
                 </form>
             </div>
