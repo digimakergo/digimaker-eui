@@ -90,7 +90,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
                     case 'status':
                         return (<td><span className={"workflow-status status-"+content.status}></span></td>)
                     default:
-                      return <td className={"column-"+column}>{content[column]&&content[column].Raw?content[column].Raw:''}</td>
+                      return <td className={"column-"+column}>{content[column]?content[column]:''}</td>
                     break;
                   }
               })}
