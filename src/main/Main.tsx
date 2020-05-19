@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RouteProps } from 'react-router';
-import Config from '../config.json';
+import Config from '../dm.json';
 import List from './List';
 import MetaInfo from './MetaInfo';
 import Actions from './Actions';
@@ -8,7 +8,6 @@ import Service from '../Service';
 import ViewContent from './ViewContent';
 import Registry from '../ui/Registry';
 import {ContentContext} from '../Context';
-
 
 export default class Main extends React.Component<RouteProps, { content: any, list: any }> {
 
@@ -42,7 +41,8 @@ export default class Main extends React.Component<RouteProps, { content: any, li
     }
 
     render() {
-        if( !this.state.content ){
+        if( !this.state.content )
+        {
           return '';
         }
         let contenttype = this.state.content.content_type;
