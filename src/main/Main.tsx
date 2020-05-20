@@ -8,6 +8,7 @@ import Service from '../Service';
 import ViewContent from './ViewContent';
 import Registry from '../ui/Registry';
 import {ContentContext} from '../Context';
+import {FetchWithAuth} from '../utils/util'
 
 export default class Main extends React.Component<RouteProps, { content: any, list: any }> {
 
@@ -19,7 +20,7 @@ export default class Main extends React.Component<RouteProps, { content: any, li
 
     //fetch content and set to context
     fetchData(id) {
-        fetch(process.env.REACT_APP_REMOTE_URL + '/content/get/' + id)
+        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/get/' + id)
             .then(res => res.json())
             .then((data) => {
                 this.setState({ content: data });

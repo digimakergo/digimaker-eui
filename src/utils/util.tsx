@@ -2,7 +2,7 @@ let refreshToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1OTAwODc4NjM
 
 
 let accessToken: any; //access token, which is a promise<string>
-export function FetchwithAuth(url:string, initObj?:any){
+export function FetchWithAuth(url:string, initObj?:any){
   return GetAccessToken().then( token=>{
     //create add Authorization into header
     let authValue = 'Bearer '+token;

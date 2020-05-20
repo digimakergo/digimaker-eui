@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { render } from 'react-dom';
-
+import {FetchWithAuth} from '../utils/util'
 
 let requested = false;
 let resolves:Array<any> = [];
@@ -14,7 +14,7 @@ let fetchPermissionData = async ()=>{
     }else{
       if(!requested){
         requested = true;
-        fetch(process.env.REACT_APP_REMOTE_URL +"/util/limitations/eui_all")
+        FetchWithAuth(process.env.REACT_APP_REMOTE_URL +"/util/limitations/eui_all")
         .then((res)=>{
           resolves.forEach(resolve => {
             permissionData = res.clone().json();
@@ -24,29 +24,29 @@ let fetchPermissionData = async ()=>{
       }
       return new Promise((resolve, reject)=>{
         resolves.push(resolve);
-      });  
+      });
     }
 }
 
 
 export class Permission extends React.Component <{access:any, error?:string },{permissionData:any}>{
     constructor(props: any) {
-        super(props); 
+        super(props);
         this.state = {permissionData:''}
     }
-        
+
     fetchPermission()
     {
       fetchPermissionData()
             .then((data:any) => {
                 let value = data[0].view;
-                // Adding '/' before each array value. 
+                // Adding '/' before each array value.
                 let valueAdd = value.map(el => '/' + el)
                 this.setState({ permissionData: valueAdd });
             })
     }
-        
-    componentDidMount(){        
+
+    componentDidMount(){
         this.fetchPermission();
     }
 
@@ -60,12 +60,12 @@ export class Permission extends React.Component <{access:any, error?:string },{p
         }
         if(PermissionCheck?PermissionCheck.includes(this.props.access):''){
             return (this.props.children);
-        }  
-        else{ 
+        }
+        else{
             return('');
-        }   
-       
-    
+        }
+
+
     }
 }
 
@@ -93,10 +93,4 @@ export class Permission extends React.Component <{access:any, error?:string },{p
     //                     callback(valueAdd);
     //                 });
     //             })
-    // } 
-
-    
-
-
-
-           
+    // }

@@ -9,6 +9,7 @@ import {ContentContext} from '../Context';
 import data from '../dm.json';
 import { Permission } from './Permission';
 import { useState } from 'react';
+import {FetchWithAuth} from '../utils/util'
 
 export default class Leftmenu extends React.Component<{}, { current: any, showSidemenu: boolean, view: any}> {
 
@@ -29,7 +30,7 @@ export default class Leftmenu extends React.Component<{}, { current: any, showSi
     }
 
     fetchCurrent() {
-      fetch(process.env.REACT_APP_REMOTE_URL + '/user/current/admin') //todo: make site name configable
+      FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/user/current/admin') //todo: make site name configable
         .then(res => {
           if (res.ok) {
             res.json().then((content) => {
@@ -48,7 +49,7 @@ export default class Leftmenu extends React.Component<{}, { current: any, showSi
         if( this.state.current === '' ){
           return <div className="loading"></div>
         }else if( this.state.current === false ){
-          window.location.href= process.env.PUBLIC_URL+'/login';
+          // window.location.href= process.env.PUBLIC_URL+'/login';
           return '';
         }
         return (
@@ -99,16 +100,16 @@ const MenuList = (props) => {
 function getCurrentMenu(path: string, content:any) {
     let result = [];
     const leftmenuConfig = Config.leftmenu;
-    
+
     for (let i = 0; i < leftmenuConfig.length; i++) {
         if (result.length > 0) {
             break;
         }
         let menus = leftmenuConfig[i].menu;
-        for (let j = 0; j < menus.length; j++) 
-        { 
+        for (let j = 0; j < menus.length; j++)
+        {
               let menuitem = menus[j];
-              if (menuitem.path == path) 
+              if (menuitem.path == path)
               {
                 result = menus;
                 break;
@@ -119,7 +120,7 @@ function getCurrentMenu(path: string, content:any) {
                   {
                     result =menus;
                     break;
-                  } 
+                  }
               }
         }
     }

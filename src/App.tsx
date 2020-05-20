@@ -29,12 +29,12 @@ const App: React.FC = () => {
             <div className="App">
                 <Leftmenu />
                 <div className="main">
-                    <Route path="/main/:id" component={<Permission access={"/main/:id"} error={errorMessage}><Main/></Permission>}/> 
+                    <Route path="/main/:id" component={Main}/> 
                     <Route path='/dashboard' component={<Permission access={"/dashboard"} error={errorMessage}><Main/></Permission>}/>
                     <Route path="/create/:parent/:contenttype" component={<Permission access={"/create/:parent/:contenttype"} error={errorMessage}><Create/></Permission>} />
                     <Route path="/edit/:id" component={<Permission access={"/edit/:id"} error={errorMessage}><Edit/></Permission>} />
                     <Route path="/version/:id/:version" component={<Permission access={"/version/:id/:version"} error={errorMessage}><ViewVersion/></Permission>} />
-                    
+
                     {Object.keys(Config.main).map((key)=>{
                         let identifier:string = Config.main[key];
                         const com:React.ReactType = Registry.getComponent(identifier);

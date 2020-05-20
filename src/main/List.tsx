@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Moment from 'react-moment';
-import Config from '../config.json';
+import Config from '../dm.json';
 import Create from '../actions/Create';
+import {FetchWithAuth} from '../utils/util'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 export default class List extends React.Component<{ id: number, contenttype: string }, { content: any, loading:boolean, list: any, actionNew: boolean, currentPage:number, sortby: Array<Array<string>> }> {
@@ -33,7 +34,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
             limit = "&limit="+pagination+"&offset="+pagination*this.state.currentPage
         }
         this.setState({loading: true});
-        fetch(process.env.REACT_APP_REMOTE_URL + '/content/list/' + id+'/'+this.props.contenttype+'?'+sortby+limit)
+        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/list/' + id+'/'+this.props.contenttype+'?'+sortby+limit)
             .then(res => res.json())
             .then((data) => {
                 this.setState({ loading: false, list: data });
