@@ -28,7 +28,7 @@ export default class Slidemenu extends React.Component<{ show: boolean, changed:
             <div className={"slidemenu" + (this.state.show ? '' : ' hide')}>
                 <ul>
                     <li>
-                        <a className="logo" onClick={() => { this.slideOut(); }}>
+                        <a className="logo" href="#" onClick={(e) => { e.preventDefault(); this.slideOut(); }}>
                             <img src={process.env.PUBLIC_URL+"/images/logo.png"} />
                         </a>
                     </li>
