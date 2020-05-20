@@ -6,12 +6,16 @@ import Config from '../Config'
 import Registry from '../ui/Registry'
 import { RouteProps, withRouter } from 'react-router';
 import {ContentContext} from '../Context';
+import data from '../dm.json';
+import { Permission } from './Permission';
+import { useState } from 'react';
 
-export default class Leftmenu extends React.Component<{}, { current: any, showSidemenu: boolean }> {
+export default class Leftmenu extends React.Component<{}, { current: any, showSidemenu: boolean, view: any}> {
 
     constructor(props: any) {
         super(props);
-        this.state = { current: '', showSidemenu: false };
+        this.state = { current: '', showSidemenu: false, view: '' };
+
     }
 
     showSide(e:any) {
@@ -66,20 +70,28 @@ export default class Leftmenu extends React.Component<{}, { current: any, showSi
 Leftmenu.contextType = ContentContext;
 
 const MenuList = (props) => {
+
     let location = useLocation();
     let path = location.pathname;
     let menus: any = getCurrentMenu(path, props.content);
+
     return (<div>
         {menus.map((menu) => {
                         return(
-                            !menu.type?<div className="menuitem"><NavLink to={menu.path} activeClassName="selected"><i className={"far "+menu.icon} /> {menu.name}</NavLink></div>
+                            !menu.type?
+                              <Permission access ={menu.path}>
+                               <div className="menuitem">
+                                 <NavLink to={menu.path} activeClassName="selected">
+                                   <i className={"far "+menu.icon} /> {menu.name}
+                                 </NavLink>
+                               </div>
+                             </Permission>
                             :(()=>{
                                 const Com:React.ReactType = Registry.getComponent(menu.type);
-                                return (<Com config={menu} />)
+                                  return (<Permission access={menu.name}><Com config={menu} /></Permission>)
                             })()
                         )
-        })}
-
+            })}
     </div>)
 }
 
@@ -87,22 +99,28 @@ const MenuList = (props) => {
 function getCurrentMenu(path: string, content:any) {
     let result = [];
     const leftmenuConfig = Config.leftmenu;
+    
     for (let i = 0; i < leftmenuConfig.length; i++) {
         if (result.length > 0) {
             break;
         }
         let menus = leftmenuConfig[i].menu;
-        for (let j = 0; j < menus.length; j++) {
-            let menuitem = menus[j];
-            if (menuitem.path == path) {
+        for (let j = 0; j < menus.length; j++) 
+        { 
+              let menuitem = menus[j];
+              if (menuitem.path == path) 
+              {
                 result = menus;
                 break;
-            }else if(menuitem.root){
-                if( content && content.hierarchy.split( '/' ).includes( menuitem.root.toString() ) ){
-                  result =menus;
-                  break;
-                }
-            }
+              }
+              else if(menuitem.root)
+              {
+                  if( content && content.hierarchy.split( '/' ).includes( menuitem.root.toString() ) )
+                  {
+                    result =menus;
+                    break;
+                  } 
+              }
         }
     }
     return result;

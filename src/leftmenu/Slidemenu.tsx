@@ -8,8 +8,6 @@ export default class Slidemenu extends React.Component<{ show: boolean, changed:
         super(props);
         this.state = { show: props.show };
     }
-
-
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (!this.state.show && !prevState.show && this.props.show) {
             this.setState({ show: true });
