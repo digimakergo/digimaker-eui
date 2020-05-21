@@ -33,3 +33,8 @@ export function GetAccessToken() {
     //todo: add handling when fail because of invalid/network issue/other or expired
   return fetchPro
 }
+
+//Set access token. Useful when eg login.
+export function SetAccessToken(token: string){
+  accessToken = token
+}
