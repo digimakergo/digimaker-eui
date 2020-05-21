@@ -2,7 +2,7 @@ let refreshToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1OTAwODc4NjM
 
 let accessToken: any = null; //access token, which is a promise<string>
 
-export function FetchWithAuth(url: string, initObj?: any) {
+export function FetchWithAuth(url: string, reqObj?: any) {
   return GetAccessToken().
     catch(err => {
       console.error(err) // todo: rediction or prompt message here or outside? returning a renderable error component might be good?
