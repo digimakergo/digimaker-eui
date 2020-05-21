@@ -36,5 +36,5 @@ export function GetAccessToken() {
 
 //Set access token. Useful when eg login.
 export function SetAccessToken(token: string){
-  accessToken = token
+  accessToken = new Promise( func => func(token) )
 }
