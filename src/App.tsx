@@ -12,6 +12,7 @@ import Config from './Config'
 import './Init'
 import Registry from './ui/Registry'
 import ContextProvider from './ContextProvider';
+import ErrorBoundary from './ErrorBoundary';
 import {Permission} from './leftmenu/Permission'
 
 const App: React.FC = () => {
@@ -21,6 +22,7 @@ const App: React.FC = () => {
 
     return (
         <ContextProvider> {/*context between right and left area */}
+        <ErrorBoundary>
         <Router>
           <Switch>
             <Route path="/login" component={Login}  />
@@ -29,7 +31,7 @@ const App: React.FC = () => {
             <div className="App">
                 <Leftmenu />
                 <div className="main">
-                    <Route path="/main/:id" component={Main}/> 
+                    <Route path="/main/:id" component={Main}/>
                     <Route path='/dashboard' component={<Permission access={"/dashboard"} error={errorMessage}><Main/></Permission>}/>
                     <Route path="/create/:parent/:contenttype" component={<Permission access={"/create/:parent/:contenttype"} error={errorMessage}><Create/></Permission>} />
                     <Route path="/edit/:id" component={<Permission access={"/edit/:id"} error={errorMessage}><Edit/></Permission>} />
@@ -49,6 +51,7 @@ const App: React.FC = () => {
             </Route>
         </Switch>
         </Router>
+        </ErrorBoundary>
         </ContextProvider>
     );
 }

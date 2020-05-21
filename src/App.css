@@ -86,6 +86,11 @@ td.content-name{
   max-width:10px;
 
 }
+
+.pre-wrap{
+  white-space: pre-wrap;
+}
+
 td.content-name span{
   display:block;
   white-space: nowrap;
@@ -476,4 +481,11 @@ footer{
 
 .status-1::before{
   content: "1"
+}
+
+
+.error-main{
+  width: 50%;
+  margin: auto;
+  margin-top: 30vh;
 }

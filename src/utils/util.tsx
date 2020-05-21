@@ -3,9 +3,10 @@ let refreshToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1OTAwODc4NjM
 let accessToken: any = null; //access token, which is a promise<string>
 
 export function FetchWithAuth(url: string, reqObj?: any) {
-  return GetAccessToken().
-    catch(err => {
-      console.error(err) // todo: rediction or prompt message here or outside? returning a renderable error component might be good?
+  return GetAccessToken()
+     .catch(err => {
+      console.error(err); // todo: rediction or prompt message here or outside? returning a renderable error component might be good?
+      throw err;
     }).then(token => {
       // add Authorization into header
       let authValue = 'Bearer ' + token;
@@ -38,7 +39,7 @@ export function GetAccessToken() {
     accessToken = fetch(process.env.REACT_APP_REMOTE_URL + '/auth/token/access/renew?token=' + refreshToken)
       .then(res => {
         if (!res.ok) {
-          throw new Error("Can not get token. Need to relogin?");
+          throw "Can not proceed because of invalid authorization. Need to relogin?";
         }
         accessToken = res.text();
         return accessToken

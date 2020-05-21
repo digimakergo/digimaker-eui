@@ -26,6 +26,8 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                 this.setState({ content: data });
                 let context = this.context;
                 context.update(data);
+            }).catch(err=>{
+              this.setState(()=>{throw err});
             })
     }
 
