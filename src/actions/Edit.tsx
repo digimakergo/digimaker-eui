@@ -2,9 +2,10 @@ import * as React from 'react';
 import Moment from 'react-moment';
 import { RouteProps } from 'react-router';
 import { Link, Redirect } from "react-router-dom";
-import Config from '../config.json';
+import Config from '../dm.json';
 import LoadFields from '../ui/LoadFields';
 import Registry from '../ui/Registry';
+import {FetchWithAuth} from '../utils/util';
 
 export default class Edit extends React.Component<RouteProps, {content:any,validation:{}}> {
 
@@ -14,7 +15,7 @@ export default class Edit extends React.Component<RouteProps, {content:any,valid
     }
 
     fetchData(id) {
-        fetch(process.env.REACT_APP_REMOTE_URL + '/content/get/'+id)
+        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/get/'+id)
             .then(res => res.json())
             .then((data) => {
                 this.setState({ content: data});
@@ -33,7 +34,7 @@ export default class Edit extends React.Component<RouteProps, {content:any,valid
         for (let key of Array.from(form.keys())) {
             dataObject[key] = form.get(key);
         };
-        fetch(process.env.REACT_APP_REMOTE_URL + '/content/update/'+this.props.match.params.id, {
+        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/update/'+this.props.match.params.id, {
             method: 'POST',
             body: JSON.stringify(dataObject),
         }).then((res) => {

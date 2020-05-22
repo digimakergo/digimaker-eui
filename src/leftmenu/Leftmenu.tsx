@@ -9,6 +9,7 @@ import { Permission } from './Permission';
 import { useState } from 'react';
 import {FetchWithAuth, SetAccessToken} from '../utils/util'
 
+//Whole left menu consising of slidemenu and menulist,
 export default class Leftmenu extends React.Component<{}, { current: any, showSidemenu: boolean, view: any}> {
 
     constructor(props: any) {
@@ -67,6 +68,7 @@ export default class Leftmenu extends React.Component<{}, { current: any, showSi
 
 Leftmenu.contextType = ContentContext;
 
+//A menu container which list all the menus from top to down.
 const MenuList = (props) => {
 
     let location = useLocation();

@@ -33,8 +33,8 @@ const App: React.FC = () => {
                 <div className="main">
                     <Route path="/main/:id" component={Main}/>
                     <Route path='/dashboard' component={<Permission access={"/dashboard"} error={errorMessage}><Main/></Permission>}/>
-                    <Route path="/create/:parent/:contenttype" component={<Permission access={"/create/:parent/:contenttype"} error={errorMessage}><Create/></Permission>} />
-                    <Route path="/edit/:id" component={<Permission access={"/edit/:id"} error={errorMessage}><Edit/></Permission>} />
+                    <Route path="/create/:parent/:contenttype" component={Create} />
+                    <Route path="/edit/:id" component={Edit} />
                     <Route path="/version/:id/:version" component={<Permission access={"/version/:id/:version"} error={errorMessage}><ViewVersion/></Permission>} />
                     {/*Register configable routes*/}
                     {Object.keys(Config.routes).map((key)=>{

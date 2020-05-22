@@ -2,8 +2,9 @@ import * as React from 'react';
 import Moment from 'react-moment';
 import { RouteProps } from 'react-router';
 import { Link, Redirect } from "react-router-dom";
-import Config from '../config.json';
+import Config from '../dm.json';
 import LoadFields from '../ui/LoadFields';
+import {FetchWithAuth} from '../utils/util';
 
 export default class Create extends React.Component<RouteProps, {validation:{}}> {
 
@@ -28,7 +29,7 @@ export default class Create extends React.Component<RouteProps, {validation:{}}>
         for (let key of Array.from(form.keys())) {
             dataObject[key] = form.get(key);
         };
-        fetch(process.env.REACT_APP_REMOTE_URL + '/content/new/' + this.props.match.params.parent + '/' + this.props.match.params.contenttype, {
+        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/new/' + this.props.match.params.parent + '/' + this.props.match.params.contenttype, {
             method: 'POST',
             body: JSON.stringify(dataObject),
         }).then((res) => {
