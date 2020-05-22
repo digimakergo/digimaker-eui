@@ -1,22 +1,19 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink, useLocation } from "react-router-dom";
 import Slidemenu from './Slidemenu'
-import Treemenu from './render/Treemenu'
-import Config from '../Config'
+import Config from '../dm.json'
 import Registry from '../ui/Registry'
 import { RouteProps, withRouter } from 'react-router';
 import {ContentContext} from '../Context';
-import data from '../dm.json';
 import { Permission } from './Permission';
 import { useState } from 'react';
-import {FetchWithAuth} from '../utils/util'
+import {FetchWithAuth, SetAccessToken} from '../utils/util'
 
 export default class Leftmenu extends React.Component<{}, { current: any, showSidemenu: boolean, view: any}> {
 
     constructor(props: any) {
         super(props);
         this.state = { current: '', showSidemenu: false, view: '' };
-
     }
 
     showSide(e:any) {
@@ -96,9 +93,9 @@ const MenuList = (props) => {
     </div>)
 }
 
-//get menu based on location path
+//get leftmenu configuration based on location path
 function getCurrentMenu(path: string, content:any) {
-    let result = [];
+    let result:Array<any> = [];
     const leftmenuConfig = Config.leftmenu;
 
     for (let i = 0; i < leftmenuConfig.length; i++) {
