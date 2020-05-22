@@ -2,11 +2,13 @@ import * as React from 'react';
 import Config from '../dm.json';
 import Moment from 'react-moment';
 import { Link } from "react-router-dom";
+import util from '../utils/util';
 
 export default class Actions extends React.Component<{content:any}> {
 
   render () {
-    var type = this.props.content.content_type;
+    let content = this.props.content;
+    var type = content.content_type;
     var newTypes = [];
     var actions = [];
     let mainConfig = Config.main[type];
@@ -15,6 +17,8 @@ export default class Actions extends React.Component<{content:any}> {
         newTypes = mainConfig["new"];
         actions = mainConfig["actions"];
     }
+
+    let variables = content; //can support more attribute also.
 
     return (
        <div className="tool-block">
@@ -32,11 +36,11 @@ export default class Actions extends React.Component<{content:any}> {
             }
          <hr />
 
-            {actions&&actions.map( (value) => {
+            {actions&&actions.map( (value:any) => {
+                let path = util.washVariables(value.link, variables); //todo: support component here also
                 return (<div>
-                 <a href="#"><i className="fas fa-tools"></i> {value}</a>
-                </div>)
-
+                         <Link to={path} title={value.title}><i className="fas fa-tools"></i> {value.name}</Link>
+                        </div>)
                 } )}
 
          </div>

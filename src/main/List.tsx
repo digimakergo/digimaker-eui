@@ -168,9 +168,9 @@ export default class List extends React.Component<{ id: number, contenttype: str
                        </a>
                      }
                     {this.config.actions.map((action)=>{
-                        return (<a href="#" className="btn btn-link btn-sm" title={action}>
-                          <i className={"icon icon-"+action}></i>
-                          {action}</a>)
+                        return (<a href="#" className="btn btn-link btn-sm" title={action.name}>
+                          <i className={"icon icon-"+action.name}></i>
+                          {action.name}</a>)
                     })}
                     {!this.config.show_table_header&&
                     <span>
