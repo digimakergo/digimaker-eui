@@ -77,7 +77,7 @@ const MenuList = (props) => {
         {menus.map((menu) => {
                         return(
                             !menu.type?
-                              <Permission access ={menu.path}>
+                              <Permission access={menu.path}>
                                <div className="menuitem">
                                  <NavLink to={menu.path} activeClassName="selected">
                                    <i className={"far "+menu.icon} /> {menu.name}
