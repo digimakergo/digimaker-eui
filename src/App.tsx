@@ -44,7 +44,7 @@ const App: React.FC = () => {
                     })
                     }
                     <footer>
-                      {/*Powered by Digimaker CMF. Implemented by Digimaker AS.  */}
+                      Powered by <a href="http://www.digimaker.com" target="_blank"><img src="/logo.png" height="18px" />&nbsp;Digimaker CMF</a>
                     </footer>
                 </div>
             </div>

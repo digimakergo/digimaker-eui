@@ -56,6 +56,7 @@ a:hover, .left a:hover{
   display: inline-block;
   width: 79%;
   padding-left: 8px;
+  padding-bottom: 50px;
   margin-left: 20%;
   position: relative;
   min-height: 100vh;
@@ -488,4 +489,9 @@ footer{
   width: 50%;
   margin: auto;
   margin-top: 30vh;
+}
+
+footer{
+  position: absolute;
+  bottom: 0px;
 }
