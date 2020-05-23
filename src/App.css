@@ -495,3 +495,7 @@ footer{
   position: absolute;
   bottom: 0px;
 }
+
+.side a:hover{
+  color: rgb(230, 120, 0);
+}

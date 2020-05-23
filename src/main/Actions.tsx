@@ -2,6 +2,7 @@ import * as React from 'react';
 import Config from '../dm.json';
 import Moment from 'react-moment';
 import { Link } from "react-router-dom";
+import ReactTooltip from "react-tooltip";
 import util from '../utils/util';
 
 export default class Actions extends React.Component<{content:any}> {
@@ -28,13 +29,17 @@ export default class Actions extends React.Component<{content:any}> {
              <div>
              <i className="fas fa-plus"></i> Create &nbsp;
              {newTypes.map((value)=>{return (
-                 <Link to={`/create/${this.props.content.id}/${value}`} title={value}>
+                 <Link to={`/create/${this.props.content.id}/${value}`} data-tip={value}>
                      <i className={"icon icon-"+value}></i> &nbsp;
                  </Link>
                 )})}
              </div>
             }
-         <hr />
+
+            <ReactTooltip />
+
+
+            {newTypes&&<hr />}
 
             {actions&&actions.map( (value:any) => {
                 let path = util.washVariables(value.link, variables); //todo: support component here also
