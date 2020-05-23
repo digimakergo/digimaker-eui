@@ -55,8 +55,12 @@
   content:'\f0c4'
 }
 
-.icon-delete:before{
+.icon-delete::before{
   content:'\f2ed'
+}
+
+.icon-preview::before{
+  content:'\f06e'
 }
 
 
