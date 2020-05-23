@@ -39,6 +39,26 @@
   content: '\f058'
 }
 
+.icon-edit::before{
+  content:'\f044'
+}
+
+.icon-sort::before{
+  content:'\f160'
+}
+
+.icon-copy::before{
+  content:'\f0c5'
+}
+
+.icon-move::before{
+  content:'\f0c4'
+}
+
+.icon-delete:before{
+  content:'\f2ed'
+}
+
 
 .column-sortable::after{
   font-family: "Font Awesome 5 Free";

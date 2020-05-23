@@ -13,9 +13,6 @@ export default class Create extends React.Component<RouteProps, {validation:{}}>
         this.state = {validation:''};
     }
 
-
-
-
     keyUpHandler(event) {
         if (event.keyCode == 27) {
             //this.props.show = 'false';

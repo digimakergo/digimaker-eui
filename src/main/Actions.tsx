@@ -39,7 +39,7 @@ export default class Actions extends React.Component<{content:any}> {
             {actions&&actions.map( (value:any) => {
                 let path = util.washVariables(value.link, variables); //todo: support component here also
                 return (<div>
-                         <Link to={path} title={value.title}><i className="fas fa-tools"></i> {value.name}</Link>
+                         <Link to={path} title={value.title}><i className={value.icon?("icon "+value.icon):("fas fa-tools")}></i> {value.name}</Link>
                         </div>)
                 } )}
 
