@@ -56,7 +56,7 @@ a:hover, .left a:hover{
   display: inline-block;
   width: 79%;
   padding-left: 8px;
-  padding-bottom: 50px;
+  padding-bottom: 100px;
   margin-left: 20%;
   position: relative;
   min-height: 100vh;
@@ -153,8 +153,21 @@ td.content-name span{
  color: #ffffff
 }
 
+.table > tbody > tr:hover{
+  background: #ebfaff;
+  cursor: default;
+}
+
+.table td{
+  border-top:1px solid #e7eaf1;
+}
+
+.table > tbody > tr:last-child > td{
+  border-bottom:1px solid #dfe5f1;
+}
+
 .table td, .table th{
-   padding: 7px 5px;
+   padding: 0.4rem 5px;
 
 }
 
@@ -371,7 +384,6 @@ footer{
   width: 100%;
   bottom: 0px;
   text-align: center;
-  margin-top: 50px;
   margin-bottom: 30px;
   font-size: 0.85em;
 }
