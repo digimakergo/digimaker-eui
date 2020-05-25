@@ -6,25 +6,6 @@ let resolves:Array<any> = [];
 let LoginData:any = null;
 const cookies = new Cookies();
 
-
-
-  // let fetchLogin = async (username,password)=>{
-  //   if(LoginData){
-  //     return LoginData
-  //   }else{
-  //       fetch(process.env.REACT_APP_REMOTE_URL + '/auth/auth?username='+ username +'&password='+ password, {method: 'post'})
-  //       .then((res)=>{
-  //         resolves.forEach(resolve => {
-  //           LoginData = res.clone().json();
-  //           resolve(LoginData);
-  //         });
-  //       });
-  //     }
-  //     return new Promise((resolve, reject)=>{
-  //       resolves.push(resolve);
-  //     });
-  //   }
-
     let fetchLogin = async (username,password)=>{
       return new Promise((resolve, reject) => {
         return fetch(process.env.REACT_APP_REMOTE_URL + '/auth/auth?username='+ username +'&password='+ password, {method: 'post'})
@@ -54,7 +35,6 @@ export default class Login extends React.Component<{}, {username:string, passwor
     e.preventDefault();
     let input = { username: this.state.username, password: this.state.password };
     this.setState({ sending: true });
-    // fetch(process.env.REACT_APP_REMOTE_URL + '/user/login', { method: 'post', body: JSON.stringify(input) })
     fetchLogin(this.state.username, this.state.password)
     .then((data:any) => {
       this.setState({ sending: false });

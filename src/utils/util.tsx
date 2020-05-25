@@ -2,7 +2,6 @@ import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
-// let refreshToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1OTA1NjE1MDksImd1aWQiOiJiNzY1YmMyMS0yNTZiLTQyNDgtODU1My04NjFiNWNjNjFlMjUiLCJ1c2VyX2lkIjoxfQ.scAKV_AXNRf2D9E4tahkSXFwiMPCopexgi4Fadcp-Qw';
 const refreshToken = cookies.get('refreshToken')
 
 let accessToken: any; //access token, which is a promise<string>
