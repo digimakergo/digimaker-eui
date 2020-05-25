@@ -1,30 +1,78 @@
 import * as React from 'react';
+import {Redirect} from 'react-router-dom'
+import Cookies from 'universal-cookie';
 
-export default class Login extends React.Component<{}, {username:string, password: string, sending:boolean, error:string}> {
+let resolves:Array<any> = [];
+let LoginData:any = null;
+const cookies = new Cookies();
+
+
+
+  // let fetchLogin = async (username,password)=>{
+  //   if(LoginData){
+  //     return LoginData
+  //   }else{
+  //       fetch(process.env.REACT_APP_REMOTE_URL + '/auth/auth?username='+ username +'&password='+ password, {method: 'post'})
+  //       .then((res)=>{
+  //         resolves.forEach(resolve => {
+  //           LoginData = res.clone().json();
+  //           resolve(LoginData);
+  //         });
+  //       });
+  //     }
+  //     return new Promise((resolve, reject)=>{
+  //       resolves.push(resolve);
+  //     });
+  //   }
+
+    let fetchLogin = async (username,password)=>{
+      return new Promise((resolve, reject) => {
+        return fetch(process.env.REACT_APP_REMOTE_URL + '/auth/auth?username='+ username +'&password='+ password, {method: 'post'})
+        .then(response => {
+          if (response.ok) {
+            LoginData = response.clone().json();
+            resolve(LoginData);
+            resolve(response.clone().json());
+          } else {
+            reject(new Error('error'))
+          }
+        }, error => {
+          reject(new Error(error.message))
+        })
+      })
+    }
+
+
+export default class Login extends React.Component<{}, {username:string, password: string, sending:boolean, error:string, redirect:string}> {
 
   constructor(props: any) {
       super(props);
-      this.state = { username: '', password: '', sending: false, error: '' };
+      this.state = { username: '', password: '', sending: false, error: '', redirect:'/eth/report' };
   }
 
   login(e: any) {
     e.preventDefault();
     let input = { username: this.state.username, password: this.state.password };
     this.setState({ sending: true });
-    fetch(process.env.REACT_APP_REMOTE_URL + '/user/login', { method: 'post', body: JSON.stringify(input) })
-      .then(res => {
-        this.setState({ sending: false });
-        if (res.ok) {
-          window.location.href = process.env.PUBLIC_URL+'/';
-        } else {
-          res.text().then(text => {
-            this.setState({ error: text });
-          });
-        }
-      }).catch((err) => {
+    // fetch(process.env.REACT_APP_REMOTE_URL + '/user/login', { method: 'post', body: JSON.stringify(input) })
+    fetchLogin(this.state.username, this.state.password)
+    .then((data:any) => {
+      this.setState({ sending: false });
+      if (data) {
+        window.location.href = process.env.PUBLIC_URL+'/';
+      } else {
+        data.text().then(text => {
+          this.setState({ error: text });
+        });
+      }       
+      let value = data;
+      cookies.set('refreshToken',value.refresh_token)
+    })
+    .catch((err) => {
         this.setState({ error: err.toString() });
       });
   }
+
 
 
   updateUsername(e: any) {
