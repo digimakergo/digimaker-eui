@@ -36,7 +36,7 @@ export default class Actions extends React.Component<{content:any}> {
              </div>
             }
 
-            <ReactTooltip />
+            <ReactTooltip effect="solid" />
 
 
             {newTypes&&<hr />}
