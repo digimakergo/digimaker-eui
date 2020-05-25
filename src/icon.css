@@ -24,7 +24,13 @@
 }
 
 .icon-usergroup:before{
+  font-weight: 600;
    content: '\f0c0'
+}
+
+.icon-role:before{
+  font-weight: 600;
+   content: '\f507'
 }
 
 .icon-image::before{
@@ -33,6 +39,10 @@
 
 .icon-export::before{
   content:'\f56e'
+}
+
+.icon-import::before{
+  content:'\f56f'
 }
 
 .icon-approve::before{
@@ -61,6 +71,11 @@
 
 .icon-preview::before{
   content:'\f06e'
+}
+
+
+.icon-subtype-image::before{
+  content:'\f302'
 }
 
 

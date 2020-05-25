@@ -37,12 +37,16 @@ a:hover, .left a:hover{
 }
 
 .treemenu ul{
-   padding-left: 10px;
+   padding-left: 18px;
 }
 
 .treemenu li{
    list-style: none;
-   padding: 2px 0px;
+   padding: 3px 5px;
+}
+
+.treemenu .nodeicon{
+  margin-right: 5px;
 }
 
 .left{
@@ -78,7 +82,7 @@ a:hover, .left a:hover{
 
 .list h3{
     font-weight: 400;
-    margin-top: 10px;
+    margin-top: 20px;
     font-size: 18px;
 }
 
@@ -173,6 +177,7 @@ td.content-name span{
 
 .path{
     font-size: 20px;
+    margin-top: 10px;
     font-weight: 400;
     cursor: default;
 }
@@ -182,10 +187,27 @@ td.content-name span{
   margin-right: 5px
 }
 
-.treemenu .expand{
+.treemenu .space{
   display: inline-block;
   width: 10px;
-  margin-right: 10px;
+  margin-right: 0.4rem;
+  font-size: 0.85rem;
+}
+
+.treemenu a{
+
+}
+
+.treemenu i.icon-open::before{
+  content:'\f078'
+}
+
+.treemenu i.icon-close::before{
+  content:'\f054'
+}
+
+.treemenu .tree-close > ul{
+  display: none;
 }
 
 .logomenu{
@@ -197,6 +219,15 @@ td.content-name span{
    border-bottom: 1px solid #464646;
    border-top: 1px solid #6d6d6d;
    padding:4px 4px 5px 10px
+}
+
+.menuitem:hover{
+  /* background: #4c4e50 */
+}
+
+.menuitem > a{
+  display: inline-block;
+  width: 100%;
 }
 
 .logomenu img{
@@ -510,4 +541,16 @@ footer{
 
 .side a:hover{
   color: rgb(230, 120, 0);
+}
+
+.search{
+  float: right;
+}
+
+.search input{
+  width: 220px;
+  height:32px;
+  margin-top:5px;
+  margin-right:10px;
+  display:inline-block
 }
