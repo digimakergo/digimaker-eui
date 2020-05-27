@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import { FetchWithAuth } from '../../utils/util';
+import ReactTooltip from "react-tooltip";
 import TreeNode from '../../ui/TreeNode';
 
 export default class Treemenu extends React.Component<{ config: any }, { data: any }> {
@@ -31,7 +32,8 @@ export default class Treemenu extends React.Component<{ config: any }, { data: a
             <i className={this.props.config.icon}></i> {this.state.data.name}
           </NavLink>
           {this.props.config.is_site && <span className="right">
-            <a href="" title="Select site"><i className="fas fa-wrench"></i></a>&nbsp;</span>}
+            <a href="" data-tip="Select site"><i className="fas fa-wrench"></i></a>&nbsp;</span>}
+            <ReactTooltip effect="solid" />
         </div>
         <TreeNode data={this.state.data} />
       </div>
