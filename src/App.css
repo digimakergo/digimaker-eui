@@ -577,9 +577,8 @@ footer{
   background: #333333
 }
 
-.block-title i,{
+button.toggle > i{
     transition: 0.1s ease-in-out;
-    color:white;
 }
 
 .block-title .btn{
@@ -602,6 +601,6 @@ button.toggle:focus{
   outline: none;
 }
 
-.left button.toggle{
+.left .right button.toggle{
   color:white;
 }
