@@ -4,11 +4,13 @@ import Config from '../dm.json';
 import List from './List';
 import MetaInfo from './MetaInfo';
 import Actions from './Actions';
+import Search from './Search';
 import Service from '../Service';
 import ViewContent from './ViewContent';
 import Registry from '../ui/Registry';
 import {ContentContext} from '../Context';
-import {FetchWithAuth} from '../utils/util'
+import {FetchWithAuth} from '../utils/util';
+import ReactTooltip from "react-tooltip";
 
 export default class Main extends React.Component<RouteProps, { content: any, list: any }> {
 
@@ -69,8 +71,12 @@ export default class Main extends React.Component<RouteProps, { content: any, li
         }
 
         return (
-            <div className={this.state.content.content_type}>
+            <div className={"contenttype-"+this.state.content.content_type}>
+            <div className="main-top">
+                <Search />
                 <div className="path">{this.state.content.name}</div>
+              </div>
+              <div className="main-main clearfix">
                 {/* side info like meta, tools */}
                 <div className="side">
                     <MetaInfo content={this.state.content} />
@@ -99,6 +105,8 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                 }
                 </div>
                 }
+                </div>
+                <ReactTooltip effect="solid" />                  
             </div>
 
         );

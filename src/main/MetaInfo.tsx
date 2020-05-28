@@ -15,7 +15,7 @@ export default class MetaInfo extends React.Component<{content:any}> {
         <Accordion defaultActiveKey="0">
          <div className="block-title">Metainfo
          <span className="right">
-           <IconToggle className="fas fa-chevron-right" />
+           <IconToggle eventKey="0" className="fas fa-chevron-right" />
          </span>
          </div>
          <div className="block-body">

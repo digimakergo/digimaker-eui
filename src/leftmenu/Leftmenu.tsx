@@ -7,7 +7,8 @@ import { RouteProps, withRouter } from 'react-router';
 import {ContentContext} from '../Context';
 import { Permission } from './Permission';
 import { useState } from 'react';
-import {FetchWithAuth, SetAccessToken} from '../utils/util'
+import {FetchWithAuth, SetAccessToken} from '../utils/util';
+import ReactTooltip from "react-tooltip";
 
 //Whole left menu consising of slidemenu and menulist,
 export default class Leftmenu extends React.Component<{}, { current: any, showSidemenu: boolean, view: any}> {
@@ -81,9 +82,11 @@ const MenuList = (props) => {
                             !menu.type?
                               <Permission access={menu.path}>
                                <div className="menuitem">
+                                <div className="menuitem-head">
                                  <NavLink to={menu.path} activeClassName="selected">
                                    <i className={"far "+menu.icon} /> {menu.name}
                                  </NavLink>
+                                 </div>
                                </div>
                              </Permission>
                             :(()=>{

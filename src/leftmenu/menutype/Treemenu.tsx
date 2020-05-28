@@ -30,21 +30,21 @@ export default class Treemenu extends React.Component<{ config: any }, { data: a
   render() {
     return (
       this.state.data && <div className="menuitem">
-          <Accordion defaultActiveKey="0">
-          <div>
+          <Accordion defaultActiveKey={this.props.config.is_site?"1":"0"}>
+          <div className="menuitem-head">
             <NavLink to={`/main/${this.state.data.id}`} activeClassName="selected">
               <i className={this.props.config.icon}></i> {this.state.data.name}
             </NavLink>
 
             <span className="right">
             {this.props.config.is_site &&
-              <a className="select-site" href="#" data-tip="Site list"><i className="fas fa-list"></i> &nbsp; </a>}
-            <IconToggle className="fas fa-chevron-right" />
+              <a className="select-site" href="#" data-tip="Site list"><i className="fas fa-list"></i></a>}
+              <IconToggle eventKey="1" className="fas fa-chevron-right" open={this.props.config.is_site?true:false} />
+              <ReactTooltip effect="solid" />
             </span>
           </div>
-          <ReactTooltip effect="solid" />
 
-          <Accordion.Collapse eventKey="0">
+          <Accordion.Collapse eventKey="1" className="menuitem-content">
             <TreeNode data={this.state.data} />
           </Accordion.Collapse>
         </Accordion>

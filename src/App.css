@@ -229,7 +229,7 @@ td.content-name span{
 .menuitem{
    border-bottom: 1px solid #464646;
    border-top: 1px solid #6d6d6d;
-   padding:4px 4px 5px 10px
+   /* padding:4px 4px 5px 10px */
 }
 
 .menuitem:hover{
@@ -239,6 +239,10 @@ td.content-name span{
 .menuitem > a{
   display: inline-block;
   width: 100%;
+}
+
+.menuitem-head{
+  padding: 4px 8px;
 }
 
 .logomenu img{
@@ -434,10 +438,13 @@ footer{
   float: right;
 }
 
-.menuitem .treemenu{
+.menuitem-content{
   background: rgb(74, 81, 86);
-  padding: 0px 10px 10px 10px;
-  margin:7px -4px -5px -10px;
+}
+
+.menuitem-content .treemenu{
+  margin-bottom: 0px;
+  padding: 5px 10px 15px 10px;
 }
 
 .column-company_name{
@@ -595,12 +602,13 @@ button.toggle{
   background: none;
   border:none;
   padding:0px;
+  padding: 0px 5px;
 }
 
 button.toggle:focus{
   outline: none;
 }
 
-.left .right button.toggle{
+.menuitem .right button.toggle{
   color:white;
 }
