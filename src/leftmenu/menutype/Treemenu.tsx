@@ -2,7 +2,10 @@ import * as React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import { FetchWithAuth } from '../../utils/util';
 import ReactTooltip from "react-tooltip";
+import Select from 'react-select';
 import TreeNode from '../../ui/TreeNode';
+import { Accordion } from 'react-bootstrap';
+import {IconToggle} from '../../ui/IconToggle';
 
 export default class Treemenu extends React.Component<{ config: any }, { data: any }> {
 
@@ -27,15 +30,24 @@ export default class Treemenu extends React.Component<{ config: any }, { data: a
   render() {
     return (
       this.state.data && <div className="menuitem">
-        <div>
-          <NavLink to={`/main/${this.state.data.id}`} activeClassName="selected">
-            <i className={this.props.config.icon}></i> {this.state.data.name}
-          </NavLink>
-          {this.props.config.is_site && <span className="right">
-            <a href="" data-tip="Select site"><i className="fas fa-wrench"></i></a>&nbsp;</span>}
-            <ReactTooltip effect="solid" />
-        </div>
-        <TreeNode data={this.state.data} />
+          <Accordion defaultActiveKey="0">
+          <div>
+            <NavLink to={`/main/${this.state.data.id}`} activeClassName="selected">
+              <i className={this.props.config.icon}></i> {this.state.data.name}
+            </NavLink>
+
+            <span className="right">
+            {this.props.config.is_site &&
+              <a className="select-site" href="#" data-tip="Site list"><i className="fas fa-list"></i> &nbsp; </a>}
+            <IconToggle className="fas fa-chevron-right" />
+            </span>
+          </div>
+          <ReactTooltip effect="solid" />
+
+          <Accordion.Collapse eventKey="0">
+            <TreeNode data={this.state.data} />
+          </Accordion.Collapse>
+        </Accordion>
       </div>
     );
   }

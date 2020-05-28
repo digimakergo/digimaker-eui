@@ -32,6 +32,16 @@ a:hover, .left a:hover{
  color: rgb(230, 120, 0);
 }
 
+.treemenu a:hover{
+  /* color: #ffd572; */
+}
+
+.treemenu a .tree-text:hover{
+  /* color: rgb(230, 120, 0); */
+  /* text-decoration: underline; */
+}
+
+
 .treemenu{
   padding-left:0px;
 }
@@ -42,7 +52,7 @@ a:hover, .left a:hover{
 
 .treemenu li{
    list-style: none;
-   padding: 3px 5px;
+   padding: 2px 5px;
 }
 
 .treemenu .nodeicon{
@@ -119,11 +129,11 @@ td.content-name span{
 
 }
 
-.block-body{
+.block-body > div{
  padding: 5px 10px 10px 10px;
 }
 
-.block-body > *{
+.block-body > div > *{
    padding: 2px 0px;
 }
 
@@ -140,6 +150,7 @@ td.content-name span{
 
 .content-list-tools{
   float: right;
+  margin-bottom: 6px;
 }
 
 .content-list-tools select{
@@ -207,7 +218,7 @@ td.content-name span{
 }
 
 .treemenu .tree-close > ul{
-  display: none;
+  /* display: none; */
 }
 
 .logomenu{
@@ -553,4 +564,44 @@ footer{
   margin-top:5px;
   margin-right:10px;
   display:inline-block
+}
+
+.select-site{
+  display: inline-block;
+  padding: 2px 8px;
+  margin-right: 5px;
+  border-radius: 4px;
+}
+
+.select-site:hover{
+  background: #333333
+}
+
+.block-title i,{
+    transition: 0.1s ease-in-out;
+    color:white;
+}
+
+.block-title .btn{
+  padding: 0px;
+}
+
+i.open{
+  transform: rotate(90deg);
+}
+
+
+button.toggle{
+  color:inherit;
+  background: none;
+  border:none;
+  padding:0px;
+}
+
+button.toggle:focus{
+  outline: none;
+}
+
+.left button.toggle{
+  color:white;
 }

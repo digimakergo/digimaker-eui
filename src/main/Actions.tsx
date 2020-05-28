@@ -4,6 +4,9 @@ import Moment from 'react-moment';
 import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 import util from '../utils/util';
+import { Accordion, Button } from 'react-bootstrap';
+import {IconToggle} from '../ui/IconToggle';
+
 
 export default class Actions extends React.Component<{content:any}> {
 
@@ -23,8 +26,15 @@ export default class Actions extends React.Component<{content:any}> {
 
     return (
        <div className="tool-block">
-         <div className="block-title">Actions</div>
-         <div className="block-body">
+        <Accordion defaultActiveKey="0">
+         <div className="block-title">Actions
+          <span className="right">
+            <IconToggle className="fas fa-chevron-right" />
+          </span>
+         </div>
+         <div className={"block-body"}>
+         <Accordion.Collapse eventKey="0">
+         <div>
             {newTypes&&
              <div>
              <i className="fas fa-plus"></i> Create &nbsp;
@@ -37,8 +47,6 @@ export default class Actions extends React.Component<{content:any}> {
             }
 
             <ReactTooltip effect="solid" />
-
-
             {newTypes&&<hr />}
 
             {actions&&actions.map( (value:any) => {
@@ -47,8 +55,10 @@ export default class Actions extends React.Component<{content:any}> {
                          <Link to={path} title={value.title}><i className={value.icon?("icon "+value.icon):("fas fa-tools")}></i> {value.name}</Link>
                         </div>)
                 } )}
-
+                </div>
+          </Accordion.Collapse>
          </div>
+         </Accordion>
        </div>
     );
   }
