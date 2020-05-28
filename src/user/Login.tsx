@@ -2,26 +2,7 @@ import * as React from 'react';
 import {Redirect} from 'react-router-dom'
 import Cookies from 'universal-cookie';
 
-let resolves:Array<any> = [];
-let LoginData:any = null;
 const cookies = new Cookies();
-
-    let fetchLogin = async (username,password)=>{
-      return new Promise((resolve, reject) => {
-        return fetch(process.env.REACT_APP_REMOTE_URL + '/auth/auth?username='+ username +'&password='+ password, {method: 'post'})
-        .then(response => {
-          if (response.ok) {
-            LoginData = response.clone().json();
-            resolve(LoginData);
-            resolve(response.clone().json());
-          } else {
-            reject(new Error('error'))
-          }
-        }, error => {
-          reject(new Error(error.message))
-        })
-      })
-    }
 
 
 export default class Login extends React.Component<{}, {username:string, password: string, sending:boolean, error:string, redirect:string}> {
@@ -35,25 +16,22 @@ export default class Login extends React.Component<{}, {username:string, passwor
     e.preventDefault();
     let input = { username: this.state.username, password: this.state.password };
     this.setState({ sending: true });
-    fetchLogin(this.state.username, this.state.password)
-    .then((data:any) => {
-      this.setState({ sending: false });
-      if (data) {
-        window.location.href = process.env.PUBLIC_URL+'/';
-      } else {
-        data.text().then(text => {
-          this.setState({ error: text });
-        });
-      }       
-      let value = data;
-      cookies.set('refreshToken',value.refresh_token)
+    fetch(process.env.REACT_APP_REMOTE_URL + '/auth/auth?username='+ this.state.username +'&password='+ this.state.password, { method: 'post', body: JSON.stringify(input) })
+    .then(this.handleErrors)
+    .then((response) => response.json())
+    .then((res) => {
+      cookies.set('refreshToken',res.refresh_token);
+      window.location.href = process.env.PUBLIC_URL+'/';
     })
     .catch((err) => {
         this.setState({ error: err.toString() });
       });
   }
 
-
+  handleErrors(response) {
+    if (!response.ok) throw new Error(response.status);
+    return response;
+}
 
   updateUsername(e: any) {
     this.setState({ username: e.target.value });
