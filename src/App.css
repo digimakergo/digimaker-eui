@@ -577,7 +577,7 @@ footer{
   background: #333333
 }
 
-button.toggle > i{
+i.foldable{
     transition: 0.1s ease-in-out;
 }
 
