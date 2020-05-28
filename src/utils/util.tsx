@@ -3,6 +3,7 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 const refreshToken = cookies.get('refreshToken')
+
 //todo: move this token into another file(auth).
 let accessToken: any = null; //access token, which is a promise<string>
 
