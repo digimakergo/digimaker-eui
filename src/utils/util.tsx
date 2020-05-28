@@ -1,5 +1,8 @@
-let refreshToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1OTAwODc4NjMsImd1aWQiOiI1MDExOTI4Ni1kMjkzLTQyOWMtODgxYi1hMTcxZGFiYzliNjMiLCJ1c2VyX2lkIjoxfQ.gWt78lq9CFW7s1l7B8_-eroKJ4kLm4W_shMAVIZ4RA8';
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
+
+const refreshToken = cookies.get('refreshToken')
 
 //todo: move this token into another file(auth).
 let accessToken: any = null; //access token, which is a promise<string>
