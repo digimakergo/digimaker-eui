@@ -55,7 +55,7 @@ a:hover, .left a:hover{
    padding: 2px 5px;
 }
 
-.treemenu .nodeicon{
+.nodeicon{
   margin-right: 5px;
 }
 
@@ -76,6 +76,14 @@ a:hover, .left a:hover{
   min-height: 100vh;
 }
 
+.clearfix{
+  clear:both;
+}
+
+.main-main{
+  margin-top: 20px;
+}
+
 .table{
 
 
@@ -86,13 +94,14 @@ a:hover, .left a:hover{
   float: right;
 }
 
-.main .list{
+.main .main-content{
   width: 75%;
+  padding: 0px 10px;
 }
 
 .list h3{
     font-weight: 400;
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 18px;
 }
 
@@ -119,12 +128,13 @@ td.content-name span{
     background: rgba(255, 255, 255, 0.3);
     box-shadow: 1px 1px 3px 0px #e4e3e3;
     border-radius: 3px;
-    border: 1px solid #d8d8d8;
+    border: 1px solid #653d00;
    margin-bottom: 15px;
 }
 
 .block-title{
- background: #f3f3f3;
+ background: #7b4004;
+ color: white;
  padding:4px 6px;
 
 }
@@ -133,7 +143,7 @@ td.content-name span{
  padding: 5px 10px 10px 10px;
 }
 
-.block-body > div > *{
+.block-body > div > div{
    padding: 2px 0px;
 }
 
@@ -160,6 +170,10 @@ td.content-name span{
   font-size: 14px
 }
 
+.content-list-tools a:hover, .content-list-tools a:focus{
+  text-decoration: none;
+}
+
 .left{
   background: #525a5f
 }
@@ -168,9 +182,14 @@ td.content-name span{
  color: #ffffff
 }
 
-.table > tbody > tr:hover{
-  background: #ebfaff;
+.table > tbody > tr:hover > td{
+  /* border-top: 1px solid #c8d5e0;
+  border-bottom: 1px solid #c8d5e0; */
   cursor: default;
+}
+
+.table > tbody > tr:nth-child(2n+1){
+  background: #ecf0f5
 }
 
 .table td{
@@ -186,9 +205,9 @@ td.content-name span{
 
 }
 
-.path{
-    font-size: 20px;
-    margin-top: 10px;
+.main-top h2{
+    font-size: 1.5rem;
+    margin-top: 15px;
     font-weight: 400;
     cursor: default;
 }
@@ -321,7 +340,7 @@ div.loading{
 }
 
 .field-container{
-    border: 1px solid #d2d2d2;
+    border: 1px solid #efefef;
     padding: 10px;
     margin-top: 10px;
     margin-bottom: 5px;
@@ -442,9 +461,21 @@ footer{
   background: rgb(74, 81, 86);
 }
 
-.menuitem-content .treemenu{
+.menuitem-content .treemenu, .listmenu{
   margin-bottom: 0px;
   padding: 5px 10px 15px 10px;
+}
+
+.listmenu > li{
+  padding: 4px 10px;
+}
+
+.listmenu > li:not(:first-child){
+  border-top: 1px solid #6d6d6d;
+}
+
+.listmenu > li:not(:last-child){
+    border-bottom: 1px solid #464646;
 }
 
 .column-company_name{
@@ -455,12 +486,20 @@ footer{
 }
 
 .view-content{
-  width: 75%;
+  background: rgba(149, 198, 204, 0.12);
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #44444461;
 }
 
 
 .view-content .view.field > label{
-  /* width: 10%; */
+  width: 10%;
+}
+
+.view-content .view.field .field-value{
+  font-weight: 300;
+  font-size: 0.9rem;
 }
 
 .view-content.approve-field-container .view.field:hover {
@@ -611,4 +650,18 @@ button.toggle:focus{
 
 .menuitem .right button.toggle{
   color:white;
+}
+
+.field.required label::after{
+  content: "*";
+  color: red;
+}
+
+.field.result-required input{
+   border-color: red;
+   background-color: #f1e7e7;
+}
+
+.go-uppper{
+  font-size: 1.1rem;
 }

@@ -37,6 +37,13 @@
     content: '\f03e'
 }
 
+.icon-folder.images::before{
+    content: '\f302'
+}
+.icon-folder.documents::before{
+    content: '\f15c'
+}
+
 .icon-export::before{
   content:'\f56e'
 }

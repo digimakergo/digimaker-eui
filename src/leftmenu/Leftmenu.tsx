@@ -58,7 +58,8 @@ export default class Leftmenu extends React.Component<{}, { current: any, showSi
                       <a className="logo" href="#" onClick={(e) => { this.showSide(e); }}>
                           <img src={process.env.PUBLIC_URL+"/images/logo.png"} width="28px" />
                       </a>
-                      <Link to="/1" className="profile"> <i className="fas fa-user"></i>&nbsp;{this.state.current.name}</Link></div>
+                      <Link to="/1" className="profile"> <i className="fas fa-user"></i>&nbsp;{this.state.current.name}</Link>
+                  </div>
                   <div>
                       <MenuList content={this.context.data} />
                   </div>

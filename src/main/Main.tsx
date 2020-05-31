@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { RouteProps } from 'react-router';
+import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import Config from '../dm.json';
 import List from './List';
 import MetaInfo from './MetaInfo';
@@ -74,7 +75,12 @@ export default class Main extends React.Component<RouteProps, { content: any, li
             <div className={"contenttype-"+this.state.content.content_type}>
             <div className="main-top">
                 <Search />
-                <div className="path">{this.state.content.name}</div>
+                <h2>
+                  {this.state.content.name}&nbsp;&nbsp;
+                  {(!(contenttype=='folder'&&this.state.content.folder_type=='site'))&&<Link className="go-uppper" title="Go upper" to={'/main/'+this.state.content.parent_id}>
+                  <i className="fas fa-chevron-circle-up"></i>
+                  </Link>}
+                </h2>
               </div>
               <div className="main-main clearfix">
                 {/* side info like meta, tools */}
@@ -88,7 +94,7 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                         return <Com content={this.state.content}/>
                     })}
                 </div>
-
+                <div className="main-content">
                 {/* view content */}
                 {mainConfig&&mainConfig['view']&&<div className="view-content">
                     <ViewContent content={this.state.content} />
@@ -106,7 +112,8 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                 </div>
                 }
                 </div>
-                <ReactTooltip effect="solid" />                  
+                </div>
+                <ReactTooltip effect="solid" />
             </div>
 
         );

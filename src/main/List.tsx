@@ -65,7 +65,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
         || prevProps.id != this.props.id
         || prevProps.contenttype != this.props.contenttype)
       {
-        this.config = Config.list[this.props.contenttype]
+        this.config = Config.list[this.props.contenttype];
         this.fetchData();
       }
     }
