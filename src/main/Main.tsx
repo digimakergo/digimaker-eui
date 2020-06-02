@@ -90,8 +90,7 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                 </ReactTooltip>&nbsp;&nbsp;
                 </div>
               </div>
-              <div className="main-main clearfix">
-
+              <div className="main-main">
                 <div className="main-content">
                 {/* view content */}
                 {mainConfig&&mainConfig['view']&&<div className="view-content">
@@ -110,23 +109,23 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                 </div>
                 }
                 </div>
-                {/* side info like meta, tools */}
-                <div className={"side"+(this.state.sideOpen===true?' open':'')+(this.state.sideOpen===false?' closed':'')}>
+
+                {/* side area for actions */}
+                {mainConfig&&mainConfig['actions']&&<div className={"side"+(this.state.sideOpen===true?' open':'')+(this.state.sideOpen===false?' closed':'')}>
                     <div className="hider"><a href="#" onClick={(e)=>{e.preventDefault();this.setState({sideOpen:!this.state.sideOpen})}}>
                        <i className="fas fa-caret-down"></i>
                     </a></div>
                     <div className="side-body">
-                    {mainConfig&&mainConfig['actions']&&
                       <Actions content={this.state.content} />
-                    }
                     {mainConfig&&mainConfig['tools']&&mainConfig['tools'].map((tool)=>{
                         let Com:React.ReactType = Registry.getComponent( tool );
                         return <Com content={this.state.content}/>
                     })}
                     </div>
                 </div>
+                }
                 </div>
-                <ReactTooltip effect="solid" />
+
             </div>
 
         );
