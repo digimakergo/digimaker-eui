@@ -25,28 +25,22 @@ export default class Actions extends React.Component<{content:any}> {
     let variables = content; //can support more attribute also.
 
     return (
-       <div className="tool-block">
-        <Accordion defaultActiveKey="0">
-         <div className="block-title">Actions
-          <span className="right">
-            <IconToggle eventKey="0" className="fas fa-chevron-right" />
-          </span>
-         </div>
-         <div className={"block-body"}>
-         <Accordion.Collapse eventKey="0">
-         <div>
+         <div >
             {newTypes&&
+             <div className="action-create">
+              <div>Create content</div>
              <div>
-             <i className="fas fa-plus"></i> Create &nbsp;
              {newTypes.map((value)=>{return (
                  <Link to={`/create/${this.props.content.id}/${value}`} data-tip={value}>
                      <i className={"icon icon-"+value}></i> &nbsp;
                  </Link>
                 )})}
+              </div>
+              <ReactTooltip effect="solid" />
              </div>
             }
 
-            <ReactTooltip effect="solid" />
+            <div className="side-actions">
             {newTypes&&<hr />}
 
             {actions&&actions.map( (value:any) => {
@@ -56,10 +50,7 @@ export default class Actions extends React.Component<{content:any}> {
                         </div>)
                 } )}
                 </div>
-          </Accordion.Collapse>
          </div>
-         </Accordion>
-       </div>
     );
   }
 }

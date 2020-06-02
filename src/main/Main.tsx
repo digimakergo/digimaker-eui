@@ -2,6 +2,7 @@ import * as React from 'react';
 import { RouteProps } from 'react-router';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import Config from '../dm.json';
+import Moment from 'react-moment';
 import List from './List';
 import MetaInfo from './MetaInfo';
 import Actions from './Actions';
@@ -13,11 +14,11 @@ import {ContentContext} from '../Context';
 import {FetchWithAuth} from '../utils/util';
 import ReactTooltip from "react-tooltip";
 
-export default class Main extends React.Component<RouteProps, { content: any, list: any }> {
+export default class Main extends React.Component<RouteProps, { content: any, list: any, sideOpen:any }> {
 
     constructor(props: any) {
         super(props);
-        this.state = { content: '', list: '' };
+        this.state = { content: '', list: '', sideOpen: 1 };
     }
 
 
@@ -81,19 +82,16 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                   <i className="fas fa-chevron-circle-up"></i>
                   </Link>}
                 </h2>
+                <div>
+                <i style={{fontSize:'0.85rem'}}>modified by <Link to={"/main/"+this.state.content.author}>{this.state.content.author_name}</Link> <Moment unix format="DD.MM.YYYY HH:mm">{this.state.content.modified}</Moment></i>
+                &nbsp;&nbsp;<a href="#"><i data-tip data-for="metainfo"  className="fas fa-info-circle" style={{fontSize: '1.1rem'}}></i></a>
+                <ReactTooltip id='metainfo' clickable={true} delayHide={500} place="bottom" effect='solid'>
+                  <MetaInfo content={this.state.content} />
+                </ReactTooltip>&nbsp;&nbsp;
+                </div>
               </div>
               <div className="main-main clearfix">
-                {/* side info like meta, tools */}
-                <div className="side">
-                    <MetaInfo content={this.state.content} />
-                    {mainConfig&&mainConfig['actions']&&
-                      <Actions content={this.state.content} />
-                    }
-                    {mainConfig&&mainConfig['tools']&&mainConfig['tools'].map((tool)=>{
-                        let Com:React.ReactType = Registry.getComponent( tool );
-                        return <Com content={this.state.content}/>
-                    })}
-                </div>
+
                 <div className="main-content">
                 {/* view content */}
                 {mainConfig&&mainConfig['view']&&<div className="view-content">
@@ -111,6 +109,21 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                 }
                 </div>
                 }
+                </div>
+                {/* side info like meta, tools */}
+                <div className={"side"+(this.state.sideOpen===true?' open':'')+(this.state.sideOpen===false?' closed':'')}>
+                    <div className="hider"><a href="#" onClick={(e)=>{e.preventDefault();this.setState({sideOpen:!this.state.sideOpen})}}>
+                       <i className="fas fa-caret-down"></i>
+                    </a></div>
+                    <div className="side-body">
+                    {mainConfig&&mainConfig['actions']&&
+                      <Actions content={this.state.content} />
+                    }
+                    {mainConfig&&mainConfig['tools']&&mainConfig['tools'].map((tool)=>{
+                        let Com:React.ReactType = Registry.getComponent( tool );
+                        return <Com content={this.state.content}/>
+                    })}
+                    </div>
                 </div>
                 </div>
                 <ReactTooltip effect="solid" />

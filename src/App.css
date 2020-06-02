@@ -81,7 +81,8 @@ a:hover, .left a:hover{
 }
 
 .main-main{
-  margin-top: 20px;
+  margin-top: 10px;
+  display: flex;
 }
 
 .table{
@@ -89,13 +90,36 @@ a:hover, .left a:hover{
 
 }
 
-.side{
-  width: 24%;
-  float: right;
+.side .side-body{
+  width: 280px;
+  background: #ecf0f4;
+}
+
+.side.open .side-body{
+  animation-name: example1;
+  animation-duration: 0.1s;
+  animation-fill-mode: forwards;
+}
+
+
+.side.closed .side-body{
+  animation-name: example;
+  animation-duration: 0.1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes example {
+  from {margin-right: 0px;opacity: 1}
+  to {margin-right: -300px;opacity: 0}
+}
+
+@keyframes example1 {
+  from {margin-right: -300px;opacity: 0}
+  to {margin-right: 0px;opacity: 1}
 }
 
 .main .main-content{
-  width: 75%;
+  width: 100%;
   padding: 0px 10px;
 }
 
@@ -139,23 +163,17 @@ td.content-name span{
 
 }
 
-.block-body > div{
- padding: 5px 10px 10px 10px;
+.side-body > div{
+ padding: 10px 15px;
 }
 
-.block-body > div > div{
+.side-body > div > div{
    padding: 2px 0px;
 }
 
-.tool-block .block-body{
-}
 
 .block{
   margin-top: 10px;
-}
-
-.tool-block a{
-
 }
 
 .content-list-tools{
@@ -486,10 +504,10 @@ footer{
 }
 
 .view-content{
-  background: rgba(149, 198, 204, 0.12);
+  background: rgba(236, 240, 244, 0.62);
   padding: 10px;
   border-radius: 6px;
-  border: 1px solid #44444461;
+  border: 1px solid #4444441f;
 }
 
 
@@ -526,7 +544,7 @@ footer{
 }
 
 
-.block-body h3{
+ h3{
   font-size: 1em;
   font-weight: normal;
 }
@@ -664,4 +682,51 @@ button.toggle:focus{
 
 .go-uppper{
   font-size: 1.1rem;
+}
+
+.action-body .btn{
+    margin-top: 5px;
+}
+
+.side.closed {
+  /* width: 0px; */
+}
+
+/* .side:hover .hider{
+  display: block;
+  opacity: 1;
+  transition: 0.5s ease-in-out;
+  z-index: 100
+} */
+
+.side .hider{
+  position: absolute;
+  right: 0px;
+  top: 58px;
+  /* z-index: 100; */
+}
+
+.side .hider > a{
+  background: #ecf0f4;
+  color: #193d56bf;
+  font-size: 1.3rem;
+  padding: 3px 6px;
+  border-radius: 5px;
+  padding: 1px 9px;
+}
+
+.side .hider > a:hover{
+  color:#333333;
+}
+
+.side {
+  overflow: hidden;
+}
+
+.side > div > a > i{
+  transition: 0.3s ease-in-out;
+}
+
+.side.closed i{
+  transform: rotate(90deg);
 }
