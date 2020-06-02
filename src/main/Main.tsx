@@ -84,7 +84,7 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                 </h2>
                 <div>
                 <i style={{fontSize:'0.85rem'}}>modified by <Link to={"/main/"+this.state.content.author}>{this.state.content.author_name}</Link> <Moment unix format="DD.MM.YYYY HH:mm">{this.state.content.modified}</Moment></i>
-                &nbsp;&nbsp;<a href="#"><i data-tip data-for="metainfo"  className="fas fa-info-circle" style={{fontSize: '1.1rem'}}></i></a>
+                &nbsp;&nbsp;<a href="#"><i data-tip data-for="metainfo"  className="fas fa-info-circle"></i></a>
                 <ReactTooltip id='metainfo' clickable={true} delayHide={500} place="bottom" effect='solid'>
                   <MetaInfo content={this.state.content} />
                 </ReactTooltip>&nbsp;&nbsp;
