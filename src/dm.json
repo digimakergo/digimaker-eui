@@ -5,18 +5,30 @@
       "icon": "fa-desktop",
       "scope": "site",
       "path": "/main/9",
-      "menu": [{
-          "type": "leftmenu:dashboard",
-          "name": "Dashboard",
-          "path": "/dashboard",
-          "icon": "fas fa-wrench"
-        },
+      "menu": [
         {
           "name": "Sites",
           "type": "leftmenu:treemenu",
           "icon": "fas fa-home",
           "is_site": true,
           "root": 3
+        },
+        {
+          "name": "Resources",
+          "type": "leftmenu:listmenu",
+          "icon": "fas fa-file-alt",
+          "root": 582
+        },
+        {
+          "name": "Kitchen",
+          "type": "leftmenu:listmenu",
+          "icon": "fas fa-utensils",
+          "root": 579
+        },
+        {
+          "name": "Structure",
+          "path": "/content/structure",
+          "icon": "fas fa-sitemap"
         },
         {
           "name": "Trash",
@@ -52,7 +64,7 @@
     }
   ],
   "routes": {
-  
+    "/content/structure":"main:content_structure"
   },
   "main": {
     "folder": {
@@ -61,18 +73,47 @@
         "image:5",
         "user:4"
       ],
-      "actions": [
-        "Preview in frontpage",
-        "Sort",
-        "Copy",
-        "Move",
-        "Delete",
-        "Export"
+      "actions": [{
+          "link": "/edit/{id}",
+          "name": "Edit",
+          "icon": "icon-edit",
+          "title": "Edit the content"
+        },
+        {
+          "com": "action:copy",
+          "icon":"icon-copy",
+          "name": "Copy"
+        },
+        {
+          "link": "move",
+          "icon":"icon-move",
+          "name": "Move"
+        },
+        {
+          "link": "delete",
+          "icon":"icon-delete",
+          "name": "Delete"
+        },
+        {
+          "link": "import",
+          "icon":"icon-import",
+          "name": "Import"
+        },
+        {
+          "link": "export",
+          "icon":"icon-export",
+          "name": "Export"
+        },
+        {
+          "link": "preview",
+          "icon":"icon-preview",
+          "name": "Preview in frontpage"
+        }
       ],
       "new": [
+        "article",
         "folder",
         "frontpage",
-        "article",
         "image"
       ]
     },
@@ -80,12 +121,26 @@
       "list": [
         "frontpage_block"
       ],
-      "actions": [
-        "preview",
-        "copy",
-        "move",
-        "delete",
-        "export"
+      "actions": [{
+          "link": "",
+          "name": "preview"
+        },
+        {
+          "link": "",
+          "name": "copy"
+        },
+        {
+          "link": "",
+          "name": "move"
+        },
+        {
+          "link": "",
+          "name": "delete"
+        },
+        {
+          "link": "",
+          "name": "export"
+        }
       ],
       "new": ""
     },
@@ -97,15 +152,30 @@
       "new": [
         "usergroup",
         "user"
+      ],
+      "actions": [{
+        "link": "/edit/{id}",
+        "title": "Edit this",
+        "name": "Edit"
+      }
       ]
     },
     "article": {
       "view": true,
-      "actions": ["edit"]
+      "actions": [{
+        "link": "/edit/{id}",
+        "title": "Edit this",
+        "name": "Edit"
+      }]
     },
     "user": {
       "view": true,
-      "actions": ["edit"]
+      "actions": [{
+        "link": "/edit/{id}",
+        "com": "action:delete",
+        "title": "Edit this",
+        "name": "Edit"
+      }]
     },
     "report": {
       "view": true,
@@ -122,7 +192,27 @@
       "columns": ["name", "author", "published", "modified"],
       "show_header": true,
       "show_table_header": false,
-      "actions": ["new", "move", "delete", "export", "filter"],
+      "actions": [{
+          "link": "",
+          "name": "preview"
+        },
+        {
+          "link": "",
+          "name": "copy"
+        },
+        {
+          "link": "",
+          "name": "move"
+        },
+        {
+          "link": "",
+          "name": "delete"
+        },
+        {
+          "link": "",
+          "name": "export"
+        }
+      ],
       "row_actions": ["Edit", "Delete"],
       "pagination": 10,
       "row_more": ["export"]
@@ -132,12 +222,34 @@
         ["published", "desc"]
       ],
       "sort": [],
-      "columns": ["name", "author", "published", "modified", "priority"],
+      "columns": ["name", "author_name", "modified", "priority"],
       "show_header": true,
       "show_table_header": false,
-      "actions": ["new", "move", "delete", "export", "filter"],
-      "row_actions": ["Edit", "Delete"],
-      "pagination": 15,
+      "actions": [
+        {
+          "link": "",
+          "name": "copy"
+        },
+        {
+          "link": "",
+          "name": "move"
+        },
+        {
+          "link": "",
+          "name": "delete"
+        }
+      ],
+      "row_actions": [{
+        "link": "/edit/{id}",
+        "icon": "fas fa-edit",
+        "name": "Edit"
+      },
+      {
+        "link": "",
+        "icon": "fas fa-trash",
+        "name": "Delete"
+      }],
+      "pagination": 20,
       "row_more": ["export"]
     },
     "frontpage": {
@@ -148,8 +260,28 @@
       "columns": ["name", "author", "published", "modified"],
       "show_header": true,
       "show_table_header": false,
-      "actions": ["new", "move", "delete", "export", "filter"],
-      "row_actions": ["Edit", "Delete"],
+      "actions": [{
+          "link": "",
+          "name": "preview"
+        },
+        {
+          "link": "",
+          "name": "copy"
+        },
+        {
+          "link": "",
+          "name": "move"
+        },
+        {
+          "link": "",
+          "name": "delete"
+        },
+        {
+          "link": "",
+          "name": "export"
+        }
+      ],
+      "row_actions": [],
       "pagination": 10,
       "row_more": ["export"]
     },
@@ -161,8 +293,28 @@
       "columns": ["name", "author", "published", "modified"],
       "show_header": true,
       "show_table_header": false,
-      "actions": ["new", "move", "delete", "export", "filter"],
-      "row_actions": ["Edit", "Delete"],
+      "actions": [{
+          "link": "",
+          "name": "preview"
+        },
+        {
+          "link": "",
+          "name": "copy"
+        },
+        {
+          "link": "",
+          "name": "move"
+        },
+        {
+          "link": "",
+          "name": "delete"
+        },
+        {
+          "link": "",
+          "name": "export"
+        }
+      ],
+      "row_actions": [],
       "pagination": 10,
       "row_more": ["export"]
     },
@@ -174,7 +326,27 @@
       "columns": ["name", "author", "published", "modified", "priority"],
       "show_header": true,
       "show_table_header": false,
-      "actions": ["new", "move", "delete", "export", "filter"],
+      "actions": [{
+          "link": "",
+          "name": "preview"
+        },
+        {
+          "link": "",
+          "name": "copy"
+        },
+        {
+          "link": "",
+          "name": "move"
+        },
+        {
+          "link": "",
+          "name": "delete"
+        },
+        {
+          "link": "",
+          "name": "export"
+        }
+      ],
       "row_actions": [],
       "pagination": 10,
       "row_more": []
@@ -189,7 +361,7 @@
       "show_table_header": true,
       "actions": [],
       "row_actions": [],
-      "pagination": 20,
+      "pagination": 25,
       "row_more": []
     },
     "report": {

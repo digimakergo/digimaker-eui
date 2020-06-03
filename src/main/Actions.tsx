@@ -4,54 +4,66 @@ import Moment from 'react-moment';
 import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 import util from '../utils/util';
+import Registry from '../ui/Registry';
 import { Accordion, Button } from 'react-bootstrap';
 import {IconToggle} from '../ui/IconToggle';
 
 
 export default class Actions extends React.Component<{content:any}> {
 
+  //render link
+  renderLink(config:any){
+    let content = this.props.content;
+    let variables = content; //can support more attribute also.
+    let path = util.washVariables(config.link, variables); //todo: support component here also
+    return (<div>
+             <Link to={path} title={config.title}>
+             <i className={config.icon?("icon "+config.icon):("fas fa-tools")}></i> {config.name}</Link>
+            </div>)
+  }
+
+
   render () {
     let content = this.props.content;
     var type = content.content_type;
-    var newTypes = [];
-    var actions = [];
     let mainConfig = Config.main[type];
-    if( type && mainConfig )
-    {
-        newTypes = mainConfig["new"];
-        actions = mainConfig["actions"];
-    }
-
-    let variables = content; //can support more attribute also.
+    let actions = mainConfig["actions"];
 
     return (
-         <div >
-            {newTypes&&
-             <div className="action-create">
-              <div>Create content</div>
-             <div>
-             {newTypes.map((value)=>{return (
-                 <Link to={`/create/${this.props.content.id}/${value}`} data-tip={value}>
-                     <i className={"icon icon-"+value}></i> &nbsp;
-                 </Link>
-                )})}
-              </div>
-              <ReactTooltip effect="solid" />
-             </div>
-            }
-
             <div className="side-actions">
-            {newTypes&&<hr />}
-
-            {actions&&actions.map( (value:any) => {
-                let path = util.washVariables(value.link, variables); //todo: support component here also
-                return (<div>
-                         <Link to={path} title={value.title}>
-                         <i className={value.icon?("icon "+value.icon):("fas fa-tools")}></i> {value.name}</Link>
-                        </div>)
-                } )}
-                </div>
-         </div>
+            {actions&&actions.map( (actionConfig:any) => {
+                if(actionConfig['link']){
+                  return this.renderLink(actionConfig);
+                }else if(actionConfig['com']){
+                  return <Action config={actionConfig} content={content} />;
+                }else{
+                  return '';
+                }
+              })
+            }
+            </div>
     );
+  }
+}
+
+
+class Action extends React.Component<{content:any, config:any}, {clickFlag:boolean}>{
+  constructor(props: any) {
+      super(props);
+      this.state={clickFlag:false};
+  }
+
+  //render action component
+  render(){
+        let config = this.props.config;
+        let Com:React.ReactType = Registry.getComponent( config['com'] );
+        if(config.name){
+          return <div>
+                   <a href='#' title={config.title} onClick={(e)=>{e.preventDefault();this.setState({clickFlag:!this.state.clickFlag})}}>
+                    <i className={config.icon?("icon "+config.icon):("fas fa-tools")}></i> {config.name}
+                   </a>
+                  <Com content={this.props.content} changed={this.state.clickFlag}/>
+                 </div>
+        }
   }
 }

@@ -48,8 +48,8 @@ export default class Create extends React.Component<RouteProps, {validation:{}}>
                 <form onSubmit={(e) => this.handleSubmit(e)}>
                     <div className="form-tool">
                         <div className="form-actions">
-                            <div className="block-title">Actions</div>
-                            <div className="block-body">
+                            <div className="action-title">Actions</div>
+                            <div className="action-body">
                                 <div>
                                     <button type="submit" className="btn btn-primary btn-sm"><i className="fas fa-paper-plane"></i> Submit</button>
                                 </div>

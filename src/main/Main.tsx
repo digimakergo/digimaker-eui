@@ -116,11 +116,19 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                        <i className="fas fa-caret-down"></i>
                     </a></div>
                     <div className="side-body">
+                         {mainConfig['new']&&<div className="action-create">
+                          <div>Create content</div>
+                         <div>
+                         {mainConfig['new'].map((value)=>{return (
+                             <Link to={`/create/${this.state.content.id}/${value}`} data-tip={value}>
+                                 <i className={"icon icon-"+value}></i> &nbsp;
+                             </Link>
+                            )})}
+                            <ReactTooltip effect="solid" />
+                          </div>
+                         </div>}
+                        {mainConfig['new']&&<hr />}
                       <Actions content={this.state.content} />
-                    {mainConfig&&mainConfig['tools']&&mainConfig['tools'].map((tool)=>{
-                        let Com:React.ReactType = Registry.getComponent( tool );
-                        return <Com content={this.state.content}/>
-                    })}
                     </div>
                 </div>
                 }

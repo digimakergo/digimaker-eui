@@ -163,12 +163,8 @@ td.content-name span{
 
 }
 
-.side-body > div{
+.side-body{
  padding: 10px 15px;
-}
-
-.side-body > div > div{
-   padding: 2px 0px;
 }
 
 
@@ -747,4 +743,8 @@ button.toggle:focus{
 
 .action-menu > div:hover{
   background: #f0f0f0;
+}
+
+.hide{
+  display: none;
 }
