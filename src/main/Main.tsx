@@ -128,7 +128,11 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                           </div>
                          </div>}
                         {mainConfig['new']&&<hr />}
-                      <Actions content={this.state.content} />
+                      {Config.main[contenttype].actions&&
+                        <div className="actions">
+                          <Actions content={this.state.content} actionsConfig={Config.main[contenttype].actions} />
+                        </div>
+                      }
                     </div>
                 </div>
                 }

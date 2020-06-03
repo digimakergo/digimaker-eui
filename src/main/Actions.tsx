@@ -9,7 +9,7 @@ import { Accordion, Button } from 'react-bootstrap';
 import {IconToggle} from '../ui/IconToggle';
 
 
-export default class Actions extends React.Component<{content:any}> {
+export default class Actions extends React.Component<{content:any, actionsConfig:any}> {
 
   //render link
   renderLink(config:any){
@@ -25,13 +25,13 @@ export default class Actions extends React.Component<{content:any}> {
 
   render () {
     let content = this.props.content;
-    var type = content.content_type;
-    let mainConfig = Config.main[type];
-    let actions = mainConfig["actions"];
+    let actions = this.props.actionsConfig;
 
-    return (
-            <div className="side-actions">
-            {actions&&actions.map( (actionConfig:any) => {
+    if( !actions ){
+      return '';
+    }
+
+    return (actions.map( (actionConfig:any) => {
                 if(actionConfig['link']){
                   return this.renderLink(actionConfig);
                 }else if(actionConfig['com']){
@@ -39,10 +39,7 @@ export default class Actions extends React.Component<{content:any}> {
                 }else{
                   return '';
                 }
-              })
-            }
-            </div>
-    );
+              }));
   }
 }
 

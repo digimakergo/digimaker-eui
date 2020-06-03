@@ -148,7 +148,6 @@
       "list": [
         "user"
       ],
-      "actions": [],
       "new": [
         "usergroup",
         "user"
@@ -213,7 +212,7 @@
           "name": "export"
         }
       ],
-      "row_actions": ["Edit", "Delete"],
+      "row_actions": [],
       "pagination": 10,
       "row_more": ["export"]
     },
@@ -245,7 +244,7 @@
         "name": "Edit"
       },
       {
-        "link": "",
+        "link": "#",
         "icon": "fas fa-trash",
         "name": "Delete"
       }],
