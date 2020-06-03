@@ -730,3 +730,21 @@ button.toggle:focus{
 .side.closed i{
   transform: rotate(90deg);
 }
+
+.action-menu{
+    position: absolute;
+    background: white;
+    padding: 5px;
+    border: 1px solid #f0f0f0;
+    transition: 0.3s ease-in-out;
+    box-shadow: 2px 1px 4px #dedede
+}
+
+.action-menu > div{
+    padding: 5px;
+    font-size: 0.85rem;
+}
+
+.action-menu > div:hover{
+  background: #f0f0f0;
+}

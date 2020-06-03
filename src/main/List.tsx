@@ -2,7 +2,8 @@ import * as React from 'react';
 import Moment from 'react-moment';
 import Config from '../dm.json';
 import Create from '../actions/Create';
-import {FetchWithAuth} from '../utils/util'
+import {FetchWithAuth} from '../utils/util';
+import ListRowActions from './ListRowActions';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 export default class List extends React.Component<{ id: number, contenttype: string }, { content: any, loading:boolean, list: any, actionNew: boolean, currentPage:number, sortby: Array<Array<string>> }> {
@@ -97,14 +98,8 @@ export default class List extends React.Component<{ id: number, contenttype: str
                   }
               })}
 
-            {this.config['row_actions'].length>0&&<td className="list-row-tool">
-            {this.config.row_actions.map( (action) =>{
-                return (<a href="/content/delete/76" className="action" title={action}><i className={"far icon-"+action}></i></a>)
-            } )}
-            {this.config.row_more.length>0&&
-             <a href="#" className="action" title="More"><i className="fas fa-ellipsis-h"></i></a>
-             }
-            </td>}</tr>)
+
+            {this.config['row_actions'].length>0&&<td className="list-row-tool"><ListRowActions content={content} config={this.config['row_actions']} /></td>}</tr>)
         }
         return rows;
     }
@@ -123,7 +118,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
                   let sortOrder = this.state.sortby[0][0] == column? this.state.sortby[0][1]:'';
                   return (<th>{sortable?<a href="#" onClick={(e)=>{this.sort(e, column);}} className={"column-sortable "+sortOrder}>{column}</a>:column}</th>) //todo: use name from definition.
                 } )}
-                {this.config['row_actions'].length>0&&<th>Actions</th>}
+                {this.config['row_actions'].length>0&&<th></th>}
                 </tr>}
               {this.renderRows(data)}
               </tbody>
