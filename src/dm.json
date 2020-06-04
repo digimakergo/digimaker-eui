@@ -90,7 +90,7 @@
           "name": "Move"
         },
         {
-          "link": "delete",
+          "com": "action:delete",
           "icon":"icon-delete",
           "name": "Delete"
         },
@@ -236,7 +236,7 @@
           "name": "move"
         },
         {
-          "com": "action:copy",
+          "com": "action:delete",
           "icon": "fas fa-trash",
           "name": "delete"
         }

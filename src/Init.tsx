@@ -13,6 +13,7 @@ import Treemenu from './leftmenu/menutype/Treemenu'
 import Listmenu from './leftmenu/menutype/Listmenu'
 import Structure from './main/content/Structure'
 import Copy from './actions/Copy';
+import Delete from './actions/Delete';
 
 
 //Registry.register( 'edit', 'before', CommentOnEdit );
@@ -24,3 +25,4 @@ Registry.register( 'leftmenu', 'listmenu', Listmenu );
 Registry.register( 'main', 'content_structure', Structure );
 
 Registry.register( 'action', 'copy', Copy );
+Registry.register( 'action', 'delete', Delete );

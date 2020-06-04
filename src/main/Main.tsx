@@ -72,6 +72,9 @@ export default class Main extends React.Component<RouteProps, { content: any, li
           });
         }
 
+        let selected = {};
+        selected[this.state.content.id] = this.state.content.name;
+
         return (
             <div className={"contenttype-"+this.state.content.content_type}>
             <div className="main-top">
@@ -130,7 +133,7 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                         {mainConfig['new']&&<hr />}
                       {Config.main[contenttype].actions&&
                         <div className="actions">
-                          <Actions content={this.state.content} actionsConfig={Config.main[contenttype].actions} />
+                          <Actions content={this.state.content} selected={selected} actionsConfig={Config.main[contenttype].actions} />
                         </div>
                       }
                     </div>

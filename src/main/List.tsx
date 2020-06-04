@@ -26,6 +26,12 @@ export default class List extends React.Component<{ id: number, contenttype: str
        return arr.join('%3B');
     }
 
+    //callback after an action is done.
+    afterAction(refresh:boolean){
+      if(refresh){
+        this.refresh();
+      }
+    }
 
     fetchData() {
         let id = this.props.id;
@@ -35,7 +41,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
         if(  pagination!= -1 ){
             limit = "&limit="+pagination+"&offset="+pagination*this.state.currentPage
         }
-        this.setState({loading: true});
+        this.setState({loading: true, selected:[]});
         FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/list/' + id+'/'+this.props.contenttype+'?'+sortby+limit)
             .then(res => res.json())
             .then((data) => {
@@ -79,26 +85,25 @@ export default class List extends React.Component<{ id: number, contenttype: str
 
     select(id){
       let selected = this.state.selected;
-      let newSelected = selected;
-      if(selected.includes(id)){
-          let index = selected.indexOf(id);
-          newSelected.splice(index, 1);
+      if(selected[id]){
+          delete selected[id];
       }else{
-        newSelected.push(id);
+        let content = this.state.list.list.find((value)=>{return value.id==id});
+        selected[id]=content.name;
       }
-      this.setState({selected:newSelected});
+      this.setState({selected:selected});
     }
 
     selectAll(){
       let list = this.state.list.list;
-      let ids:Array<number> = [];
+      let selected:any={};
       for(let value of list){
         let id = value.id;
-        if( !this.state.selected.includes(id) ){
-            ids.push(value.id);
+        if( !this.state.selected[id] ){
+            selected[value.id]=value.name;
         }
       };
-      this.setState({selected: ids});
+      this.setState({selected: selected});
     }
 
     renderRows(list) {
@@ -106,7 +111,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
         for (let i = 0; i < list.length; i++) {
             let content = list[i]
             rows.push(<tr>
-              <td onClick={()=>this.select(content.id)}><input type="checkbox" checked={this.state.selected.includes(content.id)} value="1" /></td>
+              <td onClick={()=>this.select(content.id)}><input type="checkbox" checked={this.state.selected[content.id]?true:false} value="1" /></td>
               <td onClick={()=>this.select(content.id)}>{content.id}</td>
               {this.config.columns.map((column)=>{
                   switch(column){
@@ -135,13 +140,12 @@ export default class List extends React.Component<{ id: number, contenttype: str
     }
 
     renderList(data) {
-
         let totalPage = Math.ceil( this.state.list.count/this.config.pagination);
         return (<div>
             {this.config.show_header&&<h3>{this.props.contenttype}({this.state.list.count})</h3>}
             <table className="table"><tbody>
               {this.config['show_table_header']&&<tr>
-                <th><input type="checkbox" title="Select all"/></th>
+                <th><input type="checkbox" title="Select"/></th>
                 <th><a href="#" onClick={(e)=>{this.sort(e, 'id');}} className={'column-sortable '+(this.state.sortby[0][0] == 'id'? this.state.sortby[0][1]:'')}>ID</a></th>
                 {this.config.columns.map( (column)=>{
                   let sortable = this.config.sort.indexOf( column )!=-1;
@@ -187,8 +191,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
                           </a>
                      }
                     {/*todo: give message if it's not selected(may depend on setting) */}
-                    <Actions content={this.state.content} selected={this.state.selected} actionsConfig={this.config.actions} afterAction={()=>this.refresh()} />
-
+                    <Actions selected={this.state.selected} actionsConfig={this.config.actions} afterAction={(refresh:boolean)=>this.afterAction(refresh)} />
                     {!this.config.show_table_header&&
                     <span>
                         <i className="fas fa-sort-alpha-up"></i> &nbsp;
@@ -198,6 +201,8 @@ export default class List extends React.Component<{ id: number, contenttype: str
                         </select>
                     </span>
                   }
+                  &nbsp;&nbsp;<a href="#" title="Thumbnail"><i className="fas fa-th"></i></a>
+
                 </div>
                 {this.renderList(this.state.list.list)}
             </div>
