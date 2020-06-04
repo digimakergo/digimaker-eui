@@ -92,11 +92,12 @@ export default class List extends React.Component<{ id: number, contenttype: str
     selectAll(){
       let list = this.state.list.list;
       let ids:Array<number> = [];
-      if( this.state.selected.length < list.length ){
-        for(let value of list){
-          ids.push(value.id);
-        };
-      }
+      for(let value of list){
+        let id = value.id;
+        if( !this.state.selected.includes(id) ){
+            ids.push(value.id);
+        }
+      };
       this.setState({selected: ids});
     }
 
@@ -105,8 +106,8 @@ export default class List extends React.Component<{ id: number, contenttype: str
         for (let i = 0; i < list.length; i++) {
             let content = list[i]
             rows.push(<tr>
-              <td><input type="checkbox" checked={this.state.selected.includes(content.id)} value="1" onClick={()=>this.select(content.id)} /></td>
-              <td>{content.id}</td>
+              <td onClick={()=>this.select(content.id)}><input type="checkbox" checked={this.state.selected.includes(content.id)} value="1" /></td>
+              <td onClick={()=>this.select(content.id)}>{content.id}</td>
               {this.config.columns.map((column)=>{
                   switch(column){
                     case 'name':
