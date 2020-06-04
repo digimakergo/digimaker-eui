@@ -60,14 +60,12 @@ export default class Copy extends React.Component<{from:any, changed:boolean, se
       </Modal.Header>
       <Modal.Body>
         {this.state.error&&<div className="alert alert-error">{this.state.error}</div>}
-        <p>
-          Are you sure to delete(including children)?
+          <h4>Are you sure to delete(including children)?</h4>
           <ul>
           {Object.keys(this.props.selected).map((id)=>{
             return <li>{this.props.selected[id]}</li>
               })}
           </ul>
-        </p>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={()=>this.submit()} variant="danger">Delete</Button>

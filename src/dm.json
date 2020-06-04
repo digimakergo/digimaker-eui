@@ -165,7 +165,13 @@
         "link": "/edit/{id}",
         "title": "Edit this",
         "name": "Edit"
-      }]
+      },
+      {
+        "com": "action:delete",
+        "icon": "fas fa-trash",
+        "name": "delete"
+      }
+    ]
     },
     "user": {
       "view": true,
