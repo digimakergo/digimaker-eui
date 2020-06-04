@@ -748,3 +748,8 @@ button.toggle:focus{
 .hide{
   display: none;
 }
+
+.content-list-tools > .action-item{
+  display: inline-block;
+  margin-right: 0.5rem;
+}

@@ -9,16 +9,16 @@ import { Accordion, Button } from 'react-bootstrap';
 import {IconToggle} from '../ui/IconToggle';
 
 
-export default class Actions extends React.Component<{content:any, actionsConfig:any}> {
+export default class Actions extends React.Component<{content:any, actionsConfig:any, selected?:any, afterAction?:any}> {
 
   //render link
   renderLink(config:any){
     let content = this.props.content;
     let variables = content; //can support more attribute also.
     let path = util.washVariables(config.link, variables); //todo: support component here also
-    return (<div>
+    return (<div className="action-item">
              <Link to={path} title={config.title}>
-             <i className={config.icon?("icon "+config.icon):("fas fa-tools")}></i> {config.name}</Link>
+             <i className={config.icon?("icon "+config.icon):("fas fa-tools")}></i> {config.name?config.name:''}</Link>
             </div>)
   }
 
@@ -35,7 +35,7 @@ export default class Actions extends React.Component<{content:any, actionsConfig
                 if(actionConfig['link']){
                   return this.renderLink(actionConfig);
                 }else if(actionConfig['com']){
-                  return <Action config={actionConfig} content={content} />;
+                  return <Action config={actionConfig} content={content} selected={this.props.selected} />;
                 }else{
                   return '';
                 }
@@ -44,7 +44,7 @@ export default class Actions extends React.Component<{content:any, actionsConfig
 }
 
 
-class Action extends React.Component<{content:any, config:any}, {clickFlag:boolean}>{
+class Action extends React.Component<{content:any, config:any, selected?:any}, {clickFlag:boolean}>{
   constructor(props: any) {
       super(props);
       this.state={clickFlag:false};
@@ -55,11 +55,11 @@ class Action extends React.Component<{content:any, config:any}, {clickFlag:boole
         let config = this.props.config;
         let Com:React.ReactType = Registry.getComponent( config['com'] );
         if(config.name){
-          return <div>
+          return <div className="action-item">
                    <a href='#' title={config.title} onClick={(e)=>{e.preventDefault();this.setState({clickFlag:!this.state.clickFlag})}}>
                     <i className={config.icon?("icon "+config.icon):("fas fa-tools")}></i> {config.name}
                    </a>
-                  <Com content={this.props.content} changed={this.state.clickFlag}/>
+                  <Com content={this.props.content} selected={this.props.selected} changed={this.state.clickFlag}/>
                  </div>
         }
   }

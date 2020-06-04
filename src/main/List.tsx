@@ -4,16 +4,17 @@ import Config from '../dm.json';
 import Create from '../actions/Create';
 import {FetchWithAuth} from '../utils/util';
 import ListRowActions from './ListRowActions';
+import Actions from './Actions';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-export default class List extends React.Component<{ id: number, contenttype: string }, { content: any, loading:boolean, list: any, actionNew: boolean, currentPage:number, sortby: Array<Array<string>> }> {
+export default class List extends React.Component<{ id: number, contenttype: string }, { content: any, loading:boolean, list: any, actionNew: boolean, currentPage:number, sortby: Array<Array<string>>, selected: Array<number> }> {
 
    private config: any
 
     constructor(props: any) {
         super(props);
         this.config = Config.list[this.props.contenttype]
-        this.state = { content: '', list: '', loading: true, actionNew: false, currentPage: 0, sortby:this.config['sort_default']};
+        this.state = { content: '', list: '', loading: true, actionNew: false, currentPage: 0, sortby:this.config['sort_default'], selected:[]};
     }
 
 
@@ -71,12 +72,36 @@ export default class List extends React.Component<{ id: number, contenttype: str
       }
     }
 
+
+    select(id){
+      let selected = this.state.selected;
+      let newSelected = selected;
+      if(selected.includes(id)){
+          let index = selected.indexOf(id);
+          newSelected.splice(index, 1);
+      }else{
+        newSelected.push(id);
+      }
+      this.setState({selected:newSelected});
+    }
+
+    selectAll(){
+      let list = this.state.list.list;
+      let ids:Array<number> = [];
+      if( this.state.selected.length < list.length ){
+        for(let value of list){
+          ids.push(value.id);
+        };
+      }
+      this.setState({selected: ids});
+    }
+
     renderRows(list) {
         let rows: Array<any> = [];
         for (let i = 0; i < list.length; i++) {
-            var content = list[i]
+            let content = list[i]
             rows.push(<tr>
-              <td><input type="checkbox" /></td>
+              <td><input type="checkbox" checked={this.state.selected.includes(content.id)} value="1" onClick={()=>this.select(content.id)} /></td>
               <td>{content.id}</td>
               {this.config.columns.map((column)=>{
                   switch(column){
@@ -143,8 +168,6 @@ export default class List extends React.Component<{ id: number, contenttype: str
         this.setState({ actionNew: true });
     }
 
-
-
     render() {
         if( !this.state.list ){
             return (<div className="loading"></div>);
@@ -152,22 +175,16 @@ export default class List extends React.Component<{ id: number, contenttype: str
         return (
             <div>
                 <div className="content-list-tools">
-                  {/*
-                     <Link to={`/create/${this.props.id}/article`} className="btn btn-link btn-sm">
-                        <i className="fas fa-plus-square"></i> New
-                     </Link> */}
-
                      {!this.config.show_table_header&&
-                       <a href="/content/new/frontpage/1" className="btn btn-link btn-sm">
-                          <input type="checkbox" value="" />
-                          &nbsp;All
-                       </a>
+                          <label>
+                            <input id='selectall' type="checkbox" value="" onClick={(e)=>{this.selectAll()}} />
+                            Select all
+                          </label>
                      }
-                    {this.config.actions.map((action)=>{
-                        return (<a href="#" className="btn btn-link btn-sm" title={action.name}>
-                          <i className={"icon icon-"+action.name}></i>
-                          {action.name}</a>)
-                    })}
+                    <Actions content={this.state.content} selected={this.state.selected} actionsConfig={this.config.actions} afterAction={()=>{
+                      console.log('after action');
+                    }} />
+
                     {!this.config.show_table_header&&
                     <span>
                         <i className="fas fa-sort-alpha-up"></i> &nbsp;

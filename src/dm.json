@@ -226,15 +226,18 @@
       "show_table_header": false,
       "actions": [
         {
-          "link": "",
+          "com": "action:copy",
+          "icon": "icon icon-copy",
           "name": "copy"
         },
         {
-          "link": "",
+          "com": "action:copy",
+          "icon": "icon icon-move",
           "name": "move"
         },
         {
-          "link": "",
+          "com": "action:copy",
+          "icon": "fas fa-trash",
           "name": "delete"
         }
       ],
