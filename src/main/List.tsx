@@ -43,6 +43,10 @@ export default class List extends React.Component<{ id: number, contenttype: str
             })
     }
 
+    refresh(){
+      this.fetchData();
+    }
+
     //sort by column
     sort(e, column){
       e.preventDefault();
@@ -155,7 +159,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
               <a href="#" className="page-previous" onClick={(e)=>{e.preventDefault();if(this.state.currentPage>0){this.setState({currentPage: this.state.currentPage-1});}}}><i className="fas fa-chevron-left"></i></a>
               <a href="#" className="page-next" onClick={(e)=>{e.preventDefault();if(this.state.currentPage<totalPage-1){this.setState({currentPage: this.state.currentPage+1});}}}><i className="fas fa-chevron-right"></i></a>
               <a href="#" className="page-last" onClick={(e)=>{e.preventDefault();this.setState({currentPage: totalPage-1});}}><i className="fas fa-step-forward"></i></a>
-              <a href="#" title="Reload data" onClick={(e)=>{e.preventDefault();this.fetchData();}}><i className="fas fa-sync"></i></a>
+              <a href="#" title="Reload data" onClick={(e)=>{e.preventDefault();this.refresh()}}><i className="fas fa-sync"></i></a>
 
               <span className="pagination-info">Page {this.state.currentPage+1} of {totalPage} from total {this.state.list.count}</span>
               </span>
@@ -181,9 +185,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
                             Select all
                           </label>
                      }
-                    <Actions content={this.state.content} selected={this.state.selected} actionsConfig={this.config.actions} afterAction={()=>{
-                      console.log('after action');
-                    }} />
+                    <Actions content={this.state.content} selected={this.state.selected} actionsConfig={this.config.actions} afterAction={()=>this.refresh()} />
 
                     {!this.config.show_table_header&&
                     <span>
