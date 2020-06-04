@@ -181,10 +181,10 @@ export default class List extends React.Component<{ id: number, contenttype: str
             <div>
                 <div className="content-list-tools">
                      {!this.config.show_table_header&&
-                          <label>
-                            <input id='selectall' type="checkbox" value="" onClick={(e)=>{this.selectAll()}} />
-                            Select all
-                          </label>
+                          <a href="#" onClick={(e)=>{e.preventDefault();this.selectAll()}}>
+                            <i className="fas fa-check-square"></i>
+                            Select
+                          </a>
                      }
                     <Actions content={this.state.content} selected={this.state.selected} actionsConfig={this.config.actions} afterAction={()=>this.refresh()} />
 
