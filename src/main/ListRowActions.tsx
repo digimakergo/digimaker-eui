@@ -27,7 +27,7 @@ export default class ListRowActions extends React.Component<{content:any,config:
     return <div>
     <a href="#" className="action" title="Actions" onClick={(e)=>this.click(e)}><i className="fas fa-ellipsis-h"></i></a>
     <div className={'action-menu '+(this.state.menuShown?'':'hide')}>
-      <Actions content={this.props.content} actionsConfig={config} />
+      <Actions from={this.props.content} actionsConfig={config} />
     </div>
     </div>
   }

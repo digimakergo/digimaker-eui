@@ -753,3 +753,7 @@ button.toggle:focus{
   display: inline-block;
   margin-right: 0.5rem;
 }
+
+.action-create i{
+  font-size: 1.1rem;
+}

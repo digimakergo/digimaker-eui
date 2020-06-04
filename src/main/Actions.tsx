@@ -9,11 +9,11 @@ import { Accordion, Button } from 'react-bootstrap';
 import {IconToggle} from '../ui/IconToggle';
 
 
-export default class Actions extends React.Component<{actionsConfig:any, content?:any, selected?:any, afterAction?:any}> {
+export default class Actions extends React.Component<{actionsConfig:any, from?:any, selected?:any, afterAction?:any}> {
 
   //render link
   renderLink(config:any){
-    let content = this.props.content;
+    let content = this.props.from;
     let variables = content; //can support more attribute also.
     let path = util.washVariables(config.link, variables); //todo: support component here also
     return (<div className="action-item">
@@ -24,7 +24,7 @@ export default class Actions extends React.Component<{actionsConfig:any, content
 
 
   render() {
-    let content = this.props.content;
+    let content = this.props.from;
     let actions = this.props.actionsConfig;
 
     if( !actions ){
@@ -35,7 +35,7 @@ export default class Actions extends React.Component<{actionsConfig:any, content
                 if(actionConfig['link']){
                   return this.renderLink(actionConfig);
                 }else if(actionConfig['com']){
-                  return <Action config={actionConfig} content={content} afterAction={this.props.afterAction} selected={this.props.selected} />;
+                  return <Action config={actionConfig} from={content} afterAction={this.props.afterAction} selected={this.props.selected} />;
                 }else{
                   return '';
                 }
@@ -44,7 +44,7 @@ export default class Actions extends React.Component<{actionsConfig:any, content
 }
 
 //One action
-class Action extends React.Component<{content:any, config:any, selected?:any, afterAction?:any}, {clickFlag:boolean}>{
+class Action extends React.Component<{from:any, config:any, selected?:any, afterAction?:any}, {clickFlag:boolean}>{
   constructor(props: any) {
       super(props);
       this.state={clickFlag:false}; //todo: change it to be better way to communicate between components.
@@ -59,7 +59,7 @@ class Action extends React.Component<{content:any, config:any, selected?:any, af
                    <a href='#' title={config.title} onClick={(e)=>{e.preventDefault();this.setState({clickFlag:!this.state.clickFlag})}}>
                     <i className={config.icon?("icon "+config.icon):("fas fa-tools")}></i> {config.name}
                    </a>
-                  <Com content={this.props.content} selected={this.props.selected} changed={this.state.clickFlag} afterAction={this.props.afterAction} />
+                  <Com from={this.props.from} selected={this.props.selected} changed={this.state.clickFlag} afterAction={this.props.afterAction} />
                  </div>
         }
   }

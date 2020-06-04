@@ -3,7 +3,7 @@ import {FetchWithAuth} from '../utils/util';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-export default class Copy extends React.Component<{content:any, changed:boolean, selected?:any, afterAction:any}, {triggered:boolean, shown:boolean, error:string}> {
+export default class Copy extends React.Component<{from:any, changed:boolean, selected?:any, afterAction:any}, {triggered:boolean, shown:boolean, error:string}> {
   constructor(props: any) {
       super(props);
       this.state = {triggered: props.changed, shown:true, error:''};
@@ -29,7 +29,11 @@ export default class Copy extends React.Component<{content:any, changed:boolean,
         .then(res=>res.text())
         .then((text)=>{
           if( text == 1 ){
-            this.props.afterAction(true);
+            let jumpToParent = false;
+            if(ids.length == 1 && this.props.from && this.props.from.id == ids[0]){
+              jumpToParent = true;
+            }
+            this.props.afterAction(true, jumpToParent);
             this.close();
           }else{
             this.setState({error:text});

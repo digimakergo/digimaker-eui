@@ -47,6 +47,12 @@ export default class Main extends React.Component<RouteProps, { content: any, li
       }
     }
 
+    afterAction(refresh:boolean, jumpToParent: boolean){
+      if(jumpToParent){
+        window.location.href = '/main/'+this.state.content.parent_id; //todo: use better way for redirection.
+      }
+    }
+
     render() {
         if( !this.state.content )
         {
@@ -120,7 +126,7 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                     </a></div>
                     <div className="side-body">
                          {mainConfig['new']&&<div className="action-create">
-                          <div>Create content</div>
+                          <label>Create content</label>
                          <div>
                          {mainConfig['new'].map((value)=>{return (
                              <Link to={`/create/${this.state.content.id}/${value}`} data-tip={value}>
@@ -133,7 +139,8 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                         {mainConfig['new']&&<hr />}
                       {Config.main[contenttype].actions&&
                         <div className="actions">
-                          <Actions content={this.state.content} selected={selected} actionsConfig={Config.main[contenttype].actions} />
+                          <Actions from={this.state.content} selected={selected} actionsConfig={Config.main[contenttype].actions}
+                            afterAction={(refresh:boolean, jumpToParent:boolean)=>this.afterAction(refresh, jumpToParent)} />
                         </div>
                       }
                     </div>
