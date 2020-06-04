@@ -119,7 +119,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
                     case 'modified':
                       return <td><Moment unix format="DD.MM.YYYY HH:mm">{content.modified}</Moment></td>
                     case 'priority':
-                      return (<td>{content[column]}</td>)
+                      return (<td title="Priority">{content[column]?content[column]:''}</td>)
                     case 'status':
                         return (<td><span className={"workflow-status status-"+content.status}></span></td>)
                     default:
@@ -186,6 +186,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
                             Select
                           </a>
                      }
+                    {/*todo: give message if it's not selected(may depend on setting) */}
                     <Actions content={this.state.content} selected={this.state.selected} actionsConfig={this.config.actions} afterAction={()=>this.refresh()} />
 
                     {!this.config.show_table_header&&
