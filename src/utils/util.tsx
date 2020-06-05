@@ -88,7 +88,7 @@ export function getCommonFieldName(identifier:string) {
       result = 'Published';
       break;
     case 'priority':
-      result = 'Priority';
+      result = 'P';
       break;
     default:
       break;

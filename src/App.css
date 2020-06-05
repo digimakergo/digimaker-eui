@@ -130,9 +130,8 @@ a:hover, .left a:hover{
 }
 
 td.content-name{
-  width: 35%;
+  width: 30%;
   max-width:10px;
-
 }
 
 .pre-wrap{
@@ -783,23 +782,23 @@ tr.empty-row td{
   text-align: center;
 }
 
-.fieldtype-image{
+.fieldtype-image > img{
   max-width: 300px;
   max-height: 100px;
 }
 
 
-.list .fieldtype-image{
+.list .fieldtype-image > img{
   max-width: 100px;
   max-height: 25px;
   cursor: pointer;
 }
 
-.list td > span > .fieldtype-image:hover{
-  
+.list .fieldtype-image:hover > img{
+  filter: blur(1px);
 }
 
-.tooltip .fieldtype-image{
+.tooltip .fieldtype-image > img{
   max-width: 300px;
   max-height: 100px;
 }
