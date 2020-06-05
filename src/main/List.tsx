@@ -56,12 +56,30 @@ export default class List extends React.Component<{ id: number, contenttype: str
     //sort by column
     sort(e, column){
       e.preventDefault();
-      let sortby1 = this.state.sortby;
-      let order = 'asc';
-      if( sortby1[0][0] == column ){
-          order = sortby1[0][1]=='desc'?'asc':'desc';
+      let sortby = this.state.sortby;
+      let newSortBy:Array<Array<any>> =[];
+
+      //create new sort or change sort based on column
+      let createSort = (sort?:any)=>{
+        let order = 'asc';
+        if( sort && sort[0] == column ){
+            order = sort[1]=='desc'?'asc':'desc';
+        }
+        return [column, order];
       }
-      this.setState({sortby:[[column, order]]});
+
+      //if there is swift key, keep the first sort
+      if( e.shiftKey && sortby.length >=1 ){
+        if(sortby.length == 2){
+          newSortBy[0] = sortby[0];
+          newSortBy[1] = createSort(sortby[1]);
+        }else if(sortby.length == 1){
+          newSortBy = [sortby[0],createSort()];
+        }
+      }else{
+        newSortBy = [createSort(sortby?sortby[0]:null)]
+      }
+      this.setState({sortby:newSortBy});
     }
 
     //when init
@@ -111,8 +129,8 @@ export default class List extends React.Component<{ id: number, contenttype: str
         for (let i = 0; i < list.length; i++) {
             let content = list[i]
             rows.push(<tr>
-              <td onClick={()=>this.select(content.id)}><input type="checkbox" checked={this.state.selected[content.id]?true:false} value="1" /></td>
-              <td onClick={()=>this.select(content.id)}>{content.id}</td>
+              <td onClick={()=>this.select(content.id)} className="td-check center"><input type="checkbox" checked={this.state.selected[content.id]?true:false} value="1" /></td>
+              <td onClick={()=>this.select(content.id)} className="td-id">{content.id}</td>
               {this.config.columns.map((column)=>{
                   switch(column){
                     case 'name':
@@ -145,12 +163,25 @@ export default class List extends React.Component<{ id: number, contenttype: str
             {this.config.show_header&&<h3>{this.props.contenttype}({this.state.list.count})</h3>}
             <table className="table"><tbody>
               {this.config['show_table_header']&&<tr>
-                <th><input type="checkbox" title="Select"/></th>
+                <th className="center" onClick={()=>this.selectAll()}>
+                  <a href="#"><i className="far fa-check-square"></i></a>
+                </th>
                 <th><a href="#" onClick={(e)=>{this.sort(e, 'id');}} className={'column-sortable '+(this.state.sortby[0][0] == 'id'? this.state.sortby[0][1]:'')}>ID</a></th>
                 {this.config.columns.map( (column)=>{
                   let sortable = this.config.sort.indexOf( column )!=-1;
-                  let sortOrder = this.state.sortby[0][0] == column? this.state.sortby[0][1]:'';
-                  return (<th>{sortable?<a href="#" onClick={(e)=>{this.sort(e, column);}} className={"column-sortable "+sortOrder}>{column}</a>:column}</th>) //todo: use name from definition.
+                  let sortby = this.state.sortby;
+                  let sortOrder = ''
+                  if( sortby[0][0] == column ){
+                    sortOrder = sortby[0][1];
+                  }else if( sortby[1] && sortby[1][0] == column ){
+                    sortOrder = 'sort-second ' + sortby[1][1];
+                  }
+                  return (<th>
+                    {sortable?
+                      <a href="#" onClick={(e)=>{this.sort(e, column);}} className={"column-sortable "+sortOrder}>
+                      {column}</a>
+                      :column}
+                      </th>) //todo: use name from definition.
                 } )}
                 {this.config['row_actions'].length>0&&<th></th>}
                 </tr>}

@@ -97,6 +97,10 @@
   content: '\f0d7'
 }
 
+.column-sortable.sort-second::after{
+  color: rgb(111, 104, 95);
+}
+
 .column-sortable.asc::after{
   content: '\f0d8'
 }
