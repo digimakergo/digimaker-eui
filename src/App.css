@@ -790,7 +790,7 @@ tr.empty-row td{
 
 .list .fieldtype-image > img{
   max-width: 100px;
-  max-height: 25px;
+  max-height: 1rem;
   cursor: pointer;
 }
 
