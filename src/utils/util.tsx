@@ -1,4 +1,5 @@
 import Cookies from 'universal-cookie';
+import Registry from '../ui/Registry';
 
 const cookies = new Cookies();
 
@@ -56,6 +57,43 @@ export function GetAccessToken() {
 //Set access token. Useful when eg login.
 export function SetAccessToken(token: string) {
   accessToken = new Promise(func => func(token))
+}
+
+//todo: make sure it only fetch once for one content type.
+export function getDefinition(contenttype: string){
+  return FetchWithAuth(process.env.REACT_APP_REMOTE_URL+'/contenttype/get/'+contenttype)
+}
+
+export function getFields(definition:any){
+  let result:any = {};
+  definition.fields.forEach((field)=>{
+    result[field.identifier] = field;
+  })
+  return result;
+}
+
+export function getCommonFieldName(identifier:string) {
+  let result:string = ''; //todo: use configuration
+  switch(identifier){
+    case 'name':
+      result = 'Name';
+      break;
+    case 'modified':
+      result = 'Modified';
+      break;
+    case 'author_name':
+      result = 'Author';
+      break;
+    case 'published':
+      result = 'Published';
+      break;
+    case 'priority':
+      result = 'Priority';
+      break;
+    default:
+      break;
+  }
+  return result;
 }
 
 //util for general operations

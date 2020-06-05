@@ -782,3 +782,24 @@ tr.empty-row td{
 .center{
   text-align: center;
 }
+
+.fieldtype-image{
+  max-width: 300px;
+  max-height: 100px;
+}
+
+
+.list .fieldtype-image{
+  max-width: 100px;
+  max-height: 25px;
+  cursor: pointer;
+}
+
+.list td > span > .fieldtype-image:hover{
+  
+}
+
+.tooltip .fieldtype-image{
+  max-width: 300px;
+  max-height: 100px;
+}

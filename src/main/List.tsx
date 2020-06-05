@@ -2,19 +2,21 @@ import * as React from 'react';
 import Moment from 'react-moment';
 import Config from '../dm.json';
 import Create from '../actions/Create';
-import {FetchWithAuth} from '../utils/util';
+import {FetchWithAuth, getDefinition, getFields, getCommonFieldName} from '../utils/util';
 import ListRowActions from './ListRowActions';
 import Actions from './Actions';
+import FieldRegister from '../ui/FieldRegister';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import ReactTooltip from "react-tooltip";
 
-export default class List extends React.Component<{ id: number, contenttype: string }, { content: any, loading:boolean, list: any, actionNew: boolean, currentPage:number, sortby: Array<Array<string>>, selected: Array<number> }> {
+export default class List extends React.Component<{ id: number, contenttype: string }, {def:any, loading:boolean, list: any, actionNew: boolean, currentPage:number, sortby: Array<Array<string>>, selected: Array<number> }> {
 
    private config: any
 
     constructor(props: any) {
         super(props);
         this.config = Config.list[this.props.contenttype]
-        this.state = { content: '', list: '', loading: true, actionNew: false, currentPage: 0, sortby:this.config['sort_default'], selected:[]};
+        this.state = { def:'',list: '', loading: true, actionNew: false, currentPage: 0, sortby:this.config['sort_default'], selected:[]};
     }
 
 
@@ -91,6 +93,12 @@ export default class List extends React.Component<{ id: number, contenttype: str
     //when init
     componentDidMount() {
         this.fetchData();
+
+        getDefinition(this.props.contenttype)
+        .then(res=>res.json())
+        .then((data)=>{
+            this.setState({def:data});
+        });
     }
 
     //when state changed
@@ -132,12 +140,28 @@ export default class List extends React.Component<{ id: number, contenttype: str
 
     renderRows(list) {
         let rows: Array<any> = [];
+        let fieldsDef = getFields(this.state.def);
         for (let i = 0; i < list.length; i++) {
             let content = list[i]
             rows.push(<tr>
               <td onClick={()=>this.select(content.id)} className="td-check center"><input type="checkbox" checked={this.state.selected[content.id]?true:false} value="1" /></td>
               <td onClick={()=>this.select(content.id)} className="td-id">{content.id}</td>
               {this.config.columns.map((column)=>{
+                  {/*render fields, todo: use lazy load*/}
+                  if( fieldsDef[column] ){
+                    const fieldtype = fieldsDef[column].type;
+                    const Fieldtype: React.ReactType = FieldRegister.getFieldtype(fieldtype);
+                    let output = (<Fieldtype definition={fieldsDef[column]} data={content[column]}  mode='inline' />);
+                    if( fieldtype == 'image' ){
+                      return <td>
+                            <span data-tip data-for={"image"+content.id}>{output}</span>
+                              <ReactTooltip border={true} borderColor='#000000' className="tooltip" id={'image'+content.id} clickable={true} place="right" effect='float' type='light'>
+                              {output}
+                            </ReactTooltip></td>
+                    }
+                    return <td></td>
+                  }
+                  {/*render common fields*/}
                   switch(column){
                     case 'name':
                       return (<td className="content-name"><span><Link to={"/main/"+content.id}>{content.name}</Link></span></td>);
@@ -156,15 +180,19 @@ export default class List extends React.Component<{ id: number, contenttype: str
                     break;
                   }
               })}
-            {this.config['row_actions'].length>0&&<td className="list-row-tool"><ListRowActions content={content} config={this.config['row_actions']} /></td>}</tr>)
+                {this.config['row_actions'].length>0&&<td className="list-row-tool">
+                      <ListRowActions content={content} config={this.config['row_actions']} />
+                  </td>}
+              </tr>)
         }
         return rows;
     }
 
     renderList(data) {
         let totalPage = Math.ceil( this.state.list.count/this.config.pagination);
+        let fieldsDef = getFields(this.state.def);
         return (<div>
-            {this.config.show_header&&<h3>{this.props.contenttype}({this.state.list.count})</h3>}
+            {this.config.show_header&&<h3>{this.state.def.name}({this.state.list.count})</h3>}
             <table className="table"><tbody>
               {this.config['show_table_header']&&<tr>
                 <th className="center" onClick={()=>this.selectAll()}>
@@ -180,11 +208,13 @@ export default class List extends React.Component<{ id: number, contenttype: str
                   }else if( sortby[1] && sortby[1][0] == column ){
                     sortOrder = 'sort-second ' + sortby[1][1];
                   }
+                  let columnName = fieldsDef[column]?(fieldsDef[column].name):getCommonFieldName(column);
                   return (<th>
                     {sortable?
                       <a href="#" onClick={(e)=>{this.sort(e, column);}} className={"column-sortable "+sortOrder}>
-                      {column}</a>
-                      :column}
+                      {columnName}
+                      </a>
+                      :columnName}
                       </th>) //todo: use name from definition.
                 } )}
                 {this.config['row_actions'].length>0&&<th></th>}
@@ -223,7 +253,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
     }
 
     render() {
-        if( !this.state.list ){
+        if( !this.state.list || !this.state.def ){
             return (<div className="loading"></div>);
         }
         if(this.state.list.count==0){

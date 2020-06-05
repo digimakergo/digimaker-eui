@@ -224,12 +224,12 @@
     },
     "article": {
       "sort_default": [
-        ["published", "desc"]
+        ["priority", "desc"],["modified", "desc"]
       ],
-      "sort": [],
-      "columns": ["name", "author_name", "modified", "priority"],
+      "sort": ["name", "modified", "priority"],
+      "columns": ["name", "coverimage", "author_name", "modified", "priority"],
       "show_header": true,
-      "show_table_header": false,
+      "show_table_header": true,
       "actions": [
         {
           "com": "action:copy",
@@ -242,7 +242,7 @@
           "name": "move"
         },
         {
-          "com": "action:delete",
+          "dialog": "action:delete",
           "icon": "fas fa-trash",
           "name": "delete"
         }
