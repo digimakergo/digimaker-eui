@@ -455,7 +455,6 @@ div.loading{
 .table th{
   font-weight: 500;
   font-size: 1.05em;
-  background: #ececec;
 }
 
 
@@ -761,4 +760,25 @@ button.toggle:focus{
 
 h4{
   font-size: 1.2rem
+}
+
+
+.side-body .action-item{
+  padding: 2px 0px;
+}
+
+.td-check{
+  text-align: center;
+}
+
+tr.empty-row{
+  background: none !important;
+}
+
+tr.empty-row td{
+  border-color: rgba(0,0,0,0);
+}
+
+.center{
+  text-align: center;
 }

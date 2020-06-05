@@ -41,10 +41,11 @@ export default class List extends React.Component<{ id: number, contenttype: str
         if(  pagination!= -1 ){
             limit = "&limit="+pagination+"&offset="+pagination*this.state.currentPage
         }
-        this.setState({loading: true, selected:[]});
+        this.setState({loading: true});
         FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/list/' + id+'/'+this.props.contenttype+'?'+sortby+limit)
             .then(res => res.json())
             .then((data) => {
+                this.resetActionState();
                 this.setState({ loading: false, list: data });
             })
     }
@@ -52,6 +53,11 @@ export default class List extends React.Component<{ id: number, contenttype: str
     refresh(){
       this.fetchData();
     }
+
+    resetActionState(){
+      this.setState({selected:[]});
+    }
+
 
     //sort by column
     sort(e, column){
@@ -79,7 +85,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
       }else{
         newSortBy = [createSort(sortby?sortby[0]:null)]
       }
-      this.setState({sortby:newSortBy});
+      this.setState({sortby:newSortBy, currentPage:0});
     }
 
     //when init
@@ -150,8 +156,6 @@ export default class List extends React.Component<{ id: number, contenttype: str
                     break;
                   }
               })}
-
-
             {this.config['row_actions'].length>0&&<td className="list-row-tool"><ListRowActions content={content} config={this.config['row_actions']} /></td>}</tr>)
         }
         return rows;
@@ -186,10 +190,11 @@ export default class List extends React.Component<{ id: number, contenttype: str
                 {this.config['row_actions'].length>0&&<th></th>}
                 </tr>}
               {this.renderRows(data)}
+              {this.state.currentPage>0&&this.renderEmpties(this.config.pagination-data.length)}
               </tbody>
             </table>
             <div className="text-right">
-            <span className="dm-pagination">
+            {totalPage>1&&<span className="dm-pagination">
               {this.state.loading&&<span className="loading"></span>}
               <a href="#" className="page-first" onClick={(e)=>{e.preventDefault();this.setState({currentPage: 0});}}><i className="fas fa-step-backward"></i></a>
               <a href="#" className="page-previous" onClick={(e)=>{e.preventDefault();if(this.state.currentPage>0){this.setState({currentPage: this.state.currentPage-1});}}}><i className="fas fa-chevron-left"></i></a>
@@ -198,10 +203,19 @@ export default class List extends React.Component<{ id: number, contenttype: str
               <a href="#" title="Reload data" onClick={(e)=>{e.preventDefault();this.refresh()}}><i className="fas fa-sync"></i></a>
 
               <span className="pagination-info">Page {this.state.currentPage+1} of {totalPage} from total {this.state.list.count}</span>
-              </span>
+              </span>}
             </div>
         </div>
         )
+    }
+
+    //render empty so the pagination buttons can be in fixed place
+    renderEmpties(count:number){
+      let list:Array<any> = [];
+      for(let i =0;i<count;i++){
+        list.push(<tr className="empty-row"><td>&nbsp;</td></tr>);
+      }
+      return list;
     }
 
     newContent = () => {
@@ -212,6 +226,10 @@ export default class List extends React.Component<{ id: number, contenttype: str
         if( !this.state.list ){
             return (<div className="loading"></div>);
         }
+        if(this.state.list.count==0){
+          return (<div className="alert alert-info">No {this.props.contenttype} found.</div>)
+        }
+
         return (
             <div>
                 <div className="content-list-tools">
