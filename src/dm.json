@@ -226,7 +226,7 @@
       "sort_default": [
         ["priority", "desc"],["modified", "desc"]
       ],
-      "sort": ["name", "modified", "priority"],
+      "sort": {"name":"asc", "modified":"desc", "priority":"desc","author_name":"asc"},
       "columns": ["name", "coverimage", "author_name", "modified", "priority"],
       "show_header": true,
       "show_table_header": true,
@@ -242,9 +242,14 @@
           "name": "move"
         },
         {
-          "dialog": "action:delete",
+          "com": "action:delete",
           "icon": "fas fa-trash",
           "name": "delete"
+        },
+        {
+          "com": "action:copy",
+          "icon": "fas fa-filter",
+          "name": "Filter"
         }
       ],
       "row_actions": [{
@@ -363,7 +368,7 @@
       "sort_default": [
         ["company_name", "asc"]
       ],
-      "sort": ["name", "published", "modified", "company_name"],
+      "sort": {"name":"asc", "modified":"desc", "company_name":"asc"},
       "columns": ["company_name", "name", "published", "modified"],
       "show_header": true,
       "show_table_header": true,
@@ -376,7 +381,7 @@
       "sort_default": [
         ["modified", "desc"]
       ],
-      "sort": ["name", "published", "modified", "status"],
+      "sort": {"name":"asc", "modified":"desc", "published":"asc", "status":"asc"},
       "columns": ["name", "author", "status", "published", "modified"],
       "show_header": false,
       "show_table_header": true,

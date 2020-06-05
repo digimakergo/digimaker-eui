@@ -69,7 +69,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
 
       //create new sort or change sort based on column
       let createSort = (sort?:any)=>{
-        let order = 'asc';
+        let order = this.config.sort[column];
         if( sort && sort[0] == column ){
             order = sort[1]=='desc'?'asc':'desc';
         }
@@ -200,7 +200,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
                 </th>
                 <th><a href="#" onClick={(e)=>{this.sort(e, 'id');}} className={'column-sortable '+(this.state.sortby[0][0] == 'id'? this.state.sortby[0][1]:'')}>ID</a></th>
                 {this.config.columns.map( (column)=>{
-                  let sortable = this.config.sort.indexOf( column )!=-1;
+                  let sortable = this.config.sort[column]?true:false;
                   let sortby = this.state.sortby;
                   let sortOrder = ''
                   if( sortby[0][0] == column ){
