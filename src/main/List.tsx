@@ -154,7 +154,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
                     let output = (<Fieldtype definition={fieldsDef[column]} data={content[column]}  mode='inline' />);
                     if( fieldtype == 'image' ){
                       return <td>
-                            <span data-tip data-for={"image"+content.id}>{output}</span>
+                            <Link to={"/main/"+content.id}><div data-tip data-for={"image"+content.id}>{output}</div></Link>
                               <ReactTooltip border={true} borderColor='#000000' className="tooltip" id={'image'+content.id} clickable={true} place="right" effect='float' type='light'>
                               {output}
                             </ReactTooltip></td>
