@@ -813,3 +813,7 @@ tr.empty-row td{
   display: inline-block;
   margin-left: 5px;
 }
+
+.edit-input .fieldtype-image{
+  display: inline;  
+}
