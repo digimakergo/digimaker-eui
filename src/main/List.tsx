@@ -153,7 +153,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
                     const Fieldtype: React.ReactType = FieldRegister.getFieldtype(fieldtype);
                     let output = (<Fieldtype definition={fieldsDef[column]} data={content[column]}  mode='inline' />);
                     if( fieldtype == 'image' ){
-                      return <td>
+                      return <td className="td-fieldtype-image">
                             <Link to={"/main/"+content.id}><div data-tip data-for={"image"+content.id}>{output}</div></Link>
                               <ReactTooltip border={true} borderColor='#000000' className="tooltip" id={'image'+content.id} clickable={true} place="right" effect='float' type='light'>
                               {output}
