@@ -159,7 +159,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
                               {output}
                             </ReactTooltip></td>
                     }
-                    return <td></td>
+                    return <td>{output}</td>
                   }
                   {/*render common fields*/}
                   switch(column){
