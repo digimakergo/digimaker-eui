@@ -2,8 +2,9 @@ import * as React from 'react';
 import Moment from 'react-moment';
 import { RouteProps } from 'react-router';
 import { Link, Redirect } from "react-router-dom";
-import Config from '../config.json';
+import Config from '../dm.json';
 import LoadFields from '../ui/LoadFields';
+import {FetchWithAuth} from '../utils/util';
 
 export default class Create extends React.Component<RouteProps, {validation:{}}> {
 
@@ -11,9 +12,6 @@ export default class Create extends React.Component<RouteProps, {validation:{}}>
         super(props);
         this.state = {validation:''};
     }
-
-
-
 
     keyUpHandler(event) {
         if (event.keyCode == 27) {
@@ -28,7 +26,7 @@ export default class Create extends React.Component<RouteProps, {validation:{}}>
         for (let key of Array.from(form.keys())) {
             dataObject[key] = form.get(key);
         };
-        fetch(process.env.REACT_APP_REMOTE_URL + '/content/new/' + this.props.match.params.parent + '/' + this.props.match.params.contenttype, {
+        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/new/' + this.props.match.params.parent + '/' + this.props.match.params.contenttype, {
             method: 'POST',
             body: JSON.stringify(dataObject),
         }).then((res) => {
@@ -50,8 +48,8 @@ export default class Create extends React.Component<RouteProps, {validation:{}}>
                 <form onSubmit={(e) => this.handleSubmit(e)}>
                     <div className="form-tool">
                         <div className="form-actions">
-                            <div className="block-title">Actions</div>
-                            <div className="block-body">
+                            <div className="action-title">Actions</div>
+                            <div className="action-body">
                                 <div>
                                     <button type="submit" className="btn btn-primary btn-sm"><i className="fas fa-paper-plane"></i> Submit</button>
                                 </div>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
-import Config from '../Config'
+import Config from '../dm.json'
 
 export default class Slidemenu extends React.Component<{ show: boolean, changed: any }, { show: boolean }> {
 
@@ -26,11 +26,11 @@ export default class Slidemenu extends React.Component<{ show: boolean, changed:
             <div className={"slidemenu" + (this.state.show ? '' : ' hide')}>
                 <ul>
                     <li>
-                        <a className="logo" onClick={() => { this.slideOut(); }}>
+                        <a className="logo" href="#" onClick={(e) => { e.preventDefault(); this.slideOut(); }}>
                             <img src={process.env.PUBLIC_URL+"/images/logo.png"} />
                         </a>
                     </li>
-                    {sidemenus.map((menu) => {
+                    {sidemenus.map((menu:any) => {
                         return (<li><NavLink to={menu.path} onClick={()=>{this.slideOut();}} className={menu.identifier} activeClassName="selected">
                             <i className={"fas "+menu.icon}></i>
                             <div>{menu.name}</div>

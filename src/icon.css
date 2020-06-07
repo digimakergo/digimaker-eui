@@ -24,19 +24,65 @@
 }
 
 .icon-usergroup:before{
+  font-weight: 600;
    content: '\f0c0'
+}
+
+.icon-role:before{
+  font-weight: 600;
+   content: '\f507'
 }
 
 .icon-image::before{
     content: '\f03e'
 }
 
+.icon-folder.images::before{
+    content: '\f302'
+}
+.icon-folder.documents::before{
+    content: '\f15c'
+}
+
 .icon-export::before{
   content:'\f56e'
 }
 
+.icon-import::before{
+  content:'\f56f'
+}
+
 .icon-approve::before{
   content: '\f058'
+}
+
+.icon-edit::before{
+  content:'\f044'
+}
+
+.icon-sort::before{
+  content:'\f160'
+}
+
+.icon-copy::before{
+  content:'\f0c5'
+}
+
+.icon-move::before{
+  content:'\f0c4'
+}
+
+.icon-delete::before{
+  content:'\f2ed'
+}
+
+.icon-preview::before{
+  content:'\f06e'
+}
+
+
+.icon-subtype-image::before{
+  content:'\f302'
 }
 
 
@@ -49,6 +95,10 @@
 
 .column-sortable.desc::after{
   content: '\f0d7'
+}
+
+.column-sortable.sort-second::after{
+  color: rgb(111, 104, 95);
 }
 
 .column-sortable.asc::after{

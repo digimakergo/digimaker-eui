@@ -2,9 +2,10 @@ import * as React from 'react';
 import Moment from 'react-moment';
 import { RouteProps } from 'react-router';
 import { Link, Redirect } from "react-router-dom";
-import Config from '../config.json';
+import Config from '../dm.json';
 import LoadFields from '../ui/LoadFields';
 import Registry from '../ui/Registry';
+import {FetchWithAuth} from '../utils/util';
 
 export default class Edit extends React.Component<RouteProps, {content:any,validation:{}}> {
 
@@ -14,7 +15,7 @@ export default class Edit extends React.Component<RouteProps, {content:any,valid
     }
 
     fetchData(id) {
-        fetch(process.env.REACT_APP_REMOTE_URL + '/content/get/'+id)
+        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/get/'+id)
             .then(res => res.json())
             .then((data) => {
                 this.setState({ content: data});
@@ -33,7 +34,7 @@ export default class Edit extends React.Component<RouteProps, {content:any,valid
         for (let key of Array.from(form.keys())) {
             dataObject[key] = form.get(key);
         };
-        fetch(process.env.REACT_APP_REMOTE_URL + '/content/update/'+this.props.match.params.id, {
+        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/update/'+this.props.match.params.id, {
             method: 'POST',
             body: JSON.stringify(dataObject),
         }).then((res) => {
@@ -56,11 +57,7 @@ export default class Edit extends React.Component<RouteProps, {content:any,valid
 
         let data:any = {};
         let content = this.state.content;
-        Object.keys(content).map((key)=>{
-          if( content[key].Raw != undefined ){
-            data[key] = content[key].Raw;
-          }
-        });
+
 
         const Com:React.ReactType = Registry.getComponent("edit:before");
         return (<div className="container-new">
@@ -68,8 +65,8 @@ export default class Edit extends React.Component<RouteProps, {content:any,valid
                 <form onSubmit={(e) => this.handleSubmit(e)}>
                     <div className="form-tool">
                         <div className="form-actions">
-                            <div className="block-title">Actions</div>
-                            <div className="block-body">
+                            <div className="action-title">Actions</div>
+                            <div className="action-body">
                                 <div>
                                     <button type="submit" className="btn btn-primary btn-sm"><i className="fas fa-paper-plane"></i> Submit</button>
                                 </div>
@@ -90,7 +87,7 @@ export default class Edit extends React.Component<RouteProps, {content:any,valid
                         <h2>Edit {content.name}</h2>
                         {Com!=null?<Com />:''}
 
-                        <LoadFields mode='edit' type={content.content_type} data={data} validation={this.state.validation}  />
+                        <LoadFields mode='edit' type={content.content_type} data={content} validation={this.state.validation}  />
                     </div>
                 </form>
             </div>

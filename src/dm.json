@@ -1,0 +1,399 @@
+{
+  "theme": "default",
+  "leftmenu": [{
+      "name": "Sites",
+      "icon": "fa-desktop",
+      "scope": "site",
+      "path": "/main/9",
+      "menu": [
+        {
+          "name": "Sites",
+          "type": "leftmenu:treemenu",
+          "icon": "fas fa-home",
+          "is_site": true,
+          "root": 3
+        },
+        {
+          "name": "Resources",
+          "type": "leftmenu:listmenu",
+          "icon": "fas fa-file-alt",
+          "root": 582
+        },
+        {
+          "name": "Kitchen",
+          "type": "leftmenu:listmenu",
+          "icon": "fas fa-utensils",
+          "root": 579
+        },
+        {
+          "name": "Structure",
+          "path": "/content/structure",
+          "icon": "fas fa-sitemap"
+        },
+        {
+          "name": "Trash",
+          "path": "/content/trash",
+          "icon": "fas fa-trash"
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "icon": "fa-users",
+      "scope": "user",
+      "path": "/main/72",
+      "menu": [{
+          "name": "Organizations",
+          "type": "leftmenu:treemenu",
+          "icon": "fas fa-sitemap",
+          "root": 4
+        },
+        {
+          "name": "Roles",
+          "type": "leftmenu:treemenu",
+          "icon": "fas fa-user-tag",
+          "root": 7
+        },
+        {
+          "name": "Policies",
+          "path": "/user/policies",
+          "icon": "fas fa-wrench"
+        }
+
+      ]
+    }
+  ],
+  "routes": {
+    "/content/structure":"main:content_structure"
+  },
+  "main": {
+    "folder": {
+      "list": [
+        "article:3",
+        "image:5",
+        "user:4"
+      ],
+      "actions": [{
+          "link": "/edit/{id}",
+          "name": "Edit",
+          "icon": "icon-edit",
+          "title": "Edit the content"
+        },
+        {
+          "com": "action:copy",
+          "icon":"icon-copy",
+          "name": "Copy"
+        },
+        {
+          "link": "move",
+          "icon":"icon-move",
+          "name": "Move"
+        },
+        {
+          "com": "action:delete",
+          "icon":"icon-delete",
+          "name": "Delete"
+        },
+        {
+          "link": "import",
+          "icon":"icon-import",
+          "name": "Import"
+        },
+        {
+          "link": "export",
+          "icon":"icon-export",
+          "name": "Export"
+        },
+        {
+          "link": "preview",
+          "icon":"icon-preview",
+          "name": "Preview in frontpage"
+        }
+      ],
+      "new": [
+        "article",
+        "folder",
+        "frontpage",
+        "image"
+      ]
+    },
+    "frontpage": {
+      "list": [
+        "frontpage_block"
+      ],
+      "actions": [{
+          "link": "",
+          "name": "preview"
+        },
+        {
+          "link": "",
+          "name": "copy"
+        },
+        {
+          "link": "",
+          "name": "move"
+        },
+        {
+          "link": "",
+          "name": "delete"
+        },
+        {
+          "link": "",
+          "name": "export"
+        }
+      ],
+      "new": ""
+    },
+    "usergroup": {
+      "list": [
+        "user"
+      ],
+      "new": [
+        "usergroup",
+        "user"
+      ],
+      "actions": [{
+        "link": "/edit/{id}",
+        "title": "Edit this",
+        "name": "Edit"
+      }
+      ]
+    },
+    "article": {
+      "view": true,
+      "actions": [{
+        "link": "/edit/{id}",
+        "title": "Edit this",
+        "name": "Edit"
+      },
+      {
+        "com": "action:delete",
+        "icon": "fas fa-trash",
+        "name": "delete"
+      }
+    ]
+    },
+    "user": {
+      "view": true,
+      "actions": [{
+        "link": "/edit/{id}",
+        "com": "action:delete",
+        "title": "Edit this",
+        "name": "Edit"
+      }]
+    },
+    "report": {
+      "view": true,
+      "tools": ["tool:workflow-activities"]
+    }
+  },
+  "comment": "---------Support default setting for list and others-------------",
+  "list": {
+    "folder": {
+      "sort_default": [
+        ["published", "desc"]
+      ],
+      "sort": [],
+      "columns": ["name", "author", "published", "modified"],
+      "show_header": true,
+      "show_table_header": false,
+      "actions": [{
+          "link": "",
+          "name": "preview"
+        },
+        {
+          "link": "",
+          "name": "copy"
+        },
+        {
+          "link": "",
+          "name": "move"
+        },
+        {
+          "link": "",
+          "name": "delete"
+        },
+        {
+          "link": "",
+          "name": "export"
+        }
+      ],
+      "row_actions": [],
+      "pagination": 10,
+      "row_more": ["export"]
+    },
+    "article": {
+      "sort_default": [
+        ["priority", "desc"],["modified", "desc"]
+      ],
+      "sort": {"name":"asc", "modified":"desc", "priority":"desc","author_name":"asc"},
+      "columns": ["name", "coverimage", "author_name", "modified", "priority"],
+      "show_header": true,
+      "show_table_header": true,
+      "actions": [
+        {
+          "com": "action:copy",
+          "icon": "icon icon-copy",
+          "name": "copy"
+        },
+        {
+          "com": "action:copy",
+          "icon": "icon icon-move",
+          "name": "move"
+        },
+        {
+          "com": "action:delete",
+          "icon": "fas fa-trash",
+          "name": "delete"
+        },
+        {
+          "com": "action:copy",
+          "icon": "fas fa-filter",
+          "name": "Filter"
+        }
+      ],
+      "row_actions": [{
+        "link": "/edit/{id}",
+        "icon": "fas fa-edit",
+        "name": "Edit"
+      },
+      {
+        "link": "#",
+        "icon": "fas fa-trash",
+        "name": "Delete"
+      }],
+      "pagination": 20,
+      "row_more": ["export"]
+    },
+    "frontpage": {
+      "sort_default": [
+        ["published", "desc"]
+      ],
+      "sort": [],
+      "columns": ["name", "author", "published", "modified"],
+      "show_header": true,
+      "show_table_header": false,
+      "actions": [{
+          "link": "",
+          "name": "preview"
+        },
+        {
+          "link": "",
+          "name": "copy"
+        },
+        {
+          "link": "",
+          "name": "move"
+        },
+        {
+          "link": "",
+          "name": "delete"
+        },
+        {
+          "link": "",
+          "name": "export"
+        }
+      ],
+      "row_actions": [],
+      "pagination": 10,
+      "row_more": ["export"]
+    },
+    "image": {
+      "sort_default": [
+        ["published", "desc"]
+      ],
+      "sort": [],
+      "columns": ["name", "author", "published", "modified"],
+      "show_header": true,
+      "show_table_header": false,
+      "actions": [{
+          "link": "",
+          "name": "preview"
+        },
+        {
+          "link": "",
+          "name": "copy"
+        },
+        {
+          "link": "",
+          "name": "move"
+        },
+        {
+          "link": "",
+          "name": "delete"
+        },
+        {
+          "link": "",
+          "name": "export"
+        }
+      ],
+      "row_actions": [],
+      "pagination": 10,
+      "row_more": ["export"]
+    },
+    "usergroup": {
+      "sort_default": [
+        ["published", "desc"]
+      ],
+      "sort": [],
+      "columns": ["name", "author", "published", "modified", "priority"],
+      "show_header": true,
+      "show_table_header": false,
+      "actions": [{
+          "link": "",
+          "name": "preview"
+        },
+        {
+          "link": "",
+          "name": "copy"
+        },
+        {
+          "link": "",
+          "name": "move"
+        },
+        {
+          "link": "",
+          "name": "delete"
+        },
+        {
+          "link": "",
+          "name": "export"
+        }
+      ],
+      "row_actions": [],
+      "pagination": 10,
+      "row_more": []
+    },
+    "user": {
+      "sort_default": [
+        ["company_name", "asc"]
+      ],
+      "sort": {"name":"asc", "modified":"desc", "company_name":"asc"},
+      "columns": ["company_name", "name", "published", "modified"],
+      "show_header": true,
+      "show_table_header": true,
+      "actions": [],
+      "row_actions": [],
+      "pagination": 25,
+      "row_more": []
+    },
+    "report": {
+      "sort_default": [
+        ["modified", "desc"]
+      ],
+      "sort": {"name":"asc", "modified":"desc", "published":"asc", "status":"asc"},
+      "columns": ["name", "author", "status", "published", "modified"],
+      "show_header": false,
+      "show_table_header": true,
+      "actions": [],
+      "pagination": 15,
+      "row_actions": [],
+      "row_more": []
+    }
+  },
+  "fieldtypes": {
+    "text": "Text",
+    "richtext": "RichText",
+    "image": "Image"
+  }
+}

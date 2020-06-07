@@ -1,31 +1,37 @@
 import * as React from 'react';
+import {Redirect} from 'react-router-dom'
+import Cookies from 'universal-cookie';
 
-export default class Login extends React.Component<{}, {username:string, password: string, sending:boolean, error:string}> {
+const cookies = new Cookies();
+
+
+export default class Login extends React.Component<{}, {username:string, password: string, sending:boolean, error:string, redirect:string}> {
 
   constructor(props: any) {
       super(props);
-      this.state = { username: '', password: '', sending: false, error: '' };
+      this.state = { username: '', password: '', sending: false, error: '', redirect:'/eth/report' };
   }
 
   login(e: any) {
     e.preventDefault();
     let input = { username: this.state.username, password: this.state.password };
     this.setState({ sending: true });
-    fetch(process.env.REACT_APP_REMOTE_URL + '/user/login', { method: 'post', body: JSON.stringify(input) })
-      .then(res => {
-        this.setState({ sending: false });
-        if (res.ok) {
-          window.location.href = process.env.PUBLIC_URL+'/';
-        } else {
-          res.text().then(text => {
-            this.setState({ error: text });
-          });
-        }
-      }).catch((err) => {
+    fetch(process.env.REACT_APP_REMOTE_URL + '/auth/auth?username='+ this.state.username +'&password='+ this.state.password, { method: 'post', body: JSON.stringify(input) })
+    .then(this.handleErrors)
+    .then((response) => response.json())
+    .then((res) => {
+      cookies.set('refreshToken',res.refresh_token);
+      window.location.href = process.env.PUBLIC_URL+'/';
+    })
+    .catch((err) => {
         this.setState({ error: err.toString() });
       });
   }
 
+  handleErrors(response) {
+    if (!response.ok) throw new Error(response.status);
+    return response;
+}
 
   updateUsername(e: any) {
     this.setState({ username: e.target.value });

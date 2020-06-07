@@ -1,21 +1,21 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink, useLocation } from "react-router-dom";
 import Slidemenu from './Slidemenu'
-import Treemenu from './render/Treemenu'
-import Config from '../Config'
+import Config from '../dm.json'
 import Registry from '../ui/Registry'
 import { RouteProps, withRouter } from 'react-router';
 import {ContentContext} from '../Context';
-import data from '../dm.json';
 import { Permission } from './Permission';
 import { useState } from 'react';
+import {FetchWithAuth, SetAccessToken} from '../utils/util';
+import ReactTooltip from "react-tooltip";
 
+//Whole left menu consising of slidemenu and menulist,
 export default class Leftmenu extends React.Component<{}, { current: any, showSidemenu: boolean, view: any}> {
 
     constructor(props: any) {
         super(props);
         this.state = { current: '', showSidemenu: false, view: '' };
-
     }
 
     showSide(e:any) {
@@ -29,7 +29,7 @@ export default class Leftmenu extends React.Component<{}, { current: any, showSi
     }
 
     fetchCurrent() {
-      fetch(process.env.REACT_APP_REMOTE_URL + '/user/current/admin') //todo: make site name configable
+      FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/user/current/admin') //todo: make site name configable
         .then(res => {
           if (res.ok) {
             res.json().then((content) => {
@@ -48,7 +48,7 @@ export default class Leftmenu extends React.Component<{}, { current: any, showSi
         if( this.state.current === '' ){
           return <div className="loading"></div>
         }else if( this.state.current === false ){
-          window.location.href= process.env.PUBLIC_URL+'/login';
+          // window.location.href= process.env.PUBLIC_URL+'/login';
           return '';
         }
         return (
@@ -58,7 +58,8 @@ export default class Leftmenu extends React.Component<{}, { current: any, showSi
                       <a className="logo" href="#" onClick={(e) => { this.showSide(e); }}>
                           <img src={process.env.PUBLIC_URL+"/images/logo.png"} width="28px" />
                       </a>
-                      <Link to="/1" className="profile"> <i className="fas fa-user"></i>&nbsp;{this.state.current.name}</Link></div>
+                      <Link to="/1" className="profile"> <i className="fas fa-user"></i>&nbsp;{this.state.current.name}</Link>
+                  </div>
                   <div>
                       <MenuList content={this.context.data} />
                   </div>
@@ -69,6 +70,7 @@ export default class Leftmenu extends React.Component<{}, { current: any, showSi
 
 Leftmenu.contextType = ContentContext;
 
+//A menu container which list all the menus from top to down.
 const MenuList = (props) => {
 
     let location = useLocation();
@@ -79,36 +81,38 @@ const MenuList = (props) => {
         {menus.map((menu) => {
                         return(
                             !menu.type?
-                              <Permission access ={menu.path}>
+                              <Permission access={menu.path}>
                                <div className="menuitem">
+                                <div className="menuitem-head">
                                  <NavLink to={menu.path} activeClassName="selected">
                                    <i className={"far "+menu.icon} /> {menu.name}
                                  </NavLink>
+                                 </div>
                                </div>
                              </Permission>
                             :(()=>{
                                 const Com:React.ReactType = Registry.getComponent(menu.type);
-                                  return (<Permission access={menu.name}><Com config={menu} /></Permission>)
+                                  return (<Com config={menu} />)
                             })()
                         )
             })}
     </div>)
 }
 
-//get menu based on location path
+//get leftmenu configuration based on location path
 function getCurrentMenu(path: string, content:any) {
-    let result = [];
+    let result:Array<any> = [];
     const leftmenuConfig = Config.leftmenu;
-    
+
     for (let i = 0; i < leftmenuConfig.length; i++) {
         if (result.length > 0) {
             break;
         }
         let menus = leftmenuConfig[i].menu;
-        for (let j = 0; j < menus.length; j++) 
-        { 
+        for (let j = 0; j < menus.length; j++)
+        {
               let menuitem = menus[j];
-              if (menuitem.path == path) 
+              if (menuitem.path == path)
               {
                 result = menus;
                 break;
@@ -119,7 +123,7 @@ function getCurrentMenu(path: string, content:any) {
                   {
                     result =menus;
                     break;
-                  } 
+                  }
               }
         }
     }
