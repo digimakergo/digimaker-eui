@@ -10,7 +10,9 @@ The eui plan is together with the framework. We hope all will be released durnin
 
 ![alt text](./doc/eui-1.png "List")
 
-![alt text](./doc/eui-2.png "Operation")
+![alt text](./doc/eui-2.png "Detail")
+
+![alt text](./doc/eui-3.png "Slide menu")
 
 
 
