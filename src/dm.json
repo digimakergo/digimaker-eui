@@ -9,7 +9,7 @@
         {
           "name": "Sites",
           "type": "leftmenu:treemenu",
-          "contentype":["folder"],
+          "contenttype":["folder"],
           "icon": "fas fa-home",
           "is_site": true,
           "root": 3
@@ -46,14 +46,14 @@
       "menu": [{
           "name": "Organizations",
           "type": "leftmenu:treemenu",
-          "contentttype":["usergroup"],
+          "contenttype":["usergroup"],
           "icon": "fas fa-sitemap",
           "root": 4
         },
         {
           "name": "Roles",
           "type": "leftmenu:treemenu",
-          "contentttype":["role"],
+          "contenttype":["role"],
           "icon": "fas fa-user-tag",
           "root": 7
         },
