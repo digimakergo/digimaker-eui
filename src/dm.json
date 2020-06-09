@@ -12,12 +12,14 @@
           "contenttype":["folder"],
           "icon": "fas fa-home",
           "is_site": true,
+          "open": true,
           "root": 3
         },
         {
           "name": "Resources",
           "type": "leftmenu:listmenu",
           "icon": "fas fa-file-alt",
+          "open": true,
           "root": 582
         },
         {

@@ -30,7 +30,7 @@ export default class Treemenu extends React.Component<{ config: any }, { data: a
   render() {
     return (
       this.state.data && <div className="menuitem">
-          <Accordion defaultActiveKey={this.props.config.is_site?"1":"0"}>
+          <Accordion defaultActiveKey={(this.props.config.is_site||this.props.config.open)?"1":"0"}>
           <div className="menuitem-head">
             <NavLink to={`/main/${this.state.data.id}`} activeClassName="selected">
               <i className={this.props.config.icon}></i> {this.state.data.name}
