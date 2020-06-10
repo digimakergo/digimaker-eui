@@ -815,5 +815,12 @@ tr.empty-row td{
 }
 
 .edit-input .fieldtype-image{
-  display: inline;  
+  display: inline;
+}
+
+.browse .selected > *{
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  padding: 3px;
+  margin: 2px;
 }

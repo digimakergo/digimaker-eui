@@ -194,6 +194,14 @@
   },
   "comment": "---------Support default setting for list and others-------------",
   "list": {
+    "_browse":{
+        "article": {
+          "sort":{"name":"desc"},
+          "columns":["name"],
+          "pagination": 20,
+          "can_select": false
+        }
+    },
     "folder": {
       "sort_default": [
         ["published", "desc"]
