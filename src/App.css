@@ -824,3 +824,11 @@ tr.empty-row td{
   padding: 3px;
   margin: 2px;
 }
+
+.field.relationlist{
+  padding: 5px;
+}
+
+.field.relationlist > ul{
+  padding-left: 2rem;
+}
