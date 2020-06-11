@@ -54,6 +54,20 @@ export default class Main extends React.Component<RouteProps, { content: any, li
       }
     }
 
+    //get allowed type. (used in list types and new types configuration)
+    getAllowedTypes(typeConfig:Array<string>){
+      let result: Array<string> = [];
+      if( typeConfig ){
+        typeConfig.map((value:string)=>{
+            let type = util.getAllowedType( this.state.content, value );
+            if( type && !result.includes(type) ){
+              result.push( type );
+            }
+        });
+      }
+      return result;
+    }
+
     render() {
         if( !this.state.content )
         {
@@ -61,17 +75,7 @@ export default class Main extends React.Component<RouteProps, { content: any, li
         }
         let contenttype = this.state.content.content_type;
         let mainConfig = Config.main[contenttype];
-        let listContenttypes: Array<string> = [];
-
-        let configList = mainConfig?mainConfig['list']:false;
-        if( configList ){
-          configList.map((value:string)=>{
-              let type = util.getAllowedType( this.state.content, value );
-              if( type && !listContenttypes.includes(type) ){
-                listContenttypes.push( type );
-              }
-          });
-        }
+        let listContenttypes: Array<string> = this.getAllowedTypes(mainConfig['list']);
 
         let selected = {};
         selected[this.state.content.id] = this.state.content.name;
@@ -123,7 +127,7 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                          {mainConfig['new']&&<div className="action-create">
                           <label>Create content</label>
                          <div>
-                         {mainConfig['new'].map((value)=>{return (
+                         {this.getAllowedTypes(mainConfig['new']).map((value)=>{return (
                              <Link to={`/create/${this.state.content.id}/${value}`} data-tip={value}>
                                  <i className={"icon icon-"+value}></i> &nbsp;
                              </Link>

@@ -122,11 +122,7 @@ const util = {
     let arr = condition.split(':');
     let type = arr[0];
     if( arr.length == 1 ){
-      if( content.type==type ){
-        return type;
-      }else{
-        return false;
-      };
+      return type;
     }else{
       let value:any = arr[1];
       if(isNaN(value) && content.subtype && content.subtype == value){
