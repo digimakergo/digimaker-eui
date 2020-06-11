@@ -13,6 +13,7 @@ import Registry from '../ui/Registry';
 import {ContentContext} from '../Context';
 import {FetchWithAuth} from '../utils/util';
 import ReactTooltip from "react-tooltip";
+import util from '../utils/util';
 
 export default class Main extends React.Component<RouteProps, { content: any, list: any, sideOpen:any }> {
 
@@ -65,15 +66,9 @@ export default class Main extends React.Component<RouteProps, { content: any, li
         let configList = mainConfig?mainConfig['list']:false;
         if( configList ){
           configList.map((value:string)=>{
-              let arr = value.split( ':' );
-              let type: string = arr[0];
-              if( arr.length == 1 ){
+              let type = util.getAllowedType( this.state.content, value );
+              if( type && !listContenttypes.includes(type) ){
                 listContenttypes.push( type );
-              }else if( arr.length>1 ){
-                  let conditions = arr[1];
-                  if (this.state.content.hierarchy.split('/').includes( conditions )){
-                    listContenttypes.push( type );
-                  }
               }
           });
         }

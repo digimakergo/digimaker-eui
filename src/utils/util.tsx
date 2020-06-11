@@ -111,6 +111,33 @@ const util = {
      });
    }
    return result;
+ },
+
+ //get allowed type under the parent content. condition example: "article:3 or article:images"
+ //only support id(3 is an ancestor id in the example) and subtype(images is the subtype of parent)
+ getAllowedType:(content:any, condition:string)=>{
+   if( !condition ){
+     return false;
+   }
+    let arr = condition.split(':');
+    let type = arr[0];
+    if( arr.length == 1 ){
+      if( content.type==type ){
+        return type;
+      }else{
+        return false;
+      };
+    }else{
+      let value:any = arr[1];
+      if(isNaN(value) && content.subtype && content.subtype == value){
+        return type;
+      }else if( !isNaN(value) && content.hierarchy.split('/').includes( value ) ){
+        return type;
+      }else{
+        return false;
+      }
+    }
+    return false;
  }
 }
 
