@@ -1,19 +1,30 @@
 import * as React from 'react';
-import tinymce from "tinymce";
 import Moment from 'react-moment';
 import ReactTooltip from 'react-tooltip'
-import { Editor } from '@tinymce/tinymce-react';
+import tinymce from "tinymce"; //tinyMCE Version 4.9.4
+import "tinymce/themes/modern";
 
 export default class RichText extends React.Component<{ definition: any, validation: any, beforeField:any, afterField: any, data: any, mode: string }, {}> {
 
   constructor(props: any) {
     super(props);
-    this.state = {};
+    this.state = {data:''};
   }
 
-  handleEditorChange = (content, editor) => {
-    console.log('Content was updated:', content);
-    this.setState({data:content})
+  componentDidMount() {
+    tinymce.init({
+      menubar:false,
+      selector: `textarea`,
+      skin_url: `${process.env.PUBLIC_URL}/skins/lightgray`,
+      setup: editor => {
+        this.setState({ editor });
+        editor.on("keyup change", () => {
+          const content = editor.getContent();
+          console.log(content);
+          this.setState({data:content})
+        });
+      },
+    });
   }
 
   edit() {
@@ -27,25 +38,7 @@ export default class RichText extends React.Component<{ definition: any, validat
           {this.props.definition.description && <i className="icon-info" data-for={this.props.definition.identifier+'-desciption'} data-tip=""></i>}
           {this.props.definition.description&&<ReactTooltip id={this.props.definition.identifier+'-desciption'} effect="solid" place="right" html={true} clickable={true} multiline={true} delayHide={500} className="tip">{this.props.definition.description}</ReactTooltip>}
           : </label>
-
-          <Editor
-              value={this.props.data}
-              init={{
-                menubar: false,
-                branding: false,
-                plugins: [
-                  'advlist autolink lists link image charmap print preview anchor',
-                  'searchreplace visualblocks code fullscreen',
-                  'insertdatetime media table paste code'
-                ],
-                toolbar:
-                  'undo redo | formatselect | bold italic backcolor | \
-                  alignleft aligncenter alignright alignjustify | \
-                  bullist numlist outdent indent | removeformat | help'
-              }}
-              onEditorChange={this.handleEditorChange}> 
-                <textarea id={this.props.definition.identifier} className="form-control" name={this.props.definition.identifier} defaultValue={this.props.data}></textarea>
-          </Editor>
+          <textarea id={this.props.definition.identifier} className="form-control" name={this.props.definition.identifier} defaultValue={this.props.data}></textarea>
         {AfterElement}
       </div>
     )
