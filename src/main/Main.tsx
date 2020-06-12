@@ -8,7 +8,7 @@ import MetaInfo from './MetaInfo';
 import Actions from '../ui/Actions';
 import Search from './Search';
 import Service from '../Service';
-import ViewContent from './ViewContent';
+import ViewContent from '../ui/ViewContent';
 import Registry from '../ui/Registry';
 import {ContentContext} from '../Context';
 import {FetchWithAuth} from '../ui/util';
