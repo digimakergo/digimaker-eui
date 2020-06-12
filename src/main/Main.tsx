@@ -111,7 +111,7 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                 <div className="list">
                 {
                     listContenttypes.map((value)=>{
-                        return(<List id={this.props.match.params.id} contenttype={value} />)
+                        return(<List id={this.props.match.params.id} contenttype={value} config={mainConfig[this.state.content.type]} />)
                     })
                 }
                 </div>
