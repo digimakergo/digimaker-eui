@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
-import { FetchWithAuth } from '../../utils/util';
+import { FetchWithAuth } from '../../ui/util';
 import ReactTooltip from "react-tooltip";
 import Select from 'react-select';
 import TreeNode from '../../ui/TreeNode';

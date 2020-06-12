@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { render } from 'react-dom';
-import {FetchWithAuth} from '../utils/util'
+import {FetchWithAuth} from '../ui/util'
 
 let requested = false;
 let resolves:Array<any> = [];

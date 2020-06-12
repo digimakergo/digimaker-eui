@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {FetchWithAuth} from '../utils/util';
+import {FetchWithAuth} from '../ui/util';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
@@ -36,7 +36,7 @@ export default class Copy extends React.Component<{from:any, changed:boolean, se
             this.props.afterAction(true, jumpToParent);
             this.close();
           }else{
-            this.setState({error:text});
+            this.setState({error:text});  //todo: deal with more errors. todo: use delete request?
           }
         });
   }

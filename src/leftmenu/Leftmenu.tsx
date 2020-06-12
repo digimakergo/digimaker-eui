@@ -7,7 +7,7 @@ import { RouteProps, withRouter } from 'react-router';
 import {ContentContext} from '../Context';
 import { Permission } from './Permission';
 import { useState } from 'react';
-import {FetchWithAuth, SetAccessToken} from '../utils/util';
+import {FetchWithAuth, SetAccessToken} from '../ui/util';
 import ReactTooltip from "react-tooltip";
 
 //Whole left menu consising of slidemenu and menulist,

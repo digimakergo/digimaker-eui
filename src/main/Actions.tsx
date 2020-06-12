@@ -3,7 +3,7 @@ import Config from '../dm.json';
 import Moment from 'react-moment';
 import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
-import util from '../utils/util';
+import util from '../ui/util';
 import Registry from '../ui/Registry';
 import { Accordion, Button } from 'react-bootstrap';
 import {IconToggle} from '../ui/IconToggle';

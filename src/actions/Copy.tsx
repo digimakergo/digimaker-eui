@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {FetchWithAuth} from '../utils/util';
+import {FetchWithAuth} from '../ui/util';
 
 export default class Copy extends React.Component<{from:any, changed:boolean, selected?:any}, {triggered:boolean}> {
 

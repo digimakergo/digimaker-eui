@@ -1,5 +1,5 @@
 import Cookies from 'universal-cookie';
-import Registry from '../ui/Registry';
+import Registry from './Registry';
 
 const cookies = new Cookies();
 

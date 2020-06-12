@@ -2,7 +2,7 @@ import * as React from 'react';
 import Moment from 'react-moment';
 import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
-import {FetchWithAuth} from '../../utils/util';
+import {FetchWithAuth} from '../../ui/util';
 import TreeNode from "../../ui/TreeNode";
 
 export default class Structure extends React.Component<{content:any},{data:any}> {

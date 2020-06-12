@@ -11,9 +11,9 @@ import Service from '../Service';
 import ViewContent from './ViewContent';
 import Registry from '../ui/Registry';
 import {ContentContext} from '../Context';
-import {FetchWithAuth} from '../utils/util';
+import {FetchWithAuth} from '../ui/util';
 import ReactTooltip from "react-tooltip";
-import util from '../utils/util';
+import util from '../ui/util';
 
 export default class Main extends React.Component<RouteProps, { content: any, list: any, sideOpen:any }> {
 

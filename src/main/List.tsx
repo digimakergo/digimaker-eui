@@ -2,7 +2,7 @@ import * as React from 'react';
 import Moment from 'react-moment';
 import Config from '../dm.json';
 import Create from '../actions/Create';
-import {FetchWithAuth, getDefinition, getFields, getCommonFieldName} from '../utils/util';
+import {FetchWithAuth, getDefinition, getFields, getCommonFieldName} from '../ui/util';
 import ListRowActions from './ListRowActions';
 import Actions from './Actions';
 import FieldRegister from '../ui/FieldRegister';
