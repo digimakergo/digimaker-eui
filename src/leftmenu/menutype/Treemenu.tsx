@@ -15,7 +15,7 @@ export default class Treemenu extends React.Component<{ config: any }, { data: a
   }
 
   fetchData() {
-    FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/treemenu/' + this.props.config.root)
+    FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/treemenu/' + this.props.config.root + '?type='+this.props.config.contenttype.join(','))
       .then(res => res.json())
       .then((data) => {
         this.setState({ data: data });
@@ -28,9 +28,10 @@ export default class Treemenu extends React.Component<{ config: any }, { data: a
   }
 
   render() {
+    let isOpen = this.props.config.is_site||this.props.config.open;
     return (
       this.state.data && <div className="menuitem">
-          <Accordion defaultActiveKey={this.props.config.is_site?"1":"0"}>
+          <Accordion defaultActiveKey={isOpen?"1":"0"}>
           <div className="menuitem-head">
             <NavLink to={`/main/${this.state.data.id}`} activeClassName="selected">
               <i className={this.props.config.icon}></i> {this.state.data.name}
@@ -39,7 +40,7 @@ export default class Treemenu extends React.Component<{ config: any }, { data: a
             <span className="right">
             {this.props.config.is_site &&
               <a className="select-site" href="#" data-tip="Site list"><i className="fas fa-list"></i></a>}
-              <IconToggle eventKey="1" className="fas fa-chevron-right" open={this.props.config.is_site?true:false} />
+              <IconToggle eventKey="1" className="fas fa-chevron-right" open={isOpen?true:false} />
               <ReactTooltip effect="solid" />
             </span>
           </div>

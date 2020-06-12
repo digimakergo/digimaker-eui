@@ -9,14 +9,44 @@ import FieldRegister from '../ui/FieldRegister';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 
-export default class List extends React.Component<{ id: number, contenttype: string }, {def:any, loading:boolean, list: any, actionNew: boolean, currentPage:number, sortby: Array<Array<string>>, selected: Array<number> }> {
+export default class List extends React.Component<{ id: number, contenttype: string, listtype?:string, onLinkClick?:any }, {def:any, loading:boolean, list: any, actionNew: boolean, currentPage:number, sortby: Array<Array<string>>, selected: Array<number> }> {
 
    private config: any
 
+    //todo: support * or _ as general config(so merge _ with spearate, type: array(merge), value(override), object(merge) ), so id can be in *
     constructor(props: any) {
         super(props);
-        this.config = Config.list[this.props.contenttype]
+        this.setConfig();
         this.state = { def:'',list: '', loading: true, actionNew: false, currentPage: 0, sortby:this.config['sort_default'], selected:[]};
+    }
+
+    setConfig(){
+      if( this.props.listtype ){
+          this.config = Config.list["_"+this.props.listtype][this.props.contenttype];
+      }else{
+          this.config = Config.list[this.props.contenttype];
+      }
+      if( !this.config['sort_default'] ){
+        this.config['sort_default'] = [['id', 'desc']];
+      }
+      if( this.config['can_select'] == undefined ){
+        this.config['can_select'] = true;
+      }
+      if( this.config['pagination'] == undefined ){
+        this.config['pagination'] = "-1";
+      }
+      if( this.config['sort'] == undefined ){
+        this.config['sort'] = [];
+      }
+      if( this.config['row_actions'] == undefined ){
+        this.config['row_actions'] = [];
+      }
+      if( this.config['show_table_header'] == undefined ){
+        this.config['show_table_header'] = true;
+      }
+      if( this.config['columns'] == undefined ){
+        this.config['columns'] = [];
+      }
     }
 
 
@@ -109,7 +139,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
         || prevProps.id != this.props.id
         || prevProps.contenttype != this.props.contenttype)
       {
-        this.config = Config.list[this.props.contenttype];
+        this.setConfig();
         this.fetchData();
       }
     }
@@ -138,13 +168,20 @@ export default class List extends React.Component<{ id: number, contenttype: str
       this.setState({selected: selected});
     }
 
+    linkClick(e, content){
+      if( this.props.onLinkClick ){
+        e.preventDefault();
+        this.props.onLinkClick({id:content.id, name:content.name});
+      }
+    }
+
     renderRows(list) {
         let rows: Array<any> = [];
         let fieldsDef = getFields(this.state.def);
         for (let i = 0; i < list.length; i++) {
             let content = list[i]
             rows.push(<tr>
-              <td onClick={()=>this.select(content.id)} className="td-check center"><input type="checkbox" checked={this.state.selected[content.id]?true:false} value="1" /></td>
+              {this.config.can_select&&<td onClick={()=>this.select(content.id)} className="td-check center"><input type="checkbox" checked={this.state.selected[content.id]?true:false} value="1" /></td>}
               <td onClick={()=>this.select(content.id)} className="td-id">{content.id}</td>
               {this.config.columns.map((column)=>{
                   {/*render fields, todo: use lazy load*/}
@@ -164,7 +201,7 @@ export default class List extends React.Component<{ id: number, contenttype: str
                   {/*render common fields*/}
                   switch(column){
                     case 'name':
-                      return (<td className="content-name"><span><Link to={"/main/"+content.id}>{content.name}</Link></span></td>);
+                      return (<td className="content-name"><span><Link to={"/main/"+content.id} onClick={(e)=>this.linkClick(e, content)}>{content.name}</Link></span></td>);
                     case 'author':
                       return (<td>{content.author}</td>)
                     case 'published':
@@ -195,9 +232,9 @@ export default class List extends React.Component<{ id: number, contenttype: str
             {this.config.show_header&&<h3>{this.state.def.name}({this.state.list.count})</h3>}
             <table className="table"><tbody>
               {this.config['show_table_header']&&<tr>
-                <th className="center" onClick={()=>this.selectAll()}>
+                {this.config.can_select&&<th className="center" onClick={()=>this.selectAll()}>
                   <a href="#"><i className="far fa-check-square"></i></a>
-                </th>
+                </th>}
                 <th><a href="#" onClick={(e)=>{this.sort(e, 'id');}} className={'column-sortable '+(this.state.sortby[0][0] == 'id'? this.state.sortby[0][1]:'')}>ID</a></th>
                 {this.config.columns.map( (column)=>{
                   let sortable = this.config.sort[column]?true:false;
