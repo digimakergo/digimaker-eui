@@ -17,8 +17,9 @@
         },
         {
           "name": "Resources",
-          "type": "leftmenu:listmenu",
+          "type": "leftmenu:treemenu",
           "icon": "fas fa-file-alt",
+          "contenttype":["folder"],
           "open": true,
           "root": 582
         },
@@ -75,7 +76,7 @@
     "folder": {
       "list": [
         "article:3",
-        "image:5",
+        "image:583",
         "user:4"
       ],
       "actions": [{
@@ -316,33 +317,20 @@
         ["published", "desc"]
       ],
       "sort": [],
-      "columns": ["name", "author", "published", "modified"],
+      "columns": ["name", "image", "author", "published", "modified"],
       "show_header": true,
-      "show_table_header": false,
-      "actions": [{
-          "link": "",
-          "name": "preview"
-        },
-        {
-          "link": "",
-          "name": "copy"
-        },
-        {
-          "link": "",
-          "name": "move"
-        },
+      "show_table_header": true,
+      "actions": [
         {
           "link": "",
           "name": "delete"
-        },
-        {
-          "link": "",
-          "name": "export"
         }
       ],
+      "viewmode":"block",
       "row_actions": [],
       "pagination": 10,
-      "row_more": ["export"]
+      "row_more": ["export"],
+      "blockview_columns":["image", "name","modified"]
     },
     "usergroup": {
       "sort_default": [
