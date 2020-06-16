@@ -9,14 +9,18 @@
         {
           "name": "Sites",
           "type": "leftmenu:treemenu",
+          "contenttype":["folder"],
           "icon": "fas fa-home",
           "is_site": true,
+          "open": true,
           "root": 3
         },
         {
           "name": "Resources",
-          "type": "leftmenu:listmenu",
+          "type": "leftmenu:treemenu",
           "icon": "fas fa-file-alt",
+          "contenttype":["folder"],
+          "open": true,
           "root": 582
         },
         {
@@ -45,12 +49,14 @@
       "menu": [{
           "name": "Organizations",
           "type": "leftmenu:treemenu",
+          "contenttype":["usergroup"],
           "icon": "fas fa-sitemap",
           "root": 4
         },
         {
           "name": "Roles",
           "type": "leftmenu:treemenu",
+          "contenttype":["role"],
           "icon": "fas fa-user-tag",
           "root": 7
         },
@@ -70,7 +76,7 @@
     "folder": {
       "list": [
         "article:3",
-        "image:5",
+        "image:583",
         "user:4"
       ],
       "actions": [{
@@ -189,6 +195,14 @@
   },
   "comment": "---------Support default setting for list and others-------------",
   "list": {
+    "_browse":{
+        "article": {
+          "sort":{"name":"desc"},
+          "columns":["name"],
+          "pagination": 20,
+          "can_select": false
+        }
+    },
     "folder": {
       "sort_default": [
         ["published", "desc"]
@@ -303,33 +317,20 @@
         ["published", "desc"]
       ],
       "sort": [],
-      "columns": ["name", "author", "published", "modified"],
+      "columns": ["name", "image", "author", "published", "modified"],
       "show_header": true,
-      "show_table_header": false,
-      "actions": [{
-          "link": "",
-          "name": "preview"
-        },
-        {
-          "link": "",
-          "name": "copy"
-        },
-        {
-          "link": "",
-          "name": "move"
-        },
+      "show_table_header": true,
+      "actions": [
         {
           "link": "",
           "name": "delete"
-        },
-        {
-          "link": "",
-          "name": "export"
         }
       ],
+      "viewmode":"block",
       "row_actions": [],
       "pagination": 10,
-      "row_more": ["export"]
+      "row_more": ["export"],
+      "blockview_columns":["image", "name","modified"]
     },
     "usergroup": {
       "sort_default": [

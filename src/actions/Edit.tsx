@@ -5,7 +5,7 @@ import { Link, Redirect } from "react-router-dom";
 import Config from '../dm.json';
 import LoadFields from '../ui/LoadFields';
 import Registry from '../ui/Registry';
-import {FetchWithAuth} from '../utils/util';
+import {FetchWithAuth} from '../ui/util';
 
 export default class Edit extends React.Component<RouteProps, {content:any,validation:{}}> {
 

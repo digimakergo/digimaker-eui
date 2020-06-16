@@ -1,12 +1,11 @@
 import * as React from 'react';
-import Config from '../dm.json';
 import Moment from 'react-moment';
 import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
-import util from '../utils/util';
-import Registry from '../ui/Registry';
+import util from './util';
+import Registry from './Registry';
 import { Accordion, Button } from 'react-bootstrap';
-import {IconToggle} from '../ui/IconToggle';
+import {IconToggle} from './IconToggle';
 
 
 export default class Actions extends React.Component<{actionsConfig:any, from?:any, selected?:any, afterAction?:any}> {

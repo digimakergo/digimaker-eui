@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
-import { FetchWithAuth } from '../../utils/util';
+import { FetchWithAuth } from '../../ui/util';
 import { Accordion } from 'react-bootstrap';
 import {IconToggle} from '../../ui/IconToggle';
 
@@ -26,10 +26,11 @@ export default class Listmenu extends React.Component<{ config: any }, { data: a
 
   render() {
     return (
-      this.state.data && <div className="menuitem"><Accordion defaultActiveKey="0">
+      this.state.data && <div className="menuitem">
+      <Accordion defaultActiveKey={this.props.config.open?"1":"0"}>
           <div className="menuitem-head">
             <a href="#"><i className={this.props.config.icon}></i> {this.props.config.name}</a>
-            <div className="right"><IconToggle eventKey="1" className="fas fa-chevron-right" open={false} /></div>
+            <div className="right"><IconToggle eventKey="1" className="fas fa-chevron-right" open={this.props.config.open?true:false} /></div>
           </div>
           <Accordion.Collapse eventKey="1" className="menuitem-content">
             <ul className="listmenu">

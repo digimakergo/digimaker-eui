@@ -1,8 +1,7 @@
 import * as React from 'react';
 import Moment from 'react-moment';
-import Config from '../dm.json';
 import Create from '../actions/Create';
-import util from '../utils/util';
+import util from '../ui/util';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Actions from './Actions';
 

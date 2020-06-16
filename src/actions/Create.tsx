@@ -4,7 +4,7 @@ import { RouteProps } from 'react-router';
 import { Link, Redirect } from "react-router-dom";
 import Config from '../dm.json';
 import LoadFields from '../ui/LoadFields';
-import {FetchWithAuth} from '../utils/util';
+import {FetchWithAuth} from '../ui/util';
 
 export default class Create extends React.Component<RouteProps, {validation:{}}> {
 

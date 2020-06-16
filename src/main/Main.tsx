@@ -3,16 +3,17 @@ import { RouteProps } from 'react-router';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import Config from '../dm.json';
 import Moment from 'react-moment';
-import List from './List';
+import List from '../ui/List';
 import MetaInfo from './MetaInfo';
-import Actions from './Actions';
+import Actions from '../ui/Actions';
 import Search from './Search';
 import Service from '../Service';
-import ViewContent from './ViewContent';
+import ViewContent from '../ui/ViewContent';
 import Registry from '../ui/Registry';
 import {ContentContext} from '../Context';
-import {FetchWithAuth} from '../utils/util';
+import {FetchWithAuth} from '../ui/util';
 import ReactTooltip from "react-tooltip";
+import util from '../ui/util';
 
 export default class Main extends React.Component<RouteProps, { content: any, list: any, sideOpen:any }> {
 
@@ -53,6 +54,20 @@ export default class Main extends React.Component<RouteProps, { content: any, li
       }
     }
 
+    //get allowed type. (used in list types and new types configuration)
+    getAllowedTypes(typeConfig:Array<string>){
+      let result: Array<string> = [];
+      if( typeConfig ){
+        typeConfig.map((value:string)=>{
+            let type = util.getAllowedType( this.state.content, value );
+            if( type && !result.includes(type) ){
+              result.push( type );
+            }
+        });
+      }
+      return result;
+    }
+
     render() {
         if( !this.state.content )
         {
@@ -60,23 +75,7 @@ export default class Main extends React.Component<RouteProps, { content: any, li
         }
         let contenttype = this.state.content.content_type;
         let mainConfig = Config.main[contenttype];
-        let listContenttypes: Array<string> = [];
-
-        let configList = mainConfig?mainConfig['list']:false;
-        if( configList ){
-          configList.map((value:string)=>{
-              let arr = value.split( ':' );
-              let type: string = arr[0];
-              if( arr.length == 1 ){
-                listContenttypes.push( type );
-              }else if( arr.length>1 ){
-                  let conditions = arr[1];
-                  if (this.state.content.hierarchy.split('/').includes( conditions )){
-                    listContenttypes.push( type );
-                  }
-              }
-          });
-        }
+        let listContenttypes: Array<string> = this.getAllowedTypes(mainConfig['list']);
 
         let selected = {};
         selected[this.state.content.id] = this.state.content.name;
@@ -112,7 +111,7 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                 <div className="list">
                 {
                     listContenttypes.map((value)=>{
-                        return(<List id={this.props.match.params.id} contenttype={value} />)
+                        return(<List id={this.props.match.params.id} contenttype={value} config={Config.list[value]} />)
                     })
                 }
                 </div>
@@ -128,7 +127,7 @@ export default class Main extends React.Component<RouteProps, { content: any, li
                          {mainConfig['new']&&<div className="action-create">
                           <label>Create content</label>
                          <div>
-                         {mainConfig['new'].map((value)=>{return (
+                         {this.getAllowedTypes(mainConfig['new']).map((value)=>{return (
                              <Link to={`/create/${this.state.content.id}/${value}`} data-tip={value}>
                                  <i className={"icon icon-"+value}></i> &nbsp;
                              </Link>

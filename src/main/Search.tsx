@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {FetchWithAuth} from '../utils/util';
+import {FetchWithAuth} from '../ui/util';
 
 export default class Search extends React.Component<{},{}>{
   constructor(props: any) {
