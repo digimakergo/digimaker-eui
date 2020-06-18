@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {FetchWithAuth} from '../ui/util';
+import {FetchWithAuth} from 'digimaker-ui/util';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 

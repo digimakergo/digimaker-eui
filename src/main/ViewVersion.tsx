@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Moment from 'react-moment';
 import { RouteProps } from 'react-router';
-import LoadFields from '../ui/LoadFields';
+import LoadFields from 'digimaker-ui/LoadFields';
 import MetaInfo from './MetaInfo';
 
 export default class ViewContent extends React.Component<RouteProps,{version:any, error: string}> {

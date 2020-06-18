@@ -1,17 +1,33 @@
 {
-    "name": "@digimakeras/eui",
-    "version": "0.1.2",
+    "name": "digimaker",
+    "version": "0.1.0-alpha.1",
     "private": false,
-    "repository": "git://github.com/digimakeras/eui.git",
-    "publishConfig": {
-        "registry": "https://npm.pkg.github.com"
+    "description": "Client of digimaker CMF - a high performance CMF written in Golang.",
+    "repository": "git://github.com/digimakergo/eui.git",
+    "keywords": [
+        "cmf",
+        "cms",
+        "digimaker"
+    ],
+    "license": "MIT",
+    "author": "Digimaker Go",
+    "bugs": {
+        "url": "https://github.com/digimakergo/eui/issues"
     },
+    "files": [
+        "**/*.js",
+        "dm.json"
+    ],
+    "homepage": "https://github.com/digimakergo/eui#readme",
     "dependencies": {
+        "digimaker-ui": "0.1.0-alpha.1",
         "@tinymce/tinymce-react": "^3.6.0",
-        "@types/jest": "24.0.18",
-        "@types/node": "12.7.5",
-        "@types/react": "16.9.2",
-        "@types/react-dom": "16.9.0",
+        "@types/jest": "^24.0.18",
+        "@types/node": "^12.7.5",
+        "@types/react": "^16.9.2",
+        "@types/react-dom": "^16.9.0",
+        "@types/react-router": "^5.1.7",
+        "@types/react-router-dom": "^5.1.5",
         "formdata-polyfill": "^3.0.19",
         "i18next": "^19.0.2",
         "jquery": "^3.4.1",
@@ -27,13 +43,14 @@
         "react-select": "^3.1.0",
         "react-tooltip": "^3.11.6",
         "recharts": "^1.8.5",
-        "tinymce":"^4.9.3",
-        "typescript": "3.6.3",
+        "tinymce": "^4.9.3",
+        "typescript": "^3.6.3",
         "universal-cookie": "^4.0.3"
     },
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
+        "dist": "rm -rf dist/* && cp ./package.json ./src/dm.json ./dist && tsc",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },

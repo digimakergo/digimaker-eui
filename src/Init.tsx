@@ -7,7 +7,7 @@
 
 // @ts-ignore
 import FieldRegister from './ui/FieldRegister'
-import Registry from './ui/Registry'
+import Registry from 'digimaker-ui/Registry'
 import Dashboard from './leftmenu/menutype/Dashboard'
 import Treemenu from './leftmenu/menutype/Treemenu'
 import Listmenu from './leftmenu/menutype/Listmenu'

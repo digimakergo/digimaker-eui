@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
-import { FetchWithAuth } from '../../ui/util';
+import { FetchWithAuth } from 'digimaker-ui/util';
 import ReactTooltip from "react-tooltip";
 import Select from 'react-select';
-import TreeNode from '../../ui/TreeNode';
+import TreeNode from 'digimaker-ui/TreeNode';
 import { Accordion } from 'react-bootstrap';
-import {IconToggle} from '../../ui/IconToggle';
 
 export default class Treemenu extends React.Component<{ config: any }, { data: any }> {
 
@@ -40,7 +39,7 @@ export default class Treemenu extends React.Component<{ config: any }, { data: a
             <span className="right">
             {this.props.config.is_site &&
               <a className="select-site" href="#" data-tip="Site list"><i className="fas fa-list"></i></a>}
-              <IconToggle eventKey="1" className="fas fa-chevron-right" open={isOpen?true:false} />
+              <i className={"foldable fas fa-chevron-right"+(this.props.config.open?' open':'')}></i>
               <ReactTooltip effect="solid" />
             </span>
           </div>

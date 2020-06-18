@@ -2,7 +2,6 @@ import * as React from 'react';
 import Moment from 'react-moment';
 import { Link } from "react-router-dom";
 import { Accordion, Button } from 'react-bootstrap';
-import {IconToggle} from '../ui/IconToggle';
 
 export default class MetaInfo extends React.Component<{content:any}> {
 

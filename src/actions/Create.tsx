@@ -3,10 +3,10 @@ import Moment from 'react-moment';
 import { RouteProps } from 'react-router';
 import { Link, Redirect } from "react-router-dom";
 import Config from '../dm.json';
-import LoadFields from '../ui/LoadFields';
-import {FetchWithAuth} from '../ui/util';
+import LoadFields from 'digimaker-ui/LoadFields';
+import {FetchWithAuth} from 'digimaker-ui/util';
 
-export default class Create extends React.Component<RouteProps, {validation:{}}> {
+export default class Create extends React.Component<RouteProps & any, {validation:{}}> {
 
     constructor(props: any) {
         super(props);

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
-import { FetchWithAuth } from '../../ui/util';
+import { FetchWithAuth } from 'digimaker-ui/util';
 import { Accordion } from 'react-bootstrap';
-import {IconToggle} from '../../ui/IconToggle';
+import {IconToggle} from 'digimaker-ui/IconToggle';
 
 export default class Listmenu extends React.Component<{ config: any }, { data: any }> {
 
@@ -30,8 +30,10 @@ export default class Listmenu extends React.Component<{ config: any }, { data: a
       <Accordion defaultActiveKey={this.props.config.open?"1":"0"}>
           <div className="menuitem-head">
             <a href="#"><i className={this.props.config.icon}></i> {this.props.config.name}</a>
-            <div className="right"><IconToggle eventKey="1" className="fas fa-chevron-right" open={this.props.config.open?true:false} /></div>
-          </div>
+            <div className="right">
+              <i className={"foldable fas fa-chevron-right"+(this.props.config.open?' open':'')}></i>
+            </div>
+            </div>
           <Accordion.Collapse eventKey="1" className="menuitem-content">
             <ul className="listmenu">
             {this.state.data.map((item)=>{

@@ -2,8 +2,8 @@ import * as React from 'react';
 import Moment from 'react-moment';
 import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
-import {FetchWithAuth} from '../../ui/util';
-import TreeNode from "../../ui/TreeNode";
+import {FetchWithAuth} from 'digimaker-ui/util';
+import TreeNode from "digimaker-ui/TreeNode";
 
 export default class Structure extends React.Component<{content:any},{data:any}> {
   constructor(props: any) {

@@ -7,11 +7,15 @@
 
 /lib
 
+/dist
+
 # testing
 /coverage
 
 # production
 /build
+
+/src/plugin
 
 # misc
 .DS_Store

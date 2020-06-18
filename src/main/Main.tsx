@@ -3,19 +3,19 @@ import { RouteProps } from 'react-router';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import Config from '../dm.json';
 import Moment from 'react-moment';
-import List from '../ui/List';
+import List from 'digimaker-ui/List';
 import MetaInfo from './MetaInfo';
-import Actions from '../ui/Actions';
+import Actions from 'digimaker-ui/Actions';
 import Search from './Search';
 import Service from '../Service';
-import ViewContent from '../ui/ViewContent';
-import Registry from '../ui/Registry';
+import ViewContent from 'digimaker-ui/ViewContent';
+import Registry from 'digimaker-ui/Registry';
 import {ContentContext} from '../Context';
-import {FetchWithAuth} from '../ui/util';
+import {FetchWithAuth} from 'digimaker-ui/util';
 import ReactTooltip from "react-tooltip";
-import util from '../ui/util';
+import util from 'digimaker-ui/util';
 
-export default class Main extends React.Component<RouteProps, { content: any, list: any, sideOpen:any }> {
+export default class Main extends React.Component<RouteProps  & any, { content: any, list: any, sideOpen:any }> {
 
     constructor(props: any) {
         super(props);

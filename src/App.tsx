@@ -10,7 +10,7 @@ import Edit from './actions/Edit'
 import ViewVersion from './main/ViewVersion'
 import Config from './dm.json'
 import './Init'
-import Registry from './ui/Registry'
+import Registry from 'digimaker-ui/Registry'
 import ContextProvider from './ContextProvider';
 import ErrorBoundary from './ErrorBoundary';
 import {Permission} from './leftmenu/Permission'
@@ -32,14 +32,13 @@ const App: React.FC = () => {
                 <Leftmenu />
                 <div className="main">
                     <Route path="/main/:id" component={Main}/>
-                    <Route path='/dashboard' component={<Permission access={"/dashboard"} error={errorMessage}><Main/></Permission>}/>
                     <Route path="/create/:parent/:contenttype" component={Create} />
                     <Route path="/edit/:id" component={Edit} />
-                    <Route path="/version/:id/:version" component={<Permission access={"/version/:id/:version"} error={errorMessage}><ViewVersion/></Permission>} />
+                    <Route path="/version/:id/:version" component={ViewVersion} />
                     {/*Register configable routes*/}
-                    {Object.keys(Config.routes).map((key)=>{
+                    {Object.keys(Config.routes).map((key:any)=>{
                         let identifier:string = Config.routes[key];
-                        const com:React.ReactType = Registry.getComponent(identifier);
+                        const com:React.ComponentClass<any, any> = Registry.getComponent(identifier);
                         console.debug('Registering route: '+ key+' with component ' + identifier);
                         return (<Route path={key} component={com} />)
                     })

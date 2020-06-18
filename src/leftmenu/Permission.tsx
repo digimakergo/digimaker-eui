@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { render } from 'react-dom';
-import {FetchWithAuth} from '../ui/util'
+import {FetchWithAuth} from 'digimaker-ui/util'
 
 let requested = false;
 let resolves:Array<any> = [];
@@ -53,7 +53,6 @@ export class Permission extends React.Component <{access:any, error?:string },{p
     render()
     {
         let result:any;
-        // const PermissionCheck = ["/eth/report","/eth/statistics","leftmenu:treemenu","Organizations","/policies","/main/:id"]
         const PermissionCheck = this.state.permissionData;
         if (!PermissionCheck){
             return '';

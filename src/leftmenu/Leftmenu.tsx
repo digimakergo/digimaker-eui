@@ -2,12 +2,12 @@ import * as React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink, useLocation } from "react-router-dom";
 import Slidemenu from './Slidemenu'
 import Config from '../dm.json'
-import Registry from '../ui/Registry'
+import Registry from 'digimaker-ui/Registry'
 import { RouteProps, withRouter } from 'react-router';
 import {ContentContext} from '../Context';
 import { Permission } from './Permission';
 import { useState } from 'react';
-import {FetchWithAuth, SetAccessToken} from '../ui/util';
+import {FetchWithAuth, SetAccessToken} from 'digimaker-ui/util';
 import ReactTooltip from "react-tooltip";
 
 //Whole left menu consising of slidemenu and menulist,

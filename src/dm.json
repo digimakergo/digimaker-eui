@@ -187,10 +187,6 @@
         "title": "Edit this",
         "name": "Edit"
       }]
-    },
-    "report": {
-      "view": true,
-      "tools": ["tool:workflow-activities"]
     }
   },
   "comment": "---------Support default setting for list and others-------------",
@@ -376,19 +372,6 @@
       "actions": [],
       "row_actions": [],
       "pagination": 25,
-      "row_more": []
-    },
-    "report": {
-      "sort_default": [
-        ["modified", "desc"]
-      ],
-      "sort": {"name":"asc", "modified":"desc", "published":"asc", "status":"asc"},
-      "columns": ["name", "author", "status", "published", "modified"],
-      "show_header": false,
-      "show_table_header": true,
-      "actions": [],
-      "pagination": 15,
-      "row_actions": [],
       "row_more": []
     }
   },
