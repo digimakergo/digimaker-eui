@@ -31,7 +31,7 @@ export default class Listmenu extends React.Component<{ config: any }, { open:bo
             <a href="#"><i className={this.props.config.icon}></i> {this.props.config.name}</a>
             <div className="right">
               <a href="#" onClick={(e:any)=>{e.preventDefault(); this.setState({open:!this.state.open})}}>
-                <i className={"foldable fas fa-chevron-right"+(this.props.config.open?' open':'')}></i>
+                <i className={"foldable fas fa-chevron-right"+(this.state.open?' open':'')}></i>
               </a>
             </div>
             </div>
