@@ -2,13 +2,13 @@ import * as React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import { FetchWithAuth } from 'digimaker-ui/util';
 import { Accordion } from 'react-bootstrap';
-import {IconToggle} from 'digimaker-ui/IconToggle';
+import { Collapse } from 'react-bootstrap';
 
-export default class Listmenu extends React.Component<{ config: any }, { data: any }> {
+export default class Listmenu extends React.Component<{ config: any }, { open:boolean, data: any }> {
 
   constructor(props: any) {
     super(props);
-    this.state = { data: '' };
+    this.state = { open: props.config.open?true:false, data: '' };
   }
 
   fetchData() {
@@ -27,21 +27,23 @@ export default class Listmenu extends React.Component<{ config: any }, { data: a
   render() {
     return (
       this.state.data && <div className="menuitem">
-      <Accordion defaultActiveKey={this.props.config.open?"1":"0"}>
           <div className="menuitem-head">
             <a href="#"><i className={this.props.config.icon}></i> {this.props.config.name}</a>
             <div className="right">
-              <i className={"foldable fas fa-chevron-right"+(this.props.config.open?' open':'')}></i>
+              <a href="#" onClick={(e:any)=>{e.preventDefault(); this.setState({open:!this.state.open})}}>
+                <i className={"foldable fas fa-chevron-right"+(this.props.config.open?' open':'')}></i>
+              </a>
             </div>
             </div>
-          <Accordion.Collapse eventKey="1" className="menuitem-content">
+          <Collapse in={this.state.open}>
+            <div className="menuitem-content">
             <ul className="listmenu">
             {this.state.data.map((item)=>{
               return <li><NavLink to={'/main/'+item.id}><i className={"nodeicon far icon-" + item.content_type + " " + item.folder_type}></i>{item.name}</NavLink></li>
             })}
             </ul>
-          </Accordion.Collapse>
-            </Accordion>
+            </div>
+          </Collapse>
       </div>
     );
   }

@@ -4,13 +4,13 @@ import { FetchWithAuth } from 'digimaker-ui/util';
 import ReactTooltip from "react-tooltip";
 import Select from 'react-select';
 import TreeNode from 'digimaker-ui/TreeNode';
-import { Accordion } from 'react-bootstrap';
+import { Collapse } from 'react-bootstrap';
 
-export default class Treemenu extends React.Component<{ config: any }, { data: any }> {
+export default class Treemenu extends React.Component<{ config: any }, { open:boolean, data: any }> {
 
   constructor(props: any) {
     super(props);
-    this.state = { data: '' };
+    this.state = { open: props.config.open?true:false, data: '' };
   }
 
   fetchData() {
@@ -27,10 +27,9 @@ export default class Treemenu extends React.Component<{ config: any }, { data: a
   }
 
   render() {
-    let isOpen = this.props.config.is_site||this.props.config.open;
+    let isOpen = this.state.open;
     return (
       this.state.data && <div className="menuitem">
-          <Accordion defaultActiveKey={isOpen?"1":"0"}>
           <div className="menuitem-head">
             <NavLink to={`/main/${this.state.data.id}`} activeClassName="selected">
               <i className={this.props.config.icon}></i> {this.state.data.name}
@@ -39,15 +38,18 @@ export default class Treemenu extends React.Component<{ config: any }, { data: a
             <span className="right">
             {this.props.config.is_site &&
               <a className="select-site" href="#" data-tip="Site list"><i className="fas fa-list"></i></a>}
-              <i className={"foldable fas fa-chevron-right"+(this.props.config.open?' open':'')}></i>
+              <a href="#" onClick={(e:any)=>{e.preventDefault();this.setState({open:!this.state.open})}}>
+                <i className={"foldable fas fa-chevron-right"+(this.state.open?' open':'')}>
+              </i></a>
               <ReactTooltip effect="solid" />
             </span>
           </div>
 
-          <Accordion.Collapse eventKey="1" className="menuitem-content">
-            <TreeNode data={this.state.data} />
-          </Accordion.Collapse>
-        </Accordion>
+          <Collapse in={isOpen}>
+            <div className="menuitem-content">
+              <TreeNode data={this.state.data} />
+            </div>
+          </Collapse>
       </div>
     );
   }

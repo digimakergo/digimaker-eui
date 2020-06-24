@@ -273,6 +273,10 @@ td.content-name span{
   width: 100%;
 }
 
+.menuitem .right{
+  padding-right: 5px;
+}
+
 .menuitem-head{
   padding: 4px 8px;
 }
