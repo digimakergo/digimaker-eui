@@ -14,12 +14,13 @@ import {ContentContext} from '../Context';
 import {FetchWithAuth} from 'digimaker-ui/util';
 import ReactTooltip from "react-tooltip";
 import util from 'digimaker-ui/util';
+import {getDefinition} from 'digimaker-ui/util';
 
-export default class Main extends React.Component<RouteProps  & any, { content: any, list: any, sideOpen:any }> {
+export default class Main extends React.Component<RouteProps  & any, { def:any, content: any, list: any, sideOpen:any }> {
 
     constructor(props: any) {
         super(props);
-        this.state = { content: '', list: '', sideOpen: 1 };
+        this.state = { def:'', content: '', list: '', sideOpen: 1 };
     }
 
 
@@ -38,6 +39,9 @@ export default class Main extends React.Component<RouteProps  & any, { content: 
 
     componentDidMount() {
         this.fetchData(this.props.match.params.id);
+        getDefinition("article")
+        .then(res=>res.json())
+        .then(data=>this.setState({def: data}));
     }
 
     componentDidUpdate( prevProps, prevState, snapshot ){
@@ -85,7 +89,9 @@ export default class Main extends React.Component<RouteProps  & any, { content: 
             <div className="main-top">
                 <Search />
                 <h2>
-                  {this.state.content.name}&nbsp;&nbsp;
+                  <a href="#" onClick={(e:any)=>e.preventDefault()}><i data-tip data-for="contentype" className={"icon icon-"+this.state.content.content_type}></i></a> &nbsp;
+                  <ReactTooltip place="bottom" id="contentype">{this.state.def.name}</ReactTooltip>
+                  {this.state.content.name} &nbsp;&nbsp;
                   {(!(contenttype=='folder'&&this.state.content.folder_type=='site'))&&<Link className="go-uppper" title="Go upper" to={'/main/'+this.state.content.parent_id}>
                   <i className="fas fa-chevron-circle-up"></i>
                   </Link>}
