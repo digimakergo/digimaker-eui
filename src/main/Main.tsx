@@ -32,6 +32,11 @@ export default class Main extends React.Component<RouteProps  & any, { def:any, 
                 this.setState({ content: data });
                 let context = this.context;
                 context.update(data);
+
+                //get definition
+                getDefinition(data.content_type)
+                .then(res=>res.json())
+                .then(data=>this.setState({def: data}));
             }).catch(err=>{
               this.setState(()=>{throw err});
             })
@@ -39,9 +44,6 @@ export default class Main extends React.Component<RouteProps  & any, { def:any, 
 
     componentDidMount() {
         this.fetchData(this.props.match.params.id);
-        getDefinition("article")
-        .then(res=>res.json())
-        .then(data=>this.setState({def: data}));
     }
 
     componentDidUpdate( prevProps, prevState, snapshot ){
