@@ -35,7 +35,6 @@ export default class Main extends React.Component<RouteProps  & any, { def:any, 
 
                 //get definition
                 getDefinition(data.content_type)
-                .then(res=>res.json())
                 .then(data=>this.setState({def: data}));
             }).catch(err=>{
               this.setState(()=>{throw err});
