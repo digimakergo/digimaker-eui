@@ -10,6 +10,7 @@ import Edit from './actions/Edit'
 import ViewVersion from './main/ViewVersion'
 import Config from './dm.json'
 import './Init'
+import util from 'digimaker-ui/util'
 import Registry from 'digimaker-ui/Registry'
 import ContextProvider from './ContextProvider';
 import ErrorBoundary from './ErrorBoundary';
@@ -18,6 +19,7 @@ import {Permission} from './leftmenu/Permission'
 const App: React.FC = () => {
     var showSidemenu = false;
 
+    util.setConfig( Config );
     const errorMessage ='No access to view';
 
     return (
