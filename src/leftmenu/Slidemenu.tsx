@@ -30,11 +30,12 @@ export default class Slidemenu extends React.Component<{ show: boolean, changed:
                             <img src={process.env.PUBLIC_URL+"/images/logo.png"} />
                         </a>
                     </li>
-                    {sidemenus.map((menu:any) => {
-                        return (<li><NavLink to={menu.path} onClick={()=>{this.slideOut();}} className={menu.identifier} activeClassName="selected">
-                            <i className={"fas "+menu.icon}></i>
-                            <div>{menu.name}</div>
-                            </NavLink>
+                    {sidemenus.map((menu:any, i:number) => {
+                        return (<li key={menu.path}>
+                              <NavLink to={menu.path} onClick={()=>{this.slideOut();}} className={menu.identifier} activeClassName="selected">
+                                <i className={"fas "+menu.icon}></i>
+                              <div>{menu.name}</div>
+                              </NavLink>
                             </li>)
                     })}
                 </ul>

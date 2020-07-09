@@ -16,7 +16,7 @@ import ReactTooltip from "react-tooltip";
 import util from 'digimaker-ui/util';
 import {getDefinition} from 'digimaker-ui/util';
 
-export default class Main extends React.Component<RouteProps  & any, { def:any, content: any, list: any, sideOpen:any }> {
+export default class Main extends React.Component<{id:number, contenttype?:string}, { def:any, content: any, list: any, sideOpen:any }> {
 
     constructor(props: any) {
         super(props);
@@ -25,8 +25,14 @@ export default class Main extends React.Component<RouteProps  & any, { def:any, 
 
 
     //fetch content and set to context
-    fetchData(id) {
-        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/get/' + id)
+    fetchData() {
+        let url = '/content/get'
+        if( this.props.contenttype ){
+          url = url + '/'+this.props.contenttype+'/'+this.props.id;
+        }else{
+          url = url + '/'+this.props.id;
+        }
+        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + url)
             .then(res => res.json())
             .then((data) => {
                 this.setState({ content: data });
@@ -42,14 +48,14 @@ export default class Main extends React.Component<RouteProps  & any, { def:any, 
     }
 
     componentDidMount() {
-        this.fetchData(this.props.match.params.id);
+        this.fetchData();
     }
 
     componentDidUpdate( prevProps, prevState, snapshot ){
       //when changing page
-      if( prevProps.match.params.id != this.props.match.params.id)
+      if( prevProps.id != this.props.id)
       {
-        this.fetchData(this.props.match.params.id);
+        this.fetchData();
       }
     }
 
@@ -86,7 +92,7 @@ export default class Main extends React.Component<RouteProps  & any, { def:any, 
         selected[this.state.content.id] = this.state.content.name;
 
         return (
-            <div className={"contenttype-"+this.state.content.content_type}>
+            <div key={this.state.content.id} className={"contenttype-"+this.state.content.content_type}>
             <div className="main-top">
                 <Search />
                 <h2>
@@ -118,7 +124,7 @@ export default class Main extends React.Component<RouteProps  & any, { def:any, 
                 <div className="list">
                 {
                     listContenttypes.map((value)=>{
-                        return(<List id={this.props.match.params.id} contenttype={value} config={Config.list[value]} />)
+                        return(<List id={this.props.id} contenttype={value} config={Config.list[value]} />)
                     })
                 }
                 </div>
@@ -134,8 +140,8 @@ export default class Main extends React.Component<RouteProps  & any, { def:any, 
                          {mainConfig['new']&&<div className="action-create">
                           <label>Create content</label>
                          <div>
-                         {this.getAllowedTypes(mainConfig['new']).map((value)=>{return (
-                             <Link to={`/create/${this.state.content.id}/${value}`} data-tip={value}>
+                         {this.getAllowedTypes(mainConfig['new']).map((value:any)=>{return (
+                             <Link key={value} to={`/create/${this.state.content.id}/${value}`} data-tip={value}>
                                  <i className={"icon icon-"+value}></i> &nbsp;
                              </Link>
                             )})}

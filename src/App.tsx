@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, BrowserRouter as Router, Route, Link, useLocation } from "react-router-dom";
+import { RouteProps } from 'react-router';
 import './App.css';
 import Main from './main/Main'
 import Leftmenu from './leftmenu/Leftmenu'
@@ -33,16 +34,18 @@ const App: React.FC = () => {
             <div className="App">
                 <Leftmenu />
                 <div className="main">
-                    <Route path="/main/:id" component={Main}/>
+                    <Route path="/main/:id" strict render={route=><Main id={route.match.params.id} />} />
+                    <Route path="/main/:contenttype/:id" strict render={route=><Main id={route.match.params.id} contenttype={route.match.params.contenttype} />} />
                     <Route path="/create/:parent/:contenttype" component={Create} />
-                    <Route path="/edit/:id" component={Edit} />
+                    <Route path="/edit/:id" strict render={route=><Edit id={route.match.params.id} />} />
+                    <Route path="/edit/:contenttype/:id" strict render={route=><Edit id={route.match.params.id} contenttype={route.match.params.contenttype} />} />
                     <Route path="/version/:id/:version" component={ViewVersion} />
                     {/*Register configable routes*/}
                     {Object.keys(Config.routes).map((key:any)=>{
                         let identifier:string = Config.routes[key];
                         const com:React.ComponentClass<any, any> = Registry.getComponent(identifier);
                         console.debug('Registering route: '+ key+' with component ' + identifier);
-                        return (<Route path={key} component={com} />)
+                        return (<Route key={key} path={key} component={com} />)
                     })
                     }
                     <footer>

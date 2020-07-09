@@ -79,22 +79,22 @@ const MenuList = (props) => {
 
     return (<div>
         {menus.map((menu) => {
-                        return(
-                            !menu.type?
-                              <Permission access={menu.path}>
-                               <div className="menuitem">
-                                <div className="menuitem-head">
-                                 <NavLink to={menu.path} activeClassName="selected">
-                                   <i className={"far "+menu.icon} /> {menu.name}
-                                 </NavLink>
-                                 </div>
-                               </div>
-                             </Permission>
-                            :(()=>{
-                                const Com:React.ReactType = Registry.getComponent(menu.type);
-                                  return (<Com config={menu} />)
-                            })()
-                        )
+                return(
+                    !menu.type?
+                      <Permission key={menu.path} access={menu.path}>
+                       <div className="menuitem">
+                        <div className="menuitem-head">
+                         <NavLink to={menu.path} activeClassName="selected">
+                           <i className={"far "+menu.icon} /> {menu.name}
+                         </NavLink>
+                         </div>
+                       </div>
+                     </Permission>
+                    :(()=>{
+                        const Com:React.ReactType = Registry.getComponent(menu.type);
+                          return (<Com key={menu.name} config={menu} />)
+                    })()
+                )
             })}
     </div>)
 }

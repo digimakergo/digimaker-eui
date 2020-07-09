@@ -7,15 +7,21 @@ import LoadFields from 'digimaker-ui/LoadFields';
 import Registry from 'digimaker-ui/Registry';
 import {FetchWithAuth} from 'digimaker-ui/util';
 
-export default class Edit extends React.Component<RouteProps  & any, {content:any,validation:{}}> {
+export default class Edit extends React.Component<{id:number, contenttype?:string}, {content:any,validation:{}}> {
 
     constructor(props: any) {
         super(props);
         this.state = {content:'',validation:''};
     }
 
-    fetchData(id) {
-        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/get/'+id)
+    fetchData() {
+        let url = '/content/get'
+        if( this.props.contenttype ){
+          url = url + '/'+this.props.contenttype+'/'+this.props.id;
+        }else{
+          url = url + '/'+this.props.id;
+        }
+        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + url)
             .then(res => res.json())
             .then((data) => {
                 this.setState({ content: data});
@@ -23,8 +29,7 @@ export default class Edit extends React.Component<RouteProps  & any, {content:an
     }
 
     componentDidMount(){
-      let id = this.props.match.params.id;
-      this.fetchData(id);
+      this.fetchData();
     }
 
     handleSubmit(event) {
@@ -34,13 +39,13 @@ export default class Edit extends React.Component<RouteProps  & any, {content:an
         for (let key of Array.from(form.keys())) {
             dataObject[key] = form.get(key);
         };
-        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/update/'+this.props.match.params.id, {
+        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/update/'+this.props.id, {
             method: 'POST',
             body: JSON.stringify(dataObject),
         }).then((res) => {
             if (res.ok) {
-                this.props.history.push('/main/' + this.props.match.params.id);
-                //todo: use redirect parameters
+              window.location.href = process.env.PUBLIC_URL+'/main/'+this.props.id;
+                //todo: use redirect parameters/callback
             }else {
                 console.log(res)
                 return res.json();
@@ -71,7 +76,7 @@ export default class Edit extends React.Component<RouteProps  & any, {content:an
                                     <button type="submit" className="btn btn-primary btn-sm"><i className="fas fa-paper-plane"></i> Submit</button>
                                 </div>
                                 <div>
-                                    <Link to={`/main/${this.props.match.params.id}`}>
+                                    <Link to={`/main/${this.props.id}`}>
                                         <button type="button" className="btn btn-sm btn-secondary">
                                             <i className="fas fa-window-close"></i> Cancel
                                     </button>
