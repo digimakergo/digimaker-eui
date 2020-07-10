@@ -77,7 +77,7 @@ const MenuList = (props) => {
     let path = location.pathname;
     let menus: any = getCurrentMenu(path, props.content);
 
-    return (<div>
+    return (<React.Suspense fallback="..."><div>
         {menus.map((menu) => {
                 return(
                     !menu.type?
@@ -96,7 +96,7 @@ const MenuList = (props) => {
                     })()
                 )
             })}
-    </div>)
+    </div></React.Suspense>)
 }
 
 //get leftmenu configuration based on location path
