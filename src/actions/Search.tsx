@@ -8,6 +8,7 @@ class Search extends React.Component<{handleFilter:any},{query?:any,filter:any,o
 
  filterSet:any={};
  filterList:any=[];
+ searchText:any;
  constructor(props: any){
     super(props);
     this.state = {
@@ -63,10 +64,14 @@ deleteFilter=(key:string,e:any)=>{
  }
  createFilterQuery=()=>{
   let filterQuery=""
+  if(this.searchText.value){
+    filterQuery="?search="+this.searchText.value;
+  }
   if(this.state.filter){
     Object.keys(this.state.filter).map((key:any,index:number)=>{
       
-      index===0?filterQuery="?":filterQuery+="&";
+      index===0? filterQuery.length>0?filterQuery+="&":filterQuery="?" :filterQuery+="&";
+   
 
       if(Array.isArray(this.state.filter[key]))// if(key=="created"|| key=="modified")
         {
@@ -116,7 +121,8 @@ deleteFilter=(key:string,e:any)=>{
       {this.state.filter&& Object.keys(this.state.filter).map((key:any,index:number)=><div style={{display:"inline",padding: "5px",margin:"3px" ,border:"1px solid black"}} key={index}>{key+"-"+this.state.filter[key]}&nbsp;<i className="fa fa-times" aria-hidden="true" onClick={this.deleteFilter.bind(this,key)}></i></div>)}
       <br/><input
         placeholder="Search for..."
-        onChange={this.handleInputChange}
+        ref={(input) => this.searchText = input}
+       
       />
       {/* this.props.handleFilter.bind(this,this.state.filter,this.state.query) */}
       <button onClick={this.createFilterQuery}>filter</button>
