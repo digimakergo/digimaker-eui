@@ -38,7 +38,7 @@ export default class SetPriority extends React.Component<{from:any, afterAction:
 
   render(){
     let priority = this.props.from.priority;
-    return (<div>{priority!=0&&<span onClick={()=>this.removePriority()}>Remove priority</span>}
-                 {priority==0&&<span onClick={()=>this.setToTop()}>Set top priority</span>}</div>)
+    return (<div>{priority!=0&&<span onClick={()=>this.removePriority()}><i className="fas fa-times"></i> Remove priority</span>}
+                 {priority==0&&<span onClick={()=>this.setToTop()}><i className="fas fa-long-arrow-alt-up"></i> Set top priority</span>}</div>)
   }
 }
