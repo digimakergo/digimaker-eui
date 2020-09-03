@@ -124,7 +124,7 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
                 <div className="list">
                 {
                     listContenttypes.map((value)=>{
-                        return(<List id={this.props.id} contenttype={value} config={Config.list[value]} />)
+                        return(<List id={this.props.id} contenttype={value} config={util.getSettings(Config.list, value)} />)
                     })
                 }
                 </div>
