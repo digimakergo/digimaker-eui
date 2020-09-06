@@ -17,6 +17,13 @@ export default class Move extends React.Component<{from:any, changed:boolean, se
       }
   }
 
+  getContainerTypes(contenttype:string){
+    //todo: use other way to get list since this one is not reliable
+    let filterConfig = util.getConfig().browse.filter;
+    let result = util.getSettings( filterConfig, contenttype ).contenttype;
+    return result;
+  }
+
   //close dialog
   close(){
     this.setState({triggered:false});
@@ -38,7 +45,7 @@ export default class Move extends React.Component<{from:any, changed:boolean, se
   render(){
     return <div>
         {this.state.operating&&<div>Loading...</div>}
-        <Browse trigger={true} config={util.getConfig().browse} contenttype={"folder"} onConfirm={(target:any)=>{this.selectedTarget(target)}} />
+        <Browse trigger={true} config={util.getConfig().browse} contenttype={this.getContainerTypes(this.props.from.content_type)} onConfirm={(target:any)=>{this.selectedTarget(target)}} />
         </div>
 
     return <div style={{background:'white',position:'fixed', left:'30%',top:'20%',width:'500px', height:'500px'}}>
