@@ -85,7 +85,7 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
           return '';
         }
         let contenttype = this.state.content.content_type;
-        let mainConfig = Config.main[contenttype];
+        let mainConfig = util.getSettings( Config.main, contenttype);
         let listContenttypes: Array<string> = this.getAllowedTypes(mainConfig['list']);
 
         let selected = {};
@@ -149,9 +149,9 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
                           </div>
                          </div>}
                         {mainConfig['new']&&<hr />}
-                      {Config.main[contenttype].actions&&
+                      {mainConfig.actions&&
                         <div className="actions">
-                          <Actions from={this.state.content} selected={selected} actionsConfig={Config.main[contenttype].actions}
+                          <Actions from={this.state.content} selected={selected} actionsConfig={mainConfig.actions}
                             afterAction={(refresh:boolean, jumpToParent:boolean)=>this.afterAction(refresh, jumpToParent)} />
                         </div>
                       }
