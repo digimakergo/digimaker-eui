@@ -19,6 +19,7 @@ import {getDefinition} from 'digimaker-ui/util';
 export default class Main extends React.Component<{id:number, contenttype?:string}, { def:any, content: any, list: any, sideOpen:any }> {
 
     constructor(props: any) {
+        console.log('main');
         super(props);
         this.state = { def:'', content: '', list: '', sideOpen: 1 };
     }
@@ -35,13 +36,12 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
         FetchWithAuth(process.env.REACT_APP_REMOTE_URL + url)
             .then(res => res.json())
             .then((data) => {
-                this.setState({ content: data });
                 let context = this.context;
                 context.update(data);
 
                 //get definition
-                getDefinition(data.content_type)
-                .then(data=>this.setState({def: data}));
+                let def = getDefinition(data.content_type)
+                this.setState({content: data, def: def});
             }).catch(err=>{
               this.setState(()=>{throw err});
             })
@@ -87,9 +87,6 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
         let contenttype = this.state.content.content_type;
         let mainConfig = util.getSettings( Config.main, contenttype);
         let listContenttypes: Array<string> = this.getAllowedTypes(mainConfig['list']);
-
-        let selected = {};
-        selected[this.state.content.id] = this.state.content.name;
 
         return (
             <div key={this.state.content.id} className={"contenttype-"+this.state.content.content_type}>
@@ -151,7 +148,7 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
                         {mainConfig['new']&&<hr />}
                       {mainConfig.actions&&
                         <div className="actions">
-                          <Actions from={this.state.content} selected={selected} actionsConfig={mainConfig.actions}
+                          <Actions from={this.state.content} fromview="content" selected={this.state.content} actionsConfig={mainConfig.actions}
                             afterAction={(refresh:boolean, jumpToParent:boolean)=>this.afterAction(refresh, jumpToParent)} />
                         </div>
                       }

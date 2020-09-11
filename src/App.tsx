@@ -13,6 +13,7 @@ import Config from './dm.json'
 import './Init'
 import util from 'digimaker-ui/util'
 import Registry from 'digimaker-ui/Registry'
+import DMInit from 'digimaker-ui/DMInit'
 import ContextProvider from './ContextProvider';
 import ErrorBoundary from './ErrorBoundary';
 import {Permission} from './leftmenu/Permission'
@@ -32,6 +33,7 @@ const App: React.FC = () => {
             <Route path="/logout" component={Logout}  />
             <Route>
             <div className="App">
+                <DMInit>
                 <Leftmenu />
                 <div className="main">
                     <Route path="/main/:id" strict render={route=><Main id={route.match.params.id} />} />
@@ -52,6 +54,7 @@ const App: React.FC = () => {
                       Powered by <a href="http://www.digimaker.com" target="_blank"><img src="/logo.png" height="18px" />&nbsp;Digimaker CMF</a>
                     </footer>
                 </div>
+                </DMInit>
             </div>
             </Route>
         </Switch>
