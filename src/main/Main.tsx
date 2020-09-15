@@ -19,7 +19,6 @@ import {getDefinition} from 'digimaker-ui/util';
 export default class Main extends React.Component<{id:number, contenttype?:string}, { def:any, content: any, list: any, sideOpen:any }> {
 
     constructor(props: any) {
-        console.log('main');
         super(props);
         this.state = { def:'', content: '', list: '', sideOpen: 1 };
     }
@@ -120,8 +119,9 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
                 {listContenttypes.length>0&&
                 <div className="list">
                 {
-                    listContenttypes.map((value)=>{
-                        return(<List id={this.props.id} contenttype={value} config={util.getSettings(Config.list, value)} />)
+                    listContenttypes.map((subtype)=>{
+                        let config = util.getSettings(Config.list, subtype)
+                        return(<List id={this.props.id} contenttype={subtype} config={config} />)
                     })
                 }
                 </div>
