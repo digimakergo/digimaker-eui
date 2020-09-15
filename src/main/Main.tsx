@@ -137,9 +137,9 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
                          {mainConfig['new']&&<div className="action-create">
                           <label>Create content</label>
                          <div>
-                         {this.getAllowedTypes(mainConfig['new']).map((value:any)=>{return (
-                             <Link key={value} to={`/create/${this.state.content.id}/${value}`} data-tip={value}>
-                                 <i className={"icon icon-"+value}></i> &nbsp;
+                         {this.getAllowedTypes(mainConfig['new']).map((contenttype:any)=>{return (
+                             <Link key={contenttype} to={`/create/${this.state.content.id}/${contenttype}`} data-tip={getDefinition(contenttype).name}>
+                                 <i className={"icon icon-contenttype icon-"+contenttype}></i> &nbsp;
                              </Link>
                             )})}
                             <ReactTooltip effect="solid" />
