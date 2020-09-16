@@ -16,13 +16,12 @@ import ReactTooltip from "react-tooltip";
 import util from 'digimaker-ui/util';
 import {getDefinition} from 'digimaker-ui/util';
 
-export default class Main extends React.Component<{id:number, contenttype?:string}, { def:any, content: any, list: any, sideOpen:any }> {
+export default class Main extends React.Component<{id:number, contenttype?:string}, { content: any, sideOpen:any }> {
 
     constructor(props: any) {
         super(props);
-        this.state = { def:'', content: '', list: '', sideOpen: 1 };
+        this.state = { content: '', sideOpen: 1 };
     }
-
 
     //fetch content and set to context
     fetchData() {
@@ -39,8 +38,7 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
                 context.update(data);
 
                 //get definition
-                let def = getDefinition(data.content_type)
-                this.setState({content: data, def: def});
+                this.setState({content: data});
             }).catch(err=>{
               this.setState(()=>{throw err});
             })
@@ -84,6 +82,7 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
           return '';
         }
         let contenttype = this.state.content.content_type;
+        let def = getDefinition(contenttype)
         let mainConfig = util.getSettings( Config.main, contenttype);
         let listContenttypes: Array<string> = this.getAllowedTypes(mainConfig['list']);
 
@@ -93,7 +92,7 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
                 <Search />
                 <h2>
                   <a href="#" onClick={(e:any)=>e.preventDefault()}><i data-tip data-for="contentype" className={"icon icon-"+this.state.content.content_type}></i></a> &nbsp;
-                  <ReactTooltip place="bottom" id="contentype">{this.state.def.name}</ReactTooltip>
+                  <ReactTooltip place="bottom" id="contentype">{def.name}</ReactTooltip>
                   {this.state.content.name} &nbsp;&nbsp;
                   {(!(contenttype=='folder'&&this.state.content.folder_type=='site'))&&<Link className="go-uppper" title="Go upper" to={'/main/'+this.state.content.parent_id}>
                   <i className="fas fa-chevron-circle-up"></i>
