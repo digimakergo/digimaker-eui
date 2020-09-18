@@ -20,9 +20,8 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
 
     constructor(props: any) {
         super(props);
-        this.state = { content: '', sideOpen: 1 };
+        this.state = { content: '', sideOpen: null };
     }
-
     //fetch content and set to context
     fetchData() {
         let url = '/content/get'
@@ -37,8 +36,11 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
                 let context = this.context;
                 context.update(data);
 
-                //get definition
-                this.setState({content: data});
+                let sideOpenConfig = this.state.sideOpen;
+                let mainConfig = this.getMainConfig( data );
+                sideOpenConfig = mainConfig['openSide']?1:0;
+
+                this.setState({content: data, sideOpen: sideOpenConfig});
             }).catch(err=>{
               this.setState(()=>{throw err});
             })
@@ -52,6 +54,7 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
       //when changing page
       if( prevProps.id != this.props.id)
       {
+        this.setState({sideOpen:prevState.sideOpen});
         this.fetchData();
       }
     }
@@ -76,6 +79,14 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
       return result;
     }
 
+    getMainConfig(content){
+      let contenttype = content.content_type;
+      let subtype = content.subtype;
+      let configKey = subtype?(contenttype+':'+subtype):contenttype;
+      let mainConfig = util.getSettings( Config.main, configKey);
+      return mainConfig;
+    }
+
     render() {
         if( !this.state.content )
         {
@@ -83,7 +94,7 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
         }
         let contenttype = this.state.content.content_type;
         let def = getDefinition(contenttype)
-        let mainConfig = util.getSettings( Config.main, contenttype);
+        let mainConfig = this.getMainConfig(this.state.content);
         let listContenttypes: Array<string> = this.getAllowedTypes(mainConfig['list']);
 
         return (
@@ -128,10 +139,12 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
                 </div>
 
                 {/* side area for actions */}
-                {mainConfig&&mainConfig['actions']&&<div className={"side"+(this.state.sideOpen===true?' open':'')+(this.state.sideOpen===false?' closed':'')}>
-                    <div className="hider"><a href="#" onClick={(e)=>{e.preventDefault();this.setState({sideOpen:!this.state.sideOpen})}}>
-                       <i className="fas fa-caret-down"></i>
-                    </a></div>
+                {mainConfig&&mainConfig['actions']&&<div className={"side"+(this.state.sideOpen===true?' open':'')+(this.state.sideOpen===false?' closed':'')+(this.state.sideOpen===0?' init-closed':'')}>
+                    <div className="hider">
+                       <a href="#" onClick={(e)=>{e.preventDefault();this.setState({sideOpen:(this.state.sideOpen?false:true)})}}>
+                          <i className="fas fa-caret-down"></i>
+                       </a>
+                    </div>
                     <div className="side-body">
                          {mainConfig['new']&&<div className="action-create">
                           <label>Create content</label>
