@@ -83,7 +83,7 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
       let contenttype = content.content_type;
       let subtype = content.subtype;
       let configKey = subtype?(contenttype+':'+subtype):contenttype;
-      let mainConfig = util.getSettings( Config.main, configKey);
+      let mainConfig = util.getSettings( Config.main, configKey, 'main');
       return mainConfig;
     }
 
@@ -96,7 +96,6 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
         let def = getDefinition(contenttype)
         let mainConfig = this.getMainConfig(this.state.content);
         let listContenttypes: Array<string> = this.getAllowedTypes(mainConfig['list']);
-
         return (
             <div key={this.state.content.id} className={"contenttype-"+this.state.content.content_type}>
             <div className="main-top">
@@ -131,7 +130,7 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
                 <div className="list">
                 {
                     listContenttypes.map((subtype)=>{
-                        let config = util.getSettings(Config.list, subtype)
+                        let config = util.getSettings(Config.list, subtype, 'list')
                         return(<List id={this.props.id} contenttype={subtype} config={config} />)
                     })
                 }
