@@ -39,7 +39,14 @@ export default class Edit extends React.Component<{id:number, contenttype?:strin
         for (let key of Array.from(form.keys())) {
             dataObject[key] = form.get(key);
         };
-        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/update/'+this.props.id, {
+
+        let url = '/content/update';
+        if( this.props.contenttype ){
+          url = url + '/'+this.props.contenttype+'/'+this.props.id;
+        }else{
+          url = url + '/'+this.props.id;
+        }
+        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + url, {
             method: 'POST',
             body: JSON.stringify(dataObject),
         }).then((res) => {
