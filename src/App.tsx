@@ -41,7 +41,6 @@ const App: React.FC = () => {
       return params['from'];
     };
 
-
     return (
         <ContextProvider> {/*context between right and left area */}
         <ErrorBoundary>
@@ -55,8 +54,8 @@ const App: React.FC = () => {
                 <Leftmenu />
                 <div className="main">
                     {redirection&&<Redirect to={redirection} />}
-                    <Route path="/main/:id" strict render={route=><Main id={route.match.params.id} />} />
-                    <Route path="/main/:contenttype/:id" strict render={route=><Main id={route.match.params.id} contenttype={route.match.params.contenttype} />} />
+                    <Route path="/main/:id" exact render={route=><Main id={route.match.params.id} />} />
+                    <Route path="/main/:contenttype/:id" exact render={route=><Main id={route.match.params.id} contenttype={route.match.params.contenttype} />} />
                     <Route path="/create/:parent/:contenttype" component={Create} />
                     <Route path="/edit/:contenttype/:id" exact render={route=><Edit id={route.match.params.id} contenttype={route.match.params.contenttype} afterAction={(status, params)=>commonAfterAction(status, [getFromParam(route.location.search), '/main/'+route.match.params.contenttype+'/'+route.match.params.id])} />} />
                     <Route path="/edit/:id" exact render={route=><Edit id={route.match.params.id} afterAction={(status, params)=>commonAfterAction(status, [getFromParam(route.location.search), '/main/'+route.match.params.id])} />} />
