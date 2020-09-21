@@ -160,7 +160,7 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
                         {mainConfig['new']&&<hr />}
                       {mainConfig.actions&&
                         <div className="actions">
-                          <Actions from={this.state.content} fromview="content" selected={this.state.content} actionsConfig={mainConfig.actions}
+                          <Actions from={this.state.content} content={this.state.content} fromview="content" selected={this.state.content} actionsConfig={mainConfig.actions}
                             afterAction={(refresh:boolean, jumpToParent:boolean)=>this.afterAction(refresh, jumpToParent)} />
                         </div>
                       }
