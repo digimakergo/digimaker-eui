@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { Switch, BrowserRouter as Router, Route, Link, useLocation } from "react-router-dom";
+import React, { Component, useState } from 'react';
+import { Switch, BrowserRouter as Router, Route, Link, useLocation, Redirect } from "react-router-dom";
+import queryString from 'query-string';
 import { RouteProps } from 'react-router';
 import './App.css';
 import Main from './main/Main'
@@ -19,10 +20,27 @@ import ErrorBoundary from './ErrorBoundary';
 import {Permission} from './leftmenu/Permission'
 
 const App: React.FC = () => {
-    var showSidemenu = false;
+
+    const [redirection, setRedirection] = useState('');
 
     util.setConfig( Config );
     const errorMessage ='No access to view';
+
+    //with priorized urls, it does redirection. first url which is not empty will be redirected.
+    const commonAfterAction = (status:number, urls:Array<any>)=>{
+        for( let url of urls ){
+           if( url ){
+             setRedirection( url );
+             break;
+           }
+        }
+    };
+
+    const getFromParam = (location:string)=>{
+      let params = queryString.parse(location);
+      return params['from'];
+    };
+
 
     return (
         <ContextProvider> {/*context between right and left area */}
@@ -36,11 +54,12 @@ const App: React.FC = () => {
                 <DMInit>
                 <Leftmenu />
                 <div className="main">
+                    {redirection&&<Redirect to={redirection} />}
                     <Route path="/main/:id" strict render={route=><Main id={route.match.params.id} />} />
                     <Route path="/main/:contenttype/:id" strict render={route=><Main id={route.match.params.id} contenttype={route.match.params.contenttype} />} />
                     <Route path="/create/:parent/:contenttype" component={Create} />
-                    <Route path="/edit/:id" strict render={route=><Edit id={route.match.params.id} />} />
-                    <Route path="/edit/:contenttype/:id" strict render={route=><Edit id={route.match.params.id} contenttype={route.match.params.contenttype} />} />
+                    <Route path="/edit/:contenttype/:id" exact render={route=><Edit id={route.match.params.id} contenttype={route.match.params.contenttype} afterAction={(status, params)=>commonAfterAction(status, [getFromParam(route.location.search), '/main/'+route.match.params.contenttype+'/'+route.match.params.id])} />} />
+                    <Route path="/edit/:id" exact render={route=><Edit id={route.match.params.id} afterAction={(status, params)=>commonAfterAction(status, [getFromParam(route.location.search), '/main/'+route.match.params.id])} />} />
                     <Route path="/version/:id/:version" component={ViewVersion} />
                     {/*Register configable routes*/}
                     {Object.keys(Config.routes).map((key:any)=>{

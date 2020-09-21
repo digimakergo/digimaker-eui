@@ -7,7 +7,9 @@ import LoadFields from 'digimaker-ui/LoadFields';
 import Registry from 'digimaker-ui/Registry';
 import {FetchWithAuth} from 'digimaker-ui/util';
 
-export default class Edit extends React.Component<{id:number, contenttype?:string}, {content:any,validation:{}}> {
+export default class Edit extends React.Component<{id:number, contenttype?:string, afterAction:any}, {content:any,validation:{}}> {
+
+    private params:string = '';
 
     constructor(props: any) {
         super(props);
@@ -15,12 +17,7 @@ export default class Edit extends React.Component<{id:number, contenttype?:strin
     }
 
     fetchData() {
-        let url = '/content/get'
-        if( this.props.contenttype ){
-          url = url + '/'+this.props.contenttype+'/'+this.props.id;
-        }else{
-          url = url + '/'+this.props.id;
-        }
+        let url = '/content/get/'+this.params
         FetchWithAuth(process.env.REACT_APP_REMOTE_URL + url)
             .then(res => res.json())
             .then((data) => {
@@ -29,6 +26,7 @@ export default class Edit extends React.Component<{id:number, contenttype?:strin
     }
 
     componentDidMount(){
+      this.params = this.props.contenttype?(this.props.contenttype+'/'+this.props.id):this.props.id+'';
       this.fetchData();
     }
 
@@ -40,26 +38,24 @@ export default class Edit extends React.Component<{id:number, contenttype?:strin
             dataObject[key] = form.get(key);
         };
 
-        let url = '/content/update';
-        if( this.props.contenttype ){
-          url = url + '/'+this.props.contenttype+'/'+this.props.id;
-        }else{
-          url = url + '/'+this.props.id;
-        }
+        let url = '/content/update/'+this.params;
         FetchWithAuth(process.env.REACT_APP_REMOTE_URL + url, {
             method: 'POST',
             body: JSON.stringify(dataObject),
         }).then((res) => {
             if (res.ok) {
-              window.location.href = process.env.PUBLIC_URL+'/main/'+this.props.id;
-                //todo: use redirect parameters/callback
+              this.props.afterAction(1);
             }else {
                 console.log(res)
                 return res.json();
             }
         }).then((data)=>{
             this.setState( {validation: data} )
-        });;
+        });
+    }
+
+    cancel(){
+      this.props.afterAction(2);
     }
 
     render() {
@@ -83,11 +79,9 @@ export default class Edit extends React.Component<{id:number, contenttype?:strin
                                     <button type="submit" className="btn btn-primary btn-sm"><i className="fas fa-paper-plane"></i> Submit</button>
                                 </div>
                                 <div>
-                                    <Link to={`/main/${this.props.id}`}>
-                                        <button type="button" className="btn btn-sm btn-secondary">
+                                    <button type="button" onClick={()=>this.cancel()} className="btn btn-sm btn-secondary">
                                             <i className="fas fa-window-close"></i> Cancel
                                     </button>
-                                    </Link>
                                 </div>
                             </div>
                         </div>
