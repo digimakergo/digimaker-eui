@@ -3,7 +3,7 @@ import {FetchWithAuth} from 'digimaker-ui/util';
 import Browse from 'digimaker-ui/Browse';
 import util from 'digimaker-ui/util';
 
-export default class Move extends React.Component<{from:any, changed:boolean, selected?:any}, {operating:boolean,triggered:boolean}> {
+export default class Move extends React.Component<{content:any, from:any, changed:boolean, afterAction:any; selected?:any}, {operating:boolean,triggered:boolean}> {
 
   constructor(props: any) {
       super(props);
@@ -32,10 +32,10 @@ export default class Move extends React.Component<{from:any, changed:boolean, se
   selectedTarget(target){
       if(target){
         this.setState({operating: true});
-        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + "/content/move/"+this.props.from.id+"/"+target.id)
+        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + "/content/move/"+this.props.content.id+"/"+target.id)
             .then(res => res.text())
             .then((data) => {
-
+              this.props.afterAction(true, false)
             }).catch(err=>{
               this.setState(()=>{throw err});
             })
@@ -45,12 +45,7 @@ export default class Move extends React.Component<{from:any, changed:boolean, se
   render(){
     return <div>
         {this.state.operating&&<div>Loading...</div>}
-        <Browse trigger={true} config={util.getConfig().browse} contenttype={this.getContainerTypes(this.props.from.content_type)} onConfirm={(target:any)=>{this.selectedTarget(target)}} />
+        <Browse trigger={true} config={util.getConfig().browse} contenttype={this.getContainerTypes(this.props.content.content_type)} onConfirm={(target:any)=>{this.selectedTarget(target)}} />
         </div>
-
-    return <div style={{background:'white',position:'fixed', left:'30%',top:'20%',width:'500px', height:'500px'}}>
-    COPY {this.props.from?this.props.from.name:''}, {this.props.selected&&<span>{Object.keys(this.props.selected).map((value)=>{return value+', '})}</span>}
-    <div>Please choose target:  <button className="btn btn-secondary" onClick={()=>this.close()}>Close</button>
-    </div></div>
   }
 }
