@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {FetchWithAuth} from 'digimaker-ui/util';
 
-export default class SetPriority extends React.Component<{from:any, afterAction:any}, {}> {
+export default class SetPriority extends React.Component<{from:any, content:any, afterAction:any}, {}> {
   private priortyStep = 100;
 
   constructor(props: any) {
@@ -10,7 +10,7 @@ export default class SetPriority extends React.Component<{from:any, afterAction:
 
 
   removePriority(){
-    let content = this.props.from;
+    let content = this.props.content;
     this.setPriority(content.id, 0);
   }
 
@@ -23,7 +23,7 @@ export default class SetPriority extends React.Component<{from:any, afterAction:
   }
 
   setToTop(){
-    let content = this.props.from;
+    let content = this.props.content;
     FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/list/'+content.content_type+'?parent='+content.parent_id+'&sortby=priority%20desc&limit=1&offset=0')
       .then((res:any)=>res.json())
       .then((data:any)=>{
@@ -37,7 +37,7 @@ export default class SetPriority extends React.Component<{from:any, afterAction:
   }
 
   render(){
-    let priority = this.props.from.priority;
+    let priority = this.props.content.priority;
     return (<div>{priority!=0&&<span onClick={()=>this.removePriority()}><i className="fas fa-times"></i> Remove priority</span>}
                  {priority==0&&<span onClick={()=>this.setToTop()}><i className="fas fa-long-arrow-alt-up"></i> Set top priority</span>}</div>)
   }
