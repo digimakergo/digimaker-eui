@@ -19,26 +19,16 @@ export default class Logout extends React.Component<{}, { error: string }> {
     }
 
     logout() {
-             let refreshToken = cookies.get('refreshToken') 
-             fetch(process.env.REACT_APP_REMOTE_URL +'/auth/token/revoke', { headers :{'Authorization':'Bearer' + refreshToken}   })
-            .then(res => {
-                if(res.ok){
-                    console.log('Token Revoked')
-                }else{
-                    res.text().then(text => console.log(text));
-                }
-            });
-        
-            fetch(process.env.REACT_APP_REMOTE_URL + '/user/logout')
-            .then(res => {
-                if (res.ok) {
-                    cookies.remove('refreshToken')
-                    window.location.href = process.env.PUBLIC_URL+'/login';
-                } else {
-                    res.text().then(text => console.log(text));
-                }
-            });
-            
+           let refreshToken = cookies.get('refreshToken')
+           fetch(process.env.REACT_APP_REMOTE_URL +'/auth/token/revoke?token='+ refreshToken)
+          .then(res => {
+              if(res.ok){
+                  cookies.remove('refreshToken');
+                  window.location.href = process.env.PUBLIC_URL+'/';
+              }else{
+                  res.text().then(text => console.log(text));
+              }
+          });
     }
 
     render() {
