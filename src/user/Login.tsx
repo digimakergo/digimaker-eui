@@ -5,11 +5,11 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 
-export default class Login extends React.Component<{}, {username:string, password: string, sending:boolean, error:string, redirect:string}> {
+export default class Login extends React.Component<{}, {username:string, password: string, sending:boolean, error:string}> {
 
   constructor(props: any) {
       super(props);
-      this.state = { username: '', password: '', sending: false, error: '', redirect:'/eth/report' };
+      this.state = { username: '', password: '', sending: false, error: '' };
   }
 
   login(e: any) {
