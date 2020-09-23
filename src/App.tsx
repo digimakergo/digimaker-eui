@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { Switch, BrowserRouter as Router, Route, Link, useLocation } from "react-router-dom";
+import { Switch, BrowserRouter as Router, Route, Link, useLocation, Redirect } from "react-router-dom";
 import queryString from 'query-string';
 import { RouteProps } from 'react-router';
 import './App.css';
@@ -49,6 +49,7 @@ const App: React.FC = () => {
             <Route>
             <div className="App">
                 <DMInit>
+                <Redirect from="/" to={Config['default_url']} />
                 <Leftmenu />
                 <div className="main">
                     <Route path="/main/:id" exact render={route=><Main id={route.match.params.id} />} />
