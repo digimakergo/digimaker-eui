@@ -18,7 +18,7 @@ export default class AssignRole extends React.Component<{from:any, changed:boole
 
   selectedTarget(target){
     if( target ){
-      FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/access/assign/8/'+target.cid)
+      FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/access/assign/'+this.props.from.id+'/'+target.cid)
           .then(res => res.text())
           .then((data) => {
             this.props.afterAction(true, false)
