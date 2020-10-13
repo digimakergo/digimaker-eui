@@ -365,6 +365,10 @@ div.loading{
 
 }
 
+.field.edit{
+  margin-top: 10px;
+}
+
 .field.checkbox > label >div{
   display: inline;
   margin-left: 5px;
@@ -525,6 +529,10 @@ footer{
 
 .view-content .view.field > .field-value{
   display: inline-block;
+  padding: 5px;
+}
+
+.field-value{
   padding: 5px;
 }
 
@@ -822,42 +830,8 @@ tr.empty-row td{
   display: inline;
 }
 
-.browse .selected > *{
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  padding: 3px;
-  margin: 2px;
-}
-
-.field.relationlist{
-  padding: 5px;
-}
-
-.field.relationlist > ul{
-  padding-left: 2rem;
-}
-
-.blockview-grid{
-  display: grid;
-  grid-template-columns: 20% 20% 20% 20% 20%;
-  border-right: 1px solid #999999;
-  border-bottom: 1px solid #999999;
-  margin-bottom: 10px;
-}
 
 
-.blockview-cell{
-  padding: 10px;
-  border-top: 1px solid #999999;
-  border-left: 1px solid #999999;
-  background: #f3f3f3;
-  text-align: center;
-}
-
-.blockview-cell > *{
-  width: 100%;
-}
-
-.blockview-cell > .fieldtype-image > img{
-  max-width: 100%;
+.form-tool > .form-actions{
+  position:fixed
 }
