@@ -101,6 +101,10 @@ a:hover, .left a:hover{
   animation-fill-mode: forwards;
 }
 
+.side.init-closed .side-body{
+  margin-right: -300px;
+  opacity: 0
+}
 
 .side.closed .side-body{
   animation-name: example;
@@ -198,7 +202,6 @@ td.content-name span{
 .table > tbody > tr:hover > td{
   /* border-top: 1px solid #c8d5e0;
   border-bottom: 1px solid #c8d5e0; */
-  cursor: default;
 }
 
 .table > tbody > tr:nth-child(2n+1){
@@ -206,11 +209,11 @@ td.content-name span{
 }
 
 .table td{
-  border-top:1px solid #e7eaf1;
+  border-bottom:1px solid #e7eaf1;
 }
 
-.table > tbody > tr:last-child > td{
-  border-bottom:1px solid #dfe5f1;
+.table > tbody > tr:first-child > td{
+  border-top:1px solid #dfe5f1;
 }
 
 .table td, .table th{
@@ -363,6 +366,10 @@ div.loading{
     margin-bottom: 5px;
     border-radius: 4px;
 
+}
+
+.field.edit{
+  margin-top: 10px;
 }
 
 .field.checkbox > label >div{
@@ -528,6 +535,10 @@ footer{
   padding: 5px;
 }
 
+.field-value{
+  padding: 5px;
+}
+
 .report .view-content .view.field .field-value{
   display: block;
   min-height: 30px;
@@ -673,11 +684,6 @@ button.toggle:focus{
   color: red;
 }
 
-.field.result-required input{
-   border-color: red;
-   background-color: #f1e7e7;
-}
-
 .go-uppper{
   font-size: 1.1rem;
 }
@@ -725,7 +731,7 @@ button.toggle:focus{
   transition: 0.3s ease-in-out;
 }
 
-.side.closed i{
+.side.closed i, .side.init-closed i{
   transform: rotate(90deg);
 }
 
@@ -822,42 +828,11 @@ tr.empty-row td{
   display: inline;
 }
 
-.browse .selected > *{
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  padding: 3px;
-  margin: 2px;
-}
-
-.field.relationlist{
-  padding: 5px;
-}
-
-.field.relationlist > ul{
-  padding-left: 2rem;
-}
-
 .blockview-grid{
-  display: grid;
-  grid-template-columns: 20% 20% 20% 20% 20%;
-  border-right: 1px solid #999999;
-  border-bottom: 1px solid #999999;
-  margin-bottom: 10px;
+  clear:both;
 }
 
 
-.blockview-cell{
-  padding: 10px;
-  border-top: 1px solid #999999;
-  border-left: 1px solid #999999;
-  background: #f3f3f3;
-  text-align: center;
-}
-
-.blockview-cell > *{
-  width: 100%;
-}
-
-.blockview-cell > .fieldtype-image > img{
-  max-width: 100%;
+.form-tool > .form-actions{
+  position:fixed
 }
