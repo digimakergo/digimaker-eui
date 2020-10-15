@@ -151,21 +151,6 @@ td.content-name span{
 
 }
 
-.tool-block{
-    background: rgba(255, 255, 255, 0.3);
-    box-shadow: 1px 1px 3px 0px #e4e3e3;
-    border-radius: 3px;
-    border: 1px solid #653d00;
-   margin-bottom: 15px;
-}
-
-.block-title{
- background: #7b4004;
- color: white;
- padding:4px 6px;
-
-}
-
 .side-body{
  padding: 10px 15px;
 }
@@ -654,9 +639,6 @@ i.foldable{
     transition: 0.1s ease-in-out;
 }
 
-.block-title .btn{
-  padding: 0px;
-}
 
 i.open{
   transform: rotate(90deg);
