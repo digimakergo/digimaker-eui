@@ -3,6 +3,7 @@ import { Switch, BrowserRouter as Router, Route, Link, useLocation, Redirect } f
 import queryString from 'query-string';
 import { RouteProps } from 'react-router';
 import './App.css';
+import './eth/Eth.css';
 import Main from './main/Main'
 import Leftmenu from './leftmenu/Leftmenu'
 import Login from './user/Login'
@@ -59,13 +60,15 @@ const App: React.FC = () => {
                     <Route path="/edit/:id" exact render={route=><Edit id={route.match.params.id} afterAction={(status, params)=>commonAfterAction(route.history,status, [getFromParam(route.location.search), '/main/'+route.match.params.id])} />} />
                     <Route path="/version/:id/:version" component={ViewVersion} />
                     {/*Register configable routes*/}
+                    <React.Suspense fallback="...">
                     {Object.keys(Config.routes).map((key:any)=>{
                         let identifier:string = Config.routes[key];
-                        const com:React.ComponentClass<any, any> = Registry.getComponent(identifier);
+                        const com = Registry.getComponent(identifier);
                         console.debug('Registering route: '+ key+' with component ' + identifier);
                         return (<Route key={key} path={key} component={com} />)
                     })
                     }
+                    </React.Suspense>
                     <footer>
                       Powered by <a href="http://www.digimaker.com" target="_blank"><img src="/logo.png" height="18px" />&nbsp;Digimaker CMF</a>
                     </footer>
