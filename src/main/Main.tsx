@@ -125,6 +125,13 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
                 </div>
                 }
 
+                {mainConfig&&mainConfig['view_com']&&<React.Suspense fallback="...">
+                  {(()=>{
+                      const Com:React.ReactType = Registry.getComponent(mainConfig['view_com']);
+                      return (<Com content={this.state.content} />);
+                  })()}
+                </React.Suspense>}
+
                 {/* children list */}
                 {listContenttypes.length>0&&
                 <div className="list">
