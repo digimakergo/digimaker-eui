@@ -70,7 +70,7 @@ const App: React.FC = () => {
                     }
                     </React.Suspense>
                     <footer>
-                      Powered by <a href="http://www.digimaker.com" target="_blank"><img src="/logo.png" height="18px" />&nbsp;Digimaker CMF</a>
+                      Powered by <a href="http://www.digimaker.com" target="_blank"><img src={process.env.PUBLIC_URL+"/logo.png"} height="18px" />&nbsp;Digimaker CMF</a>
                     </footer>
                 </div>
                 </DMInit>
