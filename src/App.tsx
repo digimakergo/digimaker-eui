@@ -23,6 +23,7 @@ import {Permission} from './leftmenu/Permission'
 const App: React.FC = () => {
 
     util.setConfig( Config );
+    util.setCookieKey("dm_eui"); //todo: use .env?
     const errorMessage ='No access to view';
 
     //with priorized urls, it does redirection. first url which is not empty will be redirected.
