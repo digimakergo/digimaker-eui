@@ -1,10 +1,10 @@
 {
   "theme": "default",
+  "default_url": "/main/3",
   "leftmenu": [{
       "name": "Sites",
       "icon": "fa-desktop",
-      "scope": "site",
-      "path": "/main/9",
+      "path": "/main/3",
       "menu": [
         {
           "name": "Sites",
@@ -14,38 +14,13 @@
           "is_site": true,
           "open": true,
           "root": 3
-        },
-        {
-          "name": "Resources",
-          "type": "leftmenu:treemenu",
-          "icon": "fas fa-file-alt",
-          "contenttype":["folder"],
-          "open": true,
-          "root": 582
-        },
-        {
-          "name": "Kitchen",
-          "type": "leftmenu:listmenu",
-          "icon": "fas fa-utensils",
-          "root": 579
-        },
-        {
-          "name": "Structure",
-          "path": "/content/structure",
-          "icon": "fas fa-sitemap"
-        },
-        {
-          "name": "Trash",
-          "path": "/content/trash",
-          "icon": "fas fa-trash"
         }
       ]
     },
     {
       "name": "Users",
       "icon": "fa-users",
-      "scope": "user",
-      "path": "/main/72",
+      "path": "/main/4",
       "menu": [{
           "name": "Organizations",
           "type": "leftmenu:treemenu",
@@ -58,14 +33,9 @@
           "type": "leftmenu:treemenu",
           "contenttype":["role"],
           "icon": "fas fa-user-tag",
+          "open": true,
           "root": 7
-        },
-        {
-          "name": "Policies",
-          "path": "/user/policies",
-          "icon": "fas fa-wrench"
         }
-
       ]
     }
   ],
@@ -73,6 +43,20 @@
     "/content/structure":"main:content_structure"
   },
   "main": {
+    "*":{
+      "sort_default": [["priority", "desc"],["name", "asc"]],
+      "sort":{"id":"desc", "priority":"desc", "name":"asc"},
+      "columns":["id","name","priority"],
+      "pagination": 25,
+      "show_header": true,
+      "show_table_header": true,
+      "pagination": 25,
+      "row_actions": [
+          {"link": "/edit/{id}",
+          "name": "Edit",
+          "icon": "icon-edit"},
+          {"com": "action:set_priority"}]
+     },
     "folder": {
       "list": [
         "article:3",
@@ -80,42 +64,10 @@
         "user:4"
       ],
       "actions": [{
-          "link": "/edit/{id}",
-          "name": "Edit",
-          "icon": "icon-edit",
-          "title": "Edit the content"
-        },
-        {
-          "com": "action:copy",
-          "icon":"icon-copy",
-          "name": "Copy"
-        },
-        {
-          "link": "move",
-          "icon":"icon-move",
-          "name": "Move"
-        },
-        {
-          "com": "action:delete",
-          "icon":"icon-delete",
-          "name": "Delete"
-        },
-        {
-          "link": "import",
-          "icon":"icon-import",
-          "name": "Import"
-        },
-        {
-          "link": "export",
-          "icon":"icon-export",
-          "name": "Export"
-        },
-        {
-          "link": "preview",
-          "icon":"icon-preview",
-          "name": "Preview in frontpage"
-        }
-      ],
+        "com": "action:delete",
+        "icon": "fas fa-trash",
+        "name": "delete"
+      }],
       "new": [
         "article",
         "folder",
@@ -127,26 +79,7 @@
       "list": [
         "frontpage_block"
       ],
-      "actions": [{
-          "link": "",
-          "name": "preview"
-        },
-        {
-          "link": "",
-          "name": "copy"
-        },
-        {
-          "link": "",
-          "name": "move"
-        },
-        {
-          "link": "",
-          "name": "delete"
-        },
-        {
-          "link": "",
-          "name": "export"
-        }
+      "actions": [
       ],
       "new": ""
     },
@@ -165,12 +98,23 @@
       }
       ]
     },
+    "role":{
+      "view": true,
+      "new": ["role"],
+      "openSide": true,
+      "list": []
+    },
     "article": {
       "view": true,
       "actions": [{
         "link": "/edit/{id}",
         "title": "Edit this",
         "name": "Edit"
+      },
+      {
+        "com": "action:move",
+        "icon": "icon icon-move",
+        "name": "move"
       },
       {
         "com": "action:delete",
@@ -283,27 +227,7 @@
       "columns": ["name", "author", "published", "modified"],
       "show_header": true,
       "show_table_header": false,
-      "actions": [{
-          "link": "",
-          "name": "preview"
-        },
-        {
-          "link": "",
-          "name": "copy"
-        },
-        {
-          "link": "",
-          "name": "move"
-        },
-        {
-          "link": "",
-          "name": "delete"
-        },
-        {
-          "link": "",
-          "name": "export"
-        }
-      ],
+      "actions": [],
       "row_actions": [],
       "pagination": 10,
       "row_more": ["export"]
@@ -316,12 +240,7 @@
       "columns": ["name", "image", "author", "published", "modified"],
       "show_header": true,
       "show_table_header": true,
-      "actions": [
-        {
-          "link": "",
-          "name": "delete"
-        }
-      ],
+      "actions": [],
       "viewmode":"block",
       "row_actions": [],
       "pagination": 10,
@@ -336,37 +255,17 @@
       "columns": ["name", "author", "published", "modified", "priority"],
       "show_header": true,
       "show_table_header": false,
-      "actions": [{
-          "link": "",
-          "name": "preview"
-        },
-        {
-          "link": "",
-          "name": "copy"
-        },
-        {
-          "link": "",
-          "name": "move"
-        },
-        {
-          "link": "",
-          "name": "delete"
-        },
-        {
-          "link": "",
-          "name": "export"
-        }
-      ],
+      "actions": [],
       "row_actions": [],
       "pagination": 10,
       "row_more": []
     },
     "user": {
       "sort_default": [
-        ["company_name", "asc"]
+        ["name", "asc"]
       ],
-      "sort": {"name":"asc", "modified":"desc", "company_name":"asc"},
-      "columns": ["company_name", "name", "published", "modified"],
+      "sort": {"name":"asc", "modified":"desc"},
+      "columns": ["name", "published", "modified"],
       "show_header": true,
       "show_table_header": true,
       "actions": [],
@@ -375,9 +274,53 @@
       "row_more": []
     }
   },
-  "fieldtypes": {
-    "text": "Text",
-    "richtext": "RichText",
-    "image": "Image"
+  "browse": {
+    "*": {
+      "treetype": ["folder"],
+      "list": {}
+    },
+    "user": {
+      "treetype": ["folder"],
+      "list": {}
+    },
+    "image": {
+      "treetype": ["folder"],
+      "list": {"level":0, "columns":["name"],"block_fields":["image","name"], "viewmode":"block", "pagination": 10}
+    },
+    "article": {
+      "treetype": ["folder"],
+      "list": {
+        "columns": ["name", "modified"],
+        "sort": {
+          "modified": "desc",
+          "name": "asc"
+        },
+        "sort_default": [
+          ["modified", "desc"]
+        ],
+        "level": 0,
+        "pagination": 10
+      }
+    }
+  },
+  "viewmode":{
+    "inline":{
+      "article":["name"],
+      "image":["image"]
+    },
+    "block":{
+      "article":["title"],
+      "image":["image","name"]
+    }
+  },
+  "components":{
+    "action:copy":"./actions/Copy",
+    "action:delete":"./actions/Delete",
+    "action:move":"./actions/Move",
+    "action:set_priority":"./actions/SetPriority",
+    "main:content_structure":"./main/content/Structure",
+    "main:permission_policies":"./permission/Policies",
+    "view:role": "./main/view/Role",
+    "action:assign_role":"./actions/user/AssignRole"
   }
 }
