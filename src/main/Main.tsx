@@ -14,7 +14,7 @@ import {ContentContext} from '../Context';
 import {FetchWithAuth} from 'digimaker-ui/util';
 import ReactTooltip from "react-tooltip";
 import util from 'digimaker-ui/util';
-import {getDefinition} from 'digimaker-ui/util';
+import {getDefinition, getFields} from 'digimaker-ui/util';
 
 export default class Main extends React.Component<{id:number, contenttype?:string}, { content: any, sideOpen:any }> {
 
@@ -131,6 +131,12 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
                 {
                     listContenttypes.map((subtype)=>{
                         let config = util.getSettings(Config.list, subtype, 'list')
+                        if( config['fieldtypes'] == undefined ){
+                          config['fieldtypes'] = getFields( getDefinition(subtype) );
+                        }
+                        if( !config['name'] ){
+                          config['name'] = getDefinition(subtype).name;
+                        }
                         return(<List id={this.props.id} contenttype={subtype} config={config} />)
                     })
                 }

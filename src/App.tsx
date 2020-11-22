@@ -49,7 +49,7 @@ const App: React.FC = () => {
             <Route>
             <div className="App">
                 <DMInit>
-                <Redirect from="/" to={Config['default_url']} />
+                  <Redirect from="/" to={Config['default_url']} />
                 <Leftmenu />
                 <div className="main">
                     <Route path="/main/:id" exact render={route=><Main id={route.match.params.id} />} />
@@ -59,6 +59,7 @@ const App: React.FC = () => {
                     <Route path="/edit/:id" exact render={route=><Edit id={route.match.params.id} afterAction={(status, params)=>commonAfterAction(route.history,status, [getFromParam(route.location.search), '/main/'+route.match.params.id])} />} />
                     <Route path="/version/:id/:version" component={ViewVersion} />
                     {/*Register configable routes*/}
+                    <React.Suspense fallback="...">
                     {Object.keys(Config.routes).map((key:any)=>{
                         let identifier:string = Config.routes[key];
                         const com:React.ComponentClass<any, any> = Registry.getComponent(identifier);
@@ -66,6 +67,7 @@ const App: React.FC = () => {
                         return (<Route key={key} path={key} component={com} />)
                     })
                     }
+                    </React.Suspense>
                     <footer>
                       Powered by <a href="http://www.digimaker.com" target="_blank"><img src="/logo.png" height="18px" />&nbsp;Digimaker CMF</a>
                     </footer>
