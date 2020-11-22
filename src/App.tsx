@@ -3,6 +3,7 @@ import { Switch, BrowserRouter as Router, Route, Link, useLocation, Redirect } f
 import queryString from 'query-string';
 import { RouteProps } from 'react-router';
 import './App.css';
+import './eth/Eth.css';
 import Main from './main/Main'
 import Leftmenu from './leftmenu/Leftmenu'
 import Login from './user/Login'
@@ -22,6 +23,7 @@ import {Permission} from './leftmenu/Permission'
 const App: React.FC = () => {
 
     util.setConfig( Config );
+    util.setCookieKey("dm_eui"); //todo: use .env?
     const errorMessage ='No access to view';
 
     //with priorized urls, it does redirection. first url which is not empty will be redirected.
@@ -62,14 +64,14 @@ const App: React.FC = () => {
                     <React.Suspense fallback="...">
                     {Object.keys(Config.routes).map((key:any)=>{
                         let identifier:string = Config.routes[key];
-                        const com:React.ComponentClass<any, any> = Registry.getComponent(identifier);
+                        const com = Registry.getComponent(identifier);
                         console.debug('Registering route: '+ key+' with component ' + identifier);
                         return (<Route key={key} path={key} component={com} />)
                     })
                     }
                     </React.Suspense>
                     <footer>
-                      Powered by <a href="http://www.digimaker.com" target="_blank"><img src="/logo.png" height="18px" />&nbsp;Digimaker CMF</a>
+                      Powered by <a href="http://www.digimaker.com" target="_blank"><img src={process.env.PUBLIC_URL+"/logo.png"} height="18px" />&nbsp;Digimaker CMF</a>
                     </footer>
                 </div>
                 </DMInit>

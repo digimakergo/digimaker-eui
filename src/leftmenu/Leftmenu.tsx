@@ -112,7 +112,7 @@ function getCurrentMenu(path: string, content:any) {
         for (let j = 0; j < menus.length; j++)
         {
               let menuitem = menus[j];
-              if (menuitem.path == path)
+              if (menuitem['path'] == path)
               {
                 result = menus;
                 break;
