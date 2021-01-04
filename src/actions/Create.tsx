@@ -6,7 +6,7 @@ import Config from '../dm.json';
 import LoadFields from 'digimaker-ui/LoadFields';
 import {FetchWithAuth} from 'digimaker-ui/util';
 
-export default class Create extends React.Component<parent:number, contenttype:string, {validation:{}}> {
+export default class Create extends React.Component<{parent:number, contenttype:string, afterAction:any}, {validation:{}}> {
 
     constructor(props: any) {
         super(props);
@@ -31,8 +31,7 @@ export default class Create extends React.Component<parent:number, contenttype:s
             body: JSON.stringify(dataObject),
         }).then((res) => {
             if (res.ok) {
-                this.props.history.push('/main/' + this.props.parent);
-                //todo: use redirect parameters
+                this.props.afterAction(1, res.json());
             } else {
                 console.log(res)
                 return res.json();
