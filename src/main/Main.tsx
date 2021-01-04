@@ -61,7 +61,7 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
 
     afterAction(refresh:boolean, jumpToParent: boolean){
       if(jumpToParent){
-        window.location.href = '/main/'+this.state.content.parent_id; //todo: use better way for redirection.
+        window.location.href = process.env.PUBLIC_URL + '/main/'+this.state.content.parent_id; //todo: use better way for redirection.
       }
     }
 
