@@ -6,7 +6,7 @@ import Config from '../dm.json';
 import LoadFields from 'digimaker-ui/LoadFields';
 import {FetchWithAuth} from 'digimaker-ui/util';
 
-export default class Create extends React.Component<RouteProps & any, {validation:{}}> {
+export default class Create extends React.Component<parent:number, contenttype:string, {validation:{}}> {
 
     constructor(props: any) {
         super(props);
@@ -26,12 +26,12 @@ export default class Create extends React.Component<RouteProps & any, {validatio
         for (let key of Array.from(form.keys())) {
             dataObject[key] = form.get(key);
         };
-        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/new/' + this.props.match.params.parent + '/' + this.props.match.params.contenttype, {
+        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/new/' + this.props.parent + '/' + this.props.contenttype, {
             method: 'POST',
             body: JSON.stringify(dataObject),
         }).then((res) => {
             if (res.ok) {
-                this.props.history.push('/main/' + this.props.match.params.parent);
+                this.props.history.push('/main/' + this.props.parent);
                 //todo: use redirect parameters
             } else {
                 console.log(res)
@@ -57,7 +57,7 @@ export default class Create extends React.Component<RouteProps & any, {validatio
                                     <button type="button" className="btn btn-sm btn-secondary"><i className="fas fa-save"></i> Save draft</button>
                                 </div>
                                 <div>
-                                    <Link to={`/main/${this.props.match.params.parent}`}>
+                                    <Link to={`/main/${this.props.parent}`}>
                                         <button type="button" className="btn btn-sm btn-secondary">
                                             <i className="fas fa-window-close"></i> Cancel
                                     </button>
@@ -82,8 +82,8 @@ export default class Create extends React.Component<RouteProps & any, {validatio
                     </div>
 
                     <div className="form-main">
-                        <h2>Create {this.props.match.params.contenttype}</h2>
-                        <LoadFields type={this.props.match.params.contenttype} validation={this.state.validation} data='' mode='edit'/>
+                        <h2>Create {this.props.contenttype}</h2>
+                        <LoadFields type={this.props.contenttype} validation={this.state.validation} data='' mode='edit'/>
                     </div>
                 </form>
             </div>

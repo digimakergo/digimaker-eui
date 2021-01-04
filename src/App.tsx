@@ -3,7 +3,6 @@ import { Switch, BrowserRouter as Router, Route, Link, useLocation, Redirect } f
 import queryString from 'query-string';
 import { RouteProps } from 'react-router';
 import './App.css';
-import './eth/Eth.css';
 import Main from './main/Main'
 import Leftmenu from './leftmenu/Leftmenu'
 import Login from './user/Login'
@@ -56,7 +55,7 @@ const App: React.FC = () => {
                 <div className="main">
                     <Route path="/main/:id" exact render={route=><Main id={route.match.params.id} />} />
                     <Route path="/main/:contenttype/:id" exact render={route=><Main id={route.match.params.id} contenttype={route.match.params.contenttype} />} />
-                    <Route path="/create/:parent/:contenttype" component={Create} />
+                    <Route path="/create/:parent/:contenttype" render={route=><Create key={Date.now()} parent={route.match.params.parent} contenttype={route.match.params.contenttype} />} />
                     <Route path="/edit/:contenttype/:id" exact render={route=><Edit id={route.match.params.id} contenttype={route.match.params.contenttype} afterAction={(status, params)=>commonAfterAction(route.history,status, [getFromParam(route.location.search), '/main/'+route.match.params.contenttype+'/'+route.match.params.id])} />} />
                     <Route path="/edit/:id" exact render={route=><Edit id={route.match.params.id} afterAction={(status, params)=>commonAfterAction(route.history,status, [getFromParam(route.location.search), '/main/'+route.match.params.id])} />} />
                     <Route path="/version/:id/:version" component={ViewVersion} />
