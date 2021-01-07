@@ -63,19 +63,7 @@ export default class Create extends React.Component<{parent:number, contenttype:
                                     </Link>
                                 </div>
                             </div>
-                        </div>
-
-                        <div className="form-actions">
-                            <div className="block-title">Resources</div>
-                            <div className="block-body">
-                                <ul className="nav nav-tabs">
-                                    <li className="active"><a data-toggle="images" href="#images">Images</a></li>
-                                    <li><a data-toggle="contents" href="#images">Contents</a></li>
-                                    <li><a data-toggle="videos" href="#images">Videos</a></li>
-                                </ul>
-                            </div>
-
-                        </div>
+                        </div>                    
 
 
                     </div>
