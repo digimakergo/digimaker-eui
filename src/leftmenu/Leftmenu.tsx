@@ -53,7 +53,7 @@ export default class Leftmenu extends React.Component<{}, { current: any, showSi
         }
         return (
               <div className="left">
-                  <Slidemenu show={this.state.showSidemenu} changed={(show)=>{this.setState( { showSidemenu: show } ); this.context.update( null ); } } />
+                  <Slidemenu show={this.state.showSidemenu} changed={(show)=>{this.setState( { showSidemenu: show } ); } } />
                   <div className="logomenu">
                       <a className="logo" href="#" onClick={(e) => { this.showSide(e); }}>
                           <img src={process.env.PUBLIC_URL+"/images/logo.png"} width="28px" />
