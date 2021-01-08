@@ -92,7 +92,7 @@ const MenuList = (props) => {
                      </Permission>
                     :(()=>{
                         const Com:React.ReactType = Registry.getComponent(menu.type);
-                          return (<Com key={menu.name} config={menu} />)
+                          return (<Com key={menu.name} current={props.content} config={menu} />)
                     })()
                 )
             })}

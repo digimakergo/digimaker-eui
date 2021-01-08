@@ -6,7 +6,7 @@ import Select from 'react-select';
 import TreeNode from 'digimaker-ui/TreeNode';
 import { Collapse } from 'react-bootstrap';
 
-export default class Treemenu extends React.Component<{ config: any }, { open:boolean, data: any }> {
+export default class Treemenu extends React.Component<{ config: any, current:any }, { open:boolean, data: any }> {
 
   constructor(props: any) {
     super(props);
@@ -28,6 +28,12 @@ export default class Treemenu extends React.Component<{ config: any }, { open:bo
 
   render() {
     let isOpen = this.state.open;
+
+    let currentID = 0;
+    if( this.props.current ){
+       currentID = this.props.current.id;
+    }
+
     return (
       this.state.data && <div className="menuitem">
           <div className="menuitem-head">
@@ -47,7 +53,7 @@ export default class Treemenu extends React.Component<{ config: any }, { open:bo
 
           <Collapse in={isOpen}>
             <div className="menuitem-content">
-              <TreeNode data={this.state.data} />
+              <TreeNode selectedId={currentID} data={this.state.data} />
             </div>
           </Collapse>
       </div>
