@@ -6,7 +6,6 @@ import Moment from 'react-moment';
 import List from 'digimaker-ui/List';
 import MetaInfo from './MetaInfo';
 import Actions from 'digimaker-ui/Actions';
-import Search from './Search';
 import Service from '../Service';
 import ViewContent from 'digimaker-ui/ViewContent';
 import Registry from 'digimaker-ui/Registry';
@@ -99,7 +98,6 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
         return (
             <div key={this.state.content.id} className={"contenttype-"+this.state.content.content_type}>
             <div className="main-top">
-                <Search />
                 <h2>
                   <a href="#" onClick={(e:any)=>e.preventDefault()}><i data-tip data-for="contentype" className={"icon icon-"+this.state.content.content_type}></i></a> &nbsp;
                   <ReactTooltip place="bottom" id="contentype">{def.name}</ReactTooltip>
