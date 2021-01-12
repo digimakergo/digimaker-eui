@@ -47,10 +47,10 @@ const App: React.FC = () => {
           <Switch>
             <Route path="/login" component={Login}  />
             <Route path="/logout" component={Logout}  />
+            <Redirect exact from="/" to={Config['default_url']} />
             <Route>
             <div className="App">
                 <DMInit>
-                  <Redirect from="/" to={Config['default_url']} />
                 <Leftmenu />
                 <div className="main">
                     <Route path="/main/:id" exact render={route=><Main id={route.match.params.id} />} />
