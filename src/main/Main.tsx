@@ -95,9 +95,29 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
         let def = getDefinition(contenttype)
         let mainConfig = this.getMainConfig(this.state.content);
         let listContenttypes: Array<string> = this.getAllowedTypes(mainConfig['list']);
+
+        let newTypes = this.getAllowedTypes(mainConfig['new']);
         return (
             <div key={this.state.content.id} className={"contenttype-"+this.state.content.content_type}>
             <div className="main-top">
+                {/* area for actions */}
+                <div className="content-actions">
+                  {newTypes.length>0&&<div className="action-create">
+                   <label>Create</label>
+                   {newTypes.map((contenttype:any)=>{return (
+                       <Link key={contenttype} to={`/create/${this.state.content.id}/${contenttype}`} data-place='bottom' data-tip={getDefinition(contenttype).name}>
+                           <i className={"icon icon-contenttype icon-"+contenttype}></i>
+                       </Link>
+                      )})}
+                      <ReactTooltip effect="solid" />
+                  <div>
+                  </div>
+                 </div>}
+
+                  <Actions from={this.state.content} content={this.state.content} fromview="content" selected={this.state.content} actionsConfig={mainConfig.actions}
+                    afterAction={(refresh:boolean, jumpToParent:boolean)=>this.afterAction(refresh, jumpToParent)} />
+                </div>
+
                 <h2>
                   <a href="#" onClick={(e:any)=>e.preventDefault()}><i data-tip data-for="contentype" className={"icon icon-"+this.state.content.content_type}></i></a> &nbsp;
                   <ReactTooltip place="bottom" id="contentype">{def.name}</ReactTooltip>
@@ -150,28 +170,16 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
                 </div>
 
                 {/* side area for actions */}
-                {mainConfig&&mainConfig['actions']&&<div className={"side"+(this.state.sideOpen===true?' open':'')+(this.state.sideOpen===false?' closed':'')+(this.state.sideOpen===0?' init-closed':'')}>
+                {mainConfig&&mainConfig['side_actions']&&<div className={"side"+(this.state.sideOpen===true?' open':'')+(this.state.sideOpen===false?' closed':'')+(this.state.sideOpen===0?' init-closed':'')}>
                     <div className="hider">
                        <a href="#" onClick={(e)=>{e.preventDefault();this.setState({sideOpen:(this.state.sideOpen?false:true)})}}>
                           <i className="fas fa-caret-down"></i>
                        </a>
                     </div>
                     <div className="side-body">
-                         {mainConfig['new']&&<div className="action-create">
-                          <label>Create content</label>
-                         <div>
-                         {this.getAllowedTypes(mainConfig['new']).map((contenttype:any)=>{return (
-                             <Link key={contenttype} to={`/create/${this.state.content.id}/${contenttype}`} data-tip={getDefinition(contenttype).name}>
-                                 <i className={"icon icon-contenttype icon-"+contenttype}></i> &nbsp;
-                             </Link>
-                            )})}
-                            <ReactTooltip effect="solid" />
-                          </div>
-                         </div>}
-                        {mainConfig['new']&&<hr />}
-                      {mainConfig.actions&&
-                        <div className="actions">
-                          <Actions from={this.state.content} content={this.state.content} fromview="content" selected={this.state.content} actionsConfig={mainConfig.actions}
+                      {mainConfig.side_actions&&
+                        <div className="slide-actions">
+                          <Actions from={this.state.content} content={this.state.content} fromview="content" selected={this.state.content} actionsConfig={mainConfig.side_actions}
                             afterAction={(refresh:boolean, jumpToParent:boolean)=>this.afterAction(refresh, jumpToParent)} />
                         </div>
                       }
