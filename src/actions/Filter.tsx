@@ -50,6 +50,7 @@ createdFilterBtnHandler=(type:string,e:any)=>{
 }
 
 deleteFilter=(key?:string)=>{
+  this.searchText.value = '';
   if( key ){
     let filterValues= {...this.state.filter};
     delete filterValues[key];
@@ -102,6 +103,7 @@ deleteFilter=(key?:string)=>{
    if (e.key === 'Enter') {
       this.submit();
     }else if( e.key == 'Escape' ){
+      e.preventDefault();
       this.searchText.value = '';
       this.deleteFilter();
     }
