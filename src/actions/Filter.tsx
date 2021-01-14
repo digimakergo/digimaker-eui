@@ -49,17 +49,26 @@ createdFilterBtnHandler=(type:string,e:any)=>{
 
 }
 
-deleteFilter=(key:string,e:any)=>{
-  let filterValues= {...this.state.filter};
-
-  delete filterValues[key];
-  this.setState({filter:filterValues});
+deleteFilter=(key?:string)=>{
+  if( key ){
+    let filterValues= {...this.state.filter};
+    delete filterValues[key];
+    this.setState({filter:filterValues});
+  }else{
+    this.setState({filter:{}});
+  }
 }
  handleOptionChange=(e:any)=> {
     e.preventDefault();
     this.setState({selectedFilter:e.currentTarget.value})
  }
 
+
+ componentDidUpdate(prevProps, prevState, snapshot){
+   if( JSON.stringify(prevState.filter) != JSON.stringify(this.state.filter) ){
+       this.submit();
+   }
+ }
 
  submit=()=>{
   let filterQuery=""
@@ -92,15 +101,16 @@ deleteFilter=(key:string,e:any)=>{
  handleKeyDown = (e:any) =>{
    if (e.key === 'Enter') {
       this.submit();
+    }else if( e.key == 'Escape' ){
+      this.searchText.value = '';
+      this.deleteFilter();
     }
  }
 
   handleInputChange = (e:any) => {
-     this.setState({query: e.currentTarget.value})
+     this.setState({query: e.currentTarget.value});
   }
  render() {
-
-
    return (
      <div>
      {this.filterList.length>0 && <div>
