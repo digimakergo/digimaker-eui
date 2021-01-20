@@ -31,8 +31,8 @@ export default class Treemenu extends React.Component<{ config: any, current:any
 
     let selectedId:any = 0;
     if( this.props.current ){
-       let hierrachy = this.props.current.hierarchy;
-       if( hierrachy ){
+       let hierarchy = this.props.current.hierarchy;
+       if( hierarchy ){
           selectedId = this.props.current.hierarchy.split('/');
           for( let i=0; i<selectedId.length; i++ ){
             selectedId[i] = parseInt( selectedId[i] );
