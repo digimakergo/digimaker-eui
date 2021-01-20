@@ -29,9 +29,15 @@ export default class Treemenu extends React.Component<{ config: any, current:any
   render() {
     let isOpen = this.state.open;
 
-    let currentID = 0;
+    let selectedId:any = 0;
     if( this.props.current ){
-       currentID = this.props.current.id;
+       let hierrachy = this.props.current.hierarchy;
+       if( hierrachy ){
+          selectedId = this.props.current.hierarchy.split('/');
+          for( let i=0; i<selectedId.length; i++ ){
+            selectedId[i] = parseInt( selectedId[i] );
+          }
+       }
     }
 
     return (
@@ -53,7 +59,7 @@ export default class Treemenu extends React.Component<{ config: any, current:any
 
           <Collapse in={isOpen}>
             <div className="menuitem-content">
-              <TreeNode selectedId={currentID} data={this.state.data} />
+              <TreeNode selectedId={selectedId} data={this.state.data} />
             </div>
           </Collapse>
       </div>
