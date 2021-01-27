@@ -3,18 +3,11 @@ import {FetchWithAuth} from 'digimaker-ui/util';
 import Browse from 'digimaker-ui/Browse';
 import util from 'digimaker-ui/util';
 
-export default class Move extends React.Component<{content:any, from:any, changed:boolean, afterAction:any; selected?:any}, {operating:boolean,triggered:boolean}> {
+export default class Move extends React.Component<{content:any, from:any, counter:number, afterAction:any; selected?:any}, {operating:boolean}> {
 
   constructor(props: any) {
       super(props);
-      this.state = {operating:false, triggered: props.changed};
-  }
-
-  //when it's changed, trigger it
-  componentDidUpdate(prevProps, prevState, snapshot){
-      if( prevProps.changed != this.props.changed ){
-          this.setState({triggered: true});
-      }
+      this.state = {operating:false};
   }
 
   getContainerTypes(contenttype:string){
@@ -22,11 +15,6 @@ export default class Move extends React.Component<{content:any, from:any, change
     let filterConfig = util.getConfig().browse.filter;
     let result = util.getSettings( filterConfig, contenttype ).contenttype;
     return result;
-  }
-
-  //close dialog
-  close(){
-    this.setState({triggered:false});
   }
 
   selectedTarget(target){
@@ -46,7 +34,7 @@ export default class Move extends React.Component<{content:any, from:any, change
   render(){
     return <div>
         {this.state.operating&&<div>Loading...</div>}
-        <Browse trigger={true} config={util.getConfig().browse} contenttype={this.getContainerTypes(this.props.content.content_type)} onConfirm={(target:any)=>{this.selectedTarget(target)}} />
+        <Browse key={this.props.counter} trigger={true} config={util.getConfig().browse} contenttype={this.getContainerTypes(this.props.content.content_type)} onConfirm={(target:any)=>{this.selectedTarget(target)}} />
         </div>
   }
 }
