@@ -6,11 +6,11 @@ import Select from 'react-select';
 import TreeNode from 'digimaker-ui/TreeNode';
 import { Collapse } from 'react-bootstrap';
 
-export default class Treemenu extends React.Component<{ config: any, current:any }, { open:boolean, data: any }> {
+export default class Treemenu extends React.Component<{ config: any, current:any }, { current:any, open:boolean, data: any }> {
 
   constructor(props: any) {
     super(props);
-    this.state = { open: props.config.open?true:false, data: '' };
+    this.state = { current:'',open: props.config.open?true:false, data: '' };
   }
 
   fetchData() {
@@ -24,18 +24,27 @@ export default class Treemenu extends React.Component<{ config: any, current:any
 
   componentDidMount() {
     this.fetchData();
+    this.setState({current: this.props.current});
+  }
+
+  treenodeChange(e, data){
+    this.setState({current: data});
   }
 
   render() {
     let isOpen = this.state.open;
 
     let selectedId:any = 0;
-    if( this.props.current ){
-       let hierarchy = this.props.current.hierarchy;
+    if( this.state.current ){
+       let hierarchy = this.state.current.hierarchy;
        if( hierarchy ){
-          selectedId = this.props.current.hierarchy.split('/');
-          for( let i=0; i<selectedId.length; i++ ){
-            selectedId[i] = parseInt( selectedId[i] );
+          let selectedIdStrArray = hierarchy.split('/');
+          let selectedIdArray:Array<number> = [];
+          for( let i=0; i<selectedIdArray.length; i++ ){
+            selectedIdArray[i] = parseInt( selectedIdStrArray[i] );
+          }
+          if( selectedIdArray.includes( this.props.config.root ) ){
+            selectedId = selectedIdArray;
           }
        }
     }
@@ -59,7 +68,7 @@ export default class Treemenu extends React.Component<{ config: any, current:any
 
           <Collapse in={isOpen}>
             <div className="menuitem-content">
-              <TreeNode selectedId={selectedId} data={this.state.data} />
+              <TreeNode selectedId={selectedId} data={this.state.data} onClick={(e, data)=>this.treenodeChange(e, data)} />
             </div>
           </Collapse>
       </div>
