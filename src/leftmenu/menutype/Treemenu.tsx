@@ -19,7 +19,6 @@ export default class Treemenu extends React.Component<{ config: any, current:any
       .then((data) => {
         this.setState({ data: data });
       })
-
   }
 
   componentDidMount() {
@@ -40,12 +39,10 @@ export default class Treemenu extends React.Component<{ config: any, current:any
        if( hierarchy ){
           let selectedIdStrArray = hierarchy.split('/');
           let selectedIdArray:Array<number> = [];
-          for( let i=0; i<selectedIdArray.length; i++ ){
+          for( let i=0; i<selectedIdStrArray.length; i++ ){
             selectedIdArray[i] = parseInt( selectedIdStrArray[i] );
           }
-          if( selectedIdArray.includes( this.props.config.root ) ){
-            selectedId = selectedIdArray;
-          }
+          selectedId = selectedIdArray;
        }
     }
 
