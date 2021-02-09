@@ -4,14 +4,6 @@ import { FetchWithAuth, useDialog, Dialog, getDefinition } from 'digimaker-ui/ut
 
 const Delete = (props) => {
 
-  //let body= [<h4>are you sure?</h4>];
-  const { isShowing, toggle } = useDialog();
-  useEffect(() => {
-    toggle();
-  }, []);
-
-  const close = () => { toggle(); }
-
   const selected = props.selected;
   const def = getDefinition(selected.content_type);
 
@@ -44,14 +36,16 @@ const Delete = (props) => {
             jumpToParent = true;
           }
           props.afterAction(true, jumpToParent);
-          close();
         } else {
           // this.setState({error:text});
         }
       });
   }
+
   return (
-    <Dialog body={body()} title={"Delete "+def.name} submit={submit} isShowing={isShowing} hide={toggle} />
+    <Dialog key={props.counter} title={"Delete "+def.name} onSubmit={submit}>
+      {body()}
+    </Dialog>
   );
 };
 

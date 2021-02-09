@@ -6,15 +6,10 @@ import {Dialog} from 'digimaker-ui/util';
 
 
 
-export default class UnassignRole extends React.Component<{from:any, changed:boolean, selected?:any, afterAction?:any}, {showConfirm:boolean}> {
+export default class UnassignRole extends React.Component<{from:any, changed:boolean, counter:any, selected?:any, afterAction?:any}, {}> {
   constructor(props: any) {
       super(props);
-      this.state ={showConfirm: true};
-  }
-
-
-  close(){
-    this.setState({showConfirm: false});
+      this.state ={};
   }
 
   submit(){
@@ -22,16 +17,16 @@ export default class UnassignRole extends React.Component<{from:any, changed:boo
       FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/access/unassign/'+selected.cid+'/'+selected.role_id)
           .then(res => res.text())
           .then((data) => {
-            this.close();
             this.props.afterAction(true, false)
           }).catch(err=>{
           })
   }
 
   render(){
-    return <Dialog title="Delete" body={"Confirm to unassign "+this.props.selected.name + "?"}
-    submit={()=>this.submit()}
-    isShowing={this.state.showConfirm}
-    hide={()=>this.close()} />;
+    return <Dialog title="Delete"
+    key={this.props.counter}
+    onSubmit={()=>this.submit()}>
+    Confirm to unassign {this.props.selected.name}?
+    </Dialog>;
   }
 }
