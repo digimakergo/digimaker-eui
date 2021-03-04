@@ -51,6 +51,16 @@
       "show_header": true,
       "show_table_header": true,
       "pagination": 25,
+      "actions":[{
+          "link": "/edit/{id}",
+          "name": "Edit",
+          "icon": "icon-edit",
+          "title": "Edit the content"
+        },{
+          "com": "action:move",
+          "icon": "icon-move",
+          "name": "Move"
+        }],
       "row_actions": [
           {"link": "/edit/{id}",
           "name": "Edit",
