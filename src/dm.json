@@ -151,27 +151,7 @@
       "columns": ["name", "author", "published", "modified"],
       "show_header": true,
       "show_table_header": false,
-      "actions": [{
-          "link": "",
-          "name": "preview"
-        },
-        {
-          "link": "",
-          "name": "copy"
-        },
-        {
-          "link": "",
-          "name": "move"
-        },
-        {
-          "link": "",
-          "name": "delete"
-        },
-        {
-          "link": "",
-          "name": "export"
-        }
-      ],
+      "actions": [],
       "row_actions": [],
       "pagination": 10,
       "row_more": ["export"]
@@ -184,28 +164,7 @@
       "columns": ["name", "coverimage", "author_name", "modified", "priority"],
       "show_header": true,
       "show_table_header": true,
-      "actions": [
-        {
-          "com": "action:copy",
-          "icon": "icon icon-copy",
-          "name": "copy"
-        },
-        {
-          "com": "action:copy",
-          "icon": "icon icon-move",
-          "name": "move"
-        },
-        {
-          "com": "action:delete",
-          "icon": "fas fa-trash",
-          "name": "delete"
-        },
-        {
-          "com": "action:copy",
-          "icon": "fas fa-filter",
-          "name": "Filter"
-        }
-      ],
+      "actions": [],
       "row_actions": [{
         "link": "/edit/{id}",
         "icon": "fas fa-edit",
@@ -301,6 +260,39 @@
         "level": 0,
         "pagination": 10
       }
+    }
+  },
+  "browse": {
+     "filter":
+           {"*":{"contenttype":["folder"]},
+             "usergroup":{"contenttype":["usergroup"]},
+             "user":{"contenttype":["folder"]},
+              "sv_product":{"contenttype":["sv_product_package"]} },
+     "list": {
+          "*": {"level":0,
+              "can_select": false,
+              "pagination":10,
+              "sort_default":[["priority", "desc"],["name", "asc"]],
+              "sort":{"priority":"desc", "name":"asc", "modified":"desc", "id":"desc"},
+              "actions": [{
+                  "com": "action:filter"
+              }],
+              "columns": ["id","title", "modified","priority"]
+            },
+    "image": {
+               "viewmode":"block",
+               "sort_default":[["modified", "desc"], "-"],
+               "block_fields": ["image", "name"]
+              },
+"user": {
+               "sort_default":[["modified", "desc"], "-"],
+               "parent": 4
+              },
+ "sv_supplier": {
+                "columns":["name", "-"],
+                "sort_default":[["name", "asc"], "-"]
+               }
+
     }
   },
   "viewmode":{
