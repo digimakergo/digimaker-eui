@@ -9,6 +9,7 @@
         "cms",
         "digimaker"
     ],
+    "proxy": "http://localhost:9200",
     "license": "MIT",
     "author": "Digimaker Go",
     "bugs": {
