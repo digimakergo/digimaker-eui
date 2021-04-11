@@ -6,6 +6,7 @@ import './App.css';
 import Main from './main/Main'
 import Leftmenu from './leftmenu/Leftmenu'
 import Login from './user/Login'
+import Select from './tinymce/Select';
 import Logout from './user/Logout'
 import Create from './actions/Create'
 import Edit from './actions/Edit'
@@ -47,7 +48,9 @@ const App: React.FC = () => {
           <Switch>
             <Route path="/login" component={Login}  />
             <Route path="/logout" component={Logout}  />
+           
             <Redirect exact from="/" to={Config['default_url']} />
+            <Route path="/tinymce/select/:contenttype" exact render={route=><Select contenttype={route.match.params.contenttype} />} />
             <Route>
             <div className="App">
                 <DMInit>
@@ -76,6 +79,7 @@ const App: React.FC = () => {
                 </DMInit>
             </div>
             </Route>
+            
         </Switch>
         </Router>
         </ErrorBoundary>

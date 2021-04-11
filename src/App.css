@@ -1123,3 +1123,11 @@ a:focus{
 .content-list-tools .action > div {
     display: flex;
 }
+
+.browse.inline .container{
+  max-width: 100%;
+}
+
+.browse.inline .blockview-grid{
+  border:none
+}
