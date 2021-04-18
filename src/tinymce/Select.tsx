@@ -5,40 +5,57 @@ import DMInit from 'digimaker-ui/DMInit';
 import Browse from 'digimaker-ui/Browse';
 import Config from '../dm.json';
 import util from 'digimaker-ui/util';
+import {FetchWithAuth} from 'digimaker-ui/util';
 import { env } from 'process';
 
-export default class Select extends React.Component<{contenttype:string}, {selected: any, width: string, height: string}> {
+export default class Select extends React.Component<{data:string}, {contenttype:string,selected: any, width: string, height: string}> {
+    private sentData = {image: '', width:'', height:''};
 
     constructor(props: any) {
         super(props);
-        this.state = { selected: '', width:'', height:''};
+        let data = props.data.split(';');
+        this.state = { contenttype:data[0], width:data[3], height:data[4], selected: ''};
     }
 
-    onSelect(selected){
-        // this.setState({selected: selected});   
+    componentDidMount(){
+        let data = this.props.data.split(';');
+        if( data[1] ){
+            this.fetchData(data);
+        }
+    }    
+
+    fetchData(data){
+        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/get/'+data[0]+'/'+data[1])
+            .then(res => res.json())
+            .then((data) => {        
+                this.setState({selected: data});
+            }).catch(err=>{
+              this.setState(()=>{throw err});
+            })
+    }
+
+    send(){
         window.parent.postMessage(
             {
                 mceAction: 'customAction',
-                data: {image: selected, width: this.state.width, height: this.state.height}
+                data: this.sentData
             }, '*');    
     }
 
-    confirm(){
-         window.parent.postMessage(
-             {
-                 mceAction: 'customAction',
-                 data: {image: this.state.selected, width: this.state.width, height: this.state.height}
-             }, '*');
+    selectImage(value){
+        this.sentData['image']=value;
+        this.send();
     }
 
+
     render(){
-        let browseConfig = Config.browse;
-        return <DMInit>
-            <div>
-                Width: <input size={3} onChange={(e)=>this.setState({width:e.target.value})} type="text" />
-                Height: <input size={3} onChange={(e)=>this.setState({height:e.target.value})}  type="text" />                
+        let browseConfig = Config.browse;                
+        return <DMInit>            
+            <Browse contenttype={[this.state.contenttype]} selected={this.state.selected} trigger={true} inline={true} multi={false} config={browseConfig}  onConfirm={(selected)=>{this.selectImage(selected)}} />            
+            <div className="tinymce-image-settings">
+                Width: <input defaultValue={this.state.width} size={3} onChange={(e)=>{this.sentData['width']=e.target.value;this.send()}} type="text" />
+                Height: <input defaultValue={this.state.height} size={3} onChange={(e)=>{this.sentData['height']=e.target.value;this.send()}}  type="text" />                
             </div>
-            <Browse contenttype={[this.props.contenttype]} trigger={true} inline={true} multi={false} config={browseConfig}  onConfirm={(selected)=>this.onSelect(selected)} />            
             </DMInit>
     }
 }
