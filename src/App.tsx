@@ -50,7 +50,7 @@ const App: React.FC = () => {
             <Route path="/logout" component={Logout}  />
            
             <Redirect exact from="/" to={Config['default_url']} />
-            <Route path="/tinymce/select/:contenttype" exact render={route=><Select contenttype={route.match.params.contenttype} />} />
+            <Route path="/tinymce/select/:data" exact render={route=><Select data={route.match.params.data} />} />
             <Route>
             <div className="App">
                 <DMInit>
