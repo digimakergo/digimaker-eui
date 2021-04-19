@@ -29,6 +29,7 @@ export default class Select extends React.Component<{data:string}, {contenttype:
             .then(res => res.json())
             .then((data) => {        
                 this.setState({selected: data});
+                this.sentData['image'] = data;
             }).catch(err=>{
               this.setState(()=>{throw err});
             })
