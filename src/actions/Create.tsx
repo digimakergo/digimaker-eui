@@ -2,7 +2,6 @@ import * as React from 'react';
 import Moment from 'react-moment';
 import { RouteProps } from 'react-router';
 import { Link, Redirect } from "react-router-dom";
-import Config from '../dm.json';
 import LoadFields from 'digimaker-ui/LoadFields';
 import {FetchWithAuth} from 'digimaker-ui/util';
 

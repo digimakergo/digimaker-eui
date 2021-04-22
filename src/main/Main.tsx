@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { RouteProps } from 'react-router';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
-import Config from '../dm.json';
 import Moment from 'react-moment';
 import List from 'digimaker-ui/List';
 import MetaInfo from './MetaInfo';
 import Actions from 'digimaker-ui/Actions';
-import Service from '../Service';
 import ViewContent from 'digimaker-ui/ViewContent';
 import Registry from 'digimaker-ui/Registry';
 import {ContentContext} from '../Context';
@@ -15,7 +13,7 @@ import ReactTooltip from "react-tooltip";
 import util from 'digimaker-ui/util';
 import {getDefinition, getFields} from 'digimaker-ui/util';
 
-export default class Main extends React.Component<{id:number, contenttype?:string}, { content: any, sideOpen:any }> {
+export default class Main extends React.Component<{id:number, contenttype?:string, mainConfig:any, listConfig:any}, { content: any, sideOpen:any }> {
 
     constructor(props: any) {
         super(props);
@@ -82,7 +80,7 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
       let contenttype = content.content_type;
       let subtype = content.subtype;
       let configKey = subtype?(contenttype+':'+subtype):contenttype;
-      let mainConfig = util.getSettings( Config.main, configKey, 'main');
+      let mainConfig = util.getSettings( this.props.mainConfig, configKey, 'main');
       return mainConfig;
     }
 
@@ -155,7 +153,7 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
                 <div className="list">
                 {
                     listContenttypes.map((subtype)=>{
-                        let config = util.getSettings(Config.list, subtype, 'list')
+                        let config = util.getSettings(this.props.listConfig, subtype, 'list')
                         if( config['fieldtypes'] == undefined ){
                           config['fieldtypes'] = getFields( getDefinition(subtype) );
                         }

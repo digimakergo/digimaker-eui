@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
-import Config from '../dm.json'
 
-export default class Slidemenu extends React.Component<{ show: boolean, changed: any }, { show: boolean }> {
+export default class Slidemenu extends React.Component<{ show: boolean, changed: any, config: any }, { show: boolean }> {
 
     constructor(props: any) {
         super(props);
@@ -20,7 +19,7 @@ export default class Slidemenu extends React.Component<{ show: boolean, changed:
     }
 
     render() {
-        const sidemenus = Config.leftmenu;
+        const sidemenus = this.props.config;
 
         return (
             <div className={"slidemenu" + (this.state.show ? '' : ' hide')}>

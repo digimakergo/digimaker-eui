@@ -251,35 +251,6 @@
     }
   },
   "browse": {
-    "*": {
-      "treetype": ["folder"],
-      "list": {}
-    },
-    "user": {
-      "treetype": ["folder"],
-      "list": {}
-    },
-    "image": {
-      "treetype": ["folder"],
-      "list": {"level":0, "columns":["name"],"block_fields":["image","name"], "viewmode":"block", "pagination": 10}
-    },
-    "article": {
-      "treetype": ["folder"],
-      "list": {
-        "columns": ["name", "modified"],
-        "sort": {
-          "modified": "desc",
-          "name": "asc"
-        },
-        "sort_default": [
-          ["modified", "desc"]
-        ],
-        "level": 0,
-        "pagination": 10
-      }
-    }
-  },
-  "browse": {
      "filter":
            {"*":{"contenttype":["folder"]},
              "usergroup":{"contenttype":["usergroup"]},
@@ -296,19 +267,15 @@
               }],
               "columns": ["id","title", "modified","priority"]
             },
-    "image": {
+           "image": {
                "viewmode":"block",
                "sort_default":[["modified", "desc"], "-"],
                "block_fields": ["image", "name"]
               },
-"user": {
+            "user": {
                "sort_default":[["modified", "desc"], "-"],
                "parent": 4
-              },
- "sv_supplier": {
-                "columns":["name", "-"],
-                "sort_default":[["name", "asc"], "-"]
-               }
+              }
 
     }
   },
@@ -321,15 +288,5 @@
       "article":["title"],
       "image":["image","name"]
     }
-  },
-  "components":{
-    "action:copy":"./actions/Copy",
-    "action:delete":"./actions/Delete",
-    "action:move":"./actions/Move",
-    "action:set_priority":"./actions/SetPriority",
-    "main:content_structure":"./main/content/Structure",
-    "main:permission_policies":"./permission/Policies",
-    "view:role": "./main/view/Role",
-    "action:assign_role":"./actions/user/AssignRole"
   }
 }

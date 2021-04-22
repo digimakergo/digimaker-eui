@@ -3,7 +3,6 @@ import { Collapse, Button } from 'react-bootstrap';
 import DateTime from 'react-datetime';
 import moment from 'moment';
 import Config from '../dm.json';
-import { config } from 'process';
 class Filter extends React.Component<{handleFilter:any,afterAction:any},{query?:any,filter:any,open:boolean,selectedFilter:string}> {
 
  filterSet:any={};

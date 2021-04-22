@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink, useLocation } from "react-router-dom";
 import Slidemenu from './Slidemenu'
-import Config from '../dm.json'
 import Registry from 'digimaker-ui/Registry'
 import { RouteProps, withRouter } from 'react-router';
 import {ContentContext} from '../Context';
@@ -11,7 +10,7 @@ import {FetchWithAuth, SetAccessToken} from 'digimaker-ui/util';
 import ReactTooltip from "react-tooltip";
 
 //Whole left menu consising of slidemenu and menulist,
-export default class Leftmenu extends React.Component<{}, { current: any, showSidemenu: boolean, view: any}> {
+export default class Leftmenu extends React.Component<{config:any}, { current: any, showSidemenu: boolean, view: any}> {
 
     constructor(props: any) {
         super(props);
@@ -53,7 +52,7 @@ export default class Leftmenu extends React.Component<{}, { current: any, showSi
         }
         return (
               <div className="left">
-                  <Slidemenu show={this.state.showSidemenu} changed={(show)=>{this.setState( { showSidemenu: show } ); } } />
+                  <Slidemenu config={this.props.config} show={this.state.showSidemenu} changed={(show)=>{this.setState( { showSidemenu: show } ); } } />
                   <div className="logomenu">
                       <a className="logo" href="#" onClick={(e) => { this.showSide(e); }}>
                           <img src={process.env.PUBLIC_URL+"/images/logo.png"} width="28px" />
@@ -61,7 +60,7 @@ export default class Leftmenu extends React.Component<{}, { current: any, showSi
                       <Link to="/1" className="profile"> <i className="fas fa-user"></i>&nbsp;{this.state.current.name}</Link>
                   </div>
                   <div>
-                      <MenuList content={this.context.data} />
+                      <MenuList config={this.props.config} content={this.context.data} />
                   </div>
               </div>
         );
@@ -75,7 +74,7 @@ const MenuList = (props) => {
 
     let location = useLocation();
     let path = location.pathname;
-    let menus: any = getCurrentMenu(path, props.content);
+    let menus: any = getCurrentMenu(path, props.content, props.config);
 
     return (<React.Suspense fallback="..."><div>
         {menus.map((menu) => {
@@ -100,9 +99,8 @@ const MenuList = (props) => {
 }
 
 //get leftmenu configuration based on location path
-function getCurrentMenu(path: string, content:any) {
+function getCurrentMenu(path: string, content:any, leftmenuConfig: any) {
     let result:Array<any> = [];
-    const leftmenuConfig = Config.leftmenu;
 
     for (let i = 0; i < leftmenuConfig.length; i++) {
         if (result.length > 0) {
