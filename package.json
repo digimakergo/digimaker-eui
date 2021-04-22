@@ -1,15 +1,14 @@
 {
-    "name": "digimaker",
-    "version": "0.1.0-alpha.1",
+    "name": "digimaker-eui",
+    "version": "0.1.0-beta.1",
     "private": false,
-    "description": "Client of digimaker CMF - a high performance CMF written in Golang.",
+    "description": "digimaker CMF Editorial UI library. Build admin ui easily using digimaker-eui.",
     "repository": "git://github.com/digimakergo/eui.git",
     "keywords": [
         "cmf",
         "cms",
         "digimaker"
     ],
-    "proxy": "http://localhost:9200",
     "license": "MIT",
     "author": "Digimaker Go",
     "bugs": {
@@ -47,7 +46,7 @@
         "universal-cookie": "^4.0.3"
     },
     "scripts": {
-        "dist": "rm -rf dist/* && cp ./package.json ./src/*.css ./dist && tsc",
+        "dist": "rm -rf dist/* && cp ./package.json ./README.md ./src/*.css ./dist && tsc",
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
