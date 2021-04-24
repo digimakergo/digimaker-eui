@@ -3,7 +3,7 @@
     "version": "0.1.0-beta.3",
     "private": false,
     "description": "digimaker CMF Editorial UI library. Build admin ui easily using digimaker-eui.",
-    "repository": "git://github.com/digimakergo/eui.git",
+    "repository": "git://github.com/digimakergo/digimaker-eui.git",
     "keywords": [
         "cmf",
         "cms",
@@ -12,14 +12,14 @@
     "license": "MIT",
     "author": "Digimaker Go",
     "bugs": {
-        "url": "https://github.com/digimakergo/eui/issues"
+        "url": "https://github.com/digimakergo/digimaker-eui/issues"
     },
     "files": [
         "**/*.js",
         "dm.json",
         "*.css"
     ],
-    "homepage": "https://github.com/digimakergo/eui#readme",
+    "homepage": "https://github.com/digimakergo/digimaker-eui#readme",
      "peerDependencies": {
 
     },
