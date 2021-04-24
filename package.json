@@ -19,7 +19,7 @@
         "dm.json",
         "*.css"
     ],
-    "homepage": "https://github.com/digimakergo/digimaker-eui#readme",
+    "homepage": "https://digimaker.org",
      "peerDependencies": {
 
     },
