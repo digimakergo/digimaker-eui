@@ -1,6 +1,6 @@
 digimaker-eui
 =========
-digimaker-eui is the editorial ui components for [Digimaker CMF framework](http://github.com/digimakergo/digimaker), developed in React. It provides client features like create, edit, delete, actions and other editorial features.
+digimaker-eui is the editorial ui components for [Digimaker CMF](http://github.com/digimakergo/digimaker), developed in React. It provides client features like create, edit, delete, actions and other editorial features.
 
 You can use it directly or by customizing eg. layout, menu, actions, even embedding edit features into your project or in a ui framework(eg. material-ui).
 
@@ -11,6 +11,8 @@ Still in development.
 ```
 npm -i digimaker-eui
 ```
+
+See [dmdemo admin](https://github.com/digimakergo/dmdemo/tree/master/web/admin) for use example.
 
 ### Include your code like below in your App's render method
 ```jsx

@@ -1,6 +1,6 @@
 {
     "name": "digimaker-eui",
-    "version": "0.1.0-beta.1",
+    "version": "0.1.0-beta.3",
     "private": false,
     "description": "digimaker CMF Editorial UI library. Build admin ui easily using digimaker-eui.",
     "repository": "git://github.com/digimakergo/eui.git",
@@ -16,7 +16,8 @@
     },
     "files": [
         "**/*.js",
-        "dm.json"
+        "dm.json",
+        "*.css"
     ],
     "homepage": "https://github.com/digimakergo/eui#readme",
      "peerDependencies": {
