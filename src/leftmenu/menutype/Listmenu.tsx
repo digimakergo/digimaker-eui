@@ -12,7 +12,7 @@ export default class Listmenu extends React.Component<{ config: any }, { open:bo
   }
 
   fetchData() {
-    FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/list/' + this.props.config.root+'/folder')
+    FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/list/folder?parent='+this.props.config.root)
       .then(res => res.json())
       .then((data) => {
         this.setState({ data: data.list });
