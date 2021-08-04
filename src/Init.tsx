@@ -9,7 +9,6 @@
 // @ts-ignore
 import Registry from 'digimaker-ui/Registry'
 
-import Dashboard from './leftmenu/menutype/Dashboard'
 import Treemenu from './leftmenu/menutype/Treemenu'
 import Listmenu from './leftmenu/menutype/Listmenu'
 
@@ -26,6 +25,5 @@ Registry.register( 'action', 'move', Move );
 Registry.register( 'action', 'set_priority', SetPriority );
 Registry.register( 'action', 'assign_role', AssignRole );
 
-Registry.register( 'leftmenu', 'dashboard', Dashboard );
 Registry.register( 'leftmenu', 'treemenu', Treemenu );
 Registry.register( 'leftmenu', 'listmenu', Listmenu );
