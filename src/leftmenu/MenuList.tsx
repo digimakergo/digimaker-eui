@@ -59,7 +59,7 @@ function getCurrentMenu(path: string, content:any, leftmenuConfig: any) {
               }
               else if(menuitem.root)
               {
-                  if( content && content.hierarchy.split( '/' ).includes( menuitem.root.toString() ) )
+                  if( content && content.hierarchy && content.hierarchy.split( '/' ).includes( menuitem.root.toString() ) )
                   {
                     result =menus;
                     break;
