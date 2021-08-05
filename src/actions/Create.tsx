@@ -36,7 +36,7 @@ export default class Create extends React.Component<{parent:number, contenttype:
                 return res.json();
             }
         }).then((data)=>{
-            this.setState( {validation: data} )
+            this.setState( {validation: data.error.detail} )
         });
     }
 

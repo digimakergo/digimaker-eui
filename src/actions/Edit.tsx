@@ -49,7 +49,7 @@ export default class Edit extends React.Component<{id:number, contenttype?:strin
                 return res.json();
             }
         }).then((data)=>{
-            this.setState( {validation: data} )
+            this.setState( {validation: data.error.detail} )
         });
     }
 
