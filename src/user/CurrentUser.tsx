@@ -10,19 +10,12 @@ const CurrrentUser = (props) => {
     useEffect(() => {
         if( !current ){
           FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/user/current/admin') //todo: make site name configable
-          .then(res => {
-            if (res.ok) {
-              res.json().then((content) => {
-                setCurrent(content);
-              });
-            }
-            else {
-              //todo: throw error
-            }
-          }).catch(() => {
-            //todo: throw error
-          });
-        }        
+          .then(data => {
+                if( data.error === false ){
+                  setCurrent(data.data);
+                }
+          });        
+        }
       });    
 
 

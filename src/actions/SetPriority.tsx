@@ -16,23 +16,25 @@ export default class SetPriority extends React.Component<{from:any, content:any,
 
   setPriority(id:number, priority:number){
     FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/setpriority?params='+id+','+priority)
-      .then((res:any)=>res.json())
       .then((data:any)=>{
-          this.props.afterAction();
+          if( data.error === false ){
+            this.props.afterAction();
+          }
       });
   }
 
   setToTop(){
     let content = this.props.content;
     FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/list/'+content.content_type+'?parent='+content.parent_id+'&sortby=priority%20desc&limit=1&offset=0')
-      .then((res:any)=>res.json())
       .then((data:any)=>{
-        let priority = this.priortyStep;
-        if( data.list.length > 0 ){
-            let topPriority = data.list[0].priority;
-            priority = topPriority+this.priortyStep;
+        if( data.error === false ){
+          let priority = this.priortyStep;
+          if( data.list.length > 0 ){
+              let topPriority = data.list[0].priority;
+              priority = topPriority+this.priortyStep;
+          }
+          this.setPriority( content.id, priority );
         }
-        this.setPriority( content.id, priority );
       });
   }
 

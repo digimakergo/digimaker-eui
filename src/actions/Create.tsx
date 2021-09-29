@@ -25,18 +25,17 @@ export default class Create extends React.Component<{parent:number, contenttype:
         for (let key of Array.from(form.keys())) {
             dataObject[key] = form.get(key);
         };
-        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/new/' + this.props.parent + '/' + this.props.contenttype, {
+        FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/create/' + this.props.contenttype + '/' + this.props.parent, {
             method: 'POST',
             body: JSON.stringify(dataObject),
-        }).then((res) => {
-            if (res.ok) {
-                this.props.afterAction(1, res.json());
-            } else {
-                console.log(res)
-                return res.json();
+        }).then((data) => {
+            if( data.error === false ){
+                this.props.afterAction(1, data);           
+            }else{
+                //todo: check error code to distigush network error vs normal error
+                window.alert(data.data.message);
+                this.setState( {validation: data.data.detail} )
             }
-        }).then((data)=>{
-            this.setState( {validation: data.error.detail} )
         });
     }
 
@@ -50,9 +49,6 @@ export default class Create extends React.Component<{parent:number, contenttype:
                             <div className="action-body">
                                 <div>
                                     <button type="submit" className="btn btn-primary btn-sm"><i className="fas fa-paper-plane"></i> Submit</button>
-                                </div>
-                                <div>
-                                    <button type="button" className="btn btn-sm btn-secondary"><i className="fas fa-save"></i> Save draft</button>
                                 </div>
                                 <div>
                                     <Link to={`/main/${this.props.parent}`}>

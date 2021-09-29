@@ -18,9 +18,8 @@ export default class Edit extends React.Component<{id:number, contenttype?:strin
     fetchData() {
         let url = '/content/get/'+this.params
         FetchWithAuth(process.env.REACT_APP_REMOTE_URL + url)
-            .then(res => res.json())
             .then((data) => {
-                this.setState({ content: data});
+                this.setState({ content: data.data});
             })
     }
 
@@ -41,15 +40,13 @@ export default class Edit extends React.Component<{id:number, contenttype?:strin
         FetchWithAuth(process.env.REACT_APP_REMOTE_URL + url, {
             method: 'POST',
             body: JSON.stringify(dataObject),
-        }).then((res) => {
-            if (res.ok) {
+        }).then((data) => {
+            if (data.error===false) {
               this.props.afterAction(1);
-            }else {
-                console.log(res)
-                return res.json();
+            }else{
+                window.alert(data.data.message);
+                this.setState( {validation: data.data.detail} );
             }
-        }).then((data)=>{
-            this.setState( {validation: data.error.detail} )
         });
     }
 

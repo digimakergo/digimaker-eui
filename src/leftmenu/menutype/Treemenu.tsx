@@ -15,9 +15,10 @@ export default class Treemenu extends React.Component<{ config: any, current:any
 
   fetchData() {
     FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/treemenu/' + this.props.config.root + '?type='+this.props.config.contenttype.join(','))
-      .then(res => res.json())
       .then((data) => {
-        this.setState({ data: data });
+        if( data.error === false ){
+          this.setState({ data: data.data });
+        }
       })
   }
 

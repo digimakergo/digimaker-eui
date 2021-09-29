@@ -28,16 +28,16 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
           url = url + '/'+this.props.id;
         }
         FetchWithAuth(process.env.REACT_APP_REMOTE_URL + url)
-            .then(res => res.json())
             .then((data) => {
+                let content = data.data;
                 let context = this.context;
-                context.update(data);
+                context.update(content);
 
                 let sideOpenConfig = this.state.sideOpen;
-                let mainConfig = this.getMainConfig( data );
+                let mainConfig = this.getMainConfig( content );
                 sideOpenConfig = mainConfig['openSide']?1:0;
 
-                this.setState({content: data, sideOpen: sideOpenConfig});
+                this.setState({content: content, sideOpen: sideOpenConfig});
             }).catch(err=>{
               this.setState(()=>{throw err});
             })

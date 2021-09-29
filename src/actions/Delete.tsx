@@ -28,18 +28,16 @@ const Delete = (props) => {
       params = 'cid='+idStr+'&type='+ props.selected.content_type
     }
     FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/delete?'+params)
-      .then(res => res.text())
-      .then((text) => {
-        if (text == 1) {
+      .then((data) => {
+        if( data.error === false ){
           let jumpToParent = false;
           if (props.fromview=='content') {
             jumpToParent = true;
           }
-          props.afterAction(true, jumpToParent);
-        } else {
-          // this.setState({error:text});
+          props.afterAction(true, jumpToParent); 
+         }
         }
-      });
+      );
   }
 
   return (

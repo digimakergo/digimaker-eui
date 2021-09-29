@@ -21,12 +21,11 @@ export default class Move extends React.Component<{content:any, from:any, counte
       if(target){
         this.setState({operating: true});
         FetchWithAuth(process.env.REACT_APP_REMOTE_URL + "/content/move/"+this.props.content.id+"/"+target.id)
-            .then(res => res.text())
             .then((data) => {
-              this.setState({operating: false});
-              this.props.afterAction(true, false)
-            }).catch(err=>{
-              this.setState(()=>{throw err});
+              if( data.error === false ){
+                this.setState({operating: false});
+                this.props.afterAction(true, false)
+              }
             })
       }
   }

@@ -17,11 +17,10 @@ export default class Login extends React.Component<{}, {username:string, passwor
     e.preventDefault();
     let input = { username: this.state.username, password: this.state.password };
     this.setState({ sending: true });
-    fetch(process.env.REACT_APP_REMOTE_URL + '/auth/auth?username='+ this.state.username +'&password='+ this.state.password, { method: 'post', body: JSON.stringify(input) })
-    .then(this.handleErrors)
+    fetch(process.env.REACT_APP_REMOTE_URL + '/auth/auth', { method: 'post', body: JSON.stringify(input) })
     .then((response) => response.json())
     .then((res) => {
-      cookies.set( util.getCookieKey(),res.refresh_token);
+      cookies.set( util.getCookieKey(),res.data.refresh_token);
       window.location.href = process.env.PUBLIC_URL+'/';
     })
     .catch((err) => {

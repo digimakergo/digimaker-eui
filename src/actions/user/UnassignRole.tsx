@@ -15,9 +15,10 @@ export default class UnassignRole extends React.Component<{from:any, changed:boo
   submit(){
       let selected = this.props.selected;
       FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/access/unassign/'+selected.cid+'/'+selected.role_id)
-          .then(res => res.text())
           .then((data) => {
-            this.props.afterAction(true, false)
+            if( data.error === false ){
+              this.props.afterAction(true, false);
+            }
           }).catch(err=>{
           })
   }

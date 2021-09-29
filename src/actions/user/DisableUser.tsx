@@ -23,10 +23,10 @@ export default class DisableUser extends React.Component<{from:any, selected?:an
         ids.push( item.cid );
       });
       FetchWithAuth( process.env.REACT_APP_REMOTE_URL + '/user/enable/'+(enable?1:0)+'?id='+ids.join( ',' ) )
-        .then(res=>res.text()).then((data)=>{
-          this.props.afterAction( true );
-        }).catch(()=>{
-          this.setState({message: 'Error'});
+        .then((data)=>{
+          if( data.error === false ){
+            this.props.afterAction( true );
+          }
         });
     }
   }
