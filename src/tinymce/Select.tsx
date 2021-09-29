@@ -26,10 +26,9 @@ export default class Select extends React.Component<{data:string}, {contenttype:
 
     fetchData(data){
         FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/get/'+data[0]+'/'+data[1])
-            .then(res => res.json())
             .then((data) => {        
-                this.setState({selected: data});
-                this.sentData['image'] = data;
+                this.setState({selected: data.data});
+                this.sentData['image'] = data.data;
             }).catch(err=>{
               this.setState(()=>{throw err});
             })
