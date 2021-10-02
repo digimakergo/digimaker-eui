@@ -4,6 +4,8 @@ import { RouteProps } from 'react-router';
 import { Link, Redirect } from "react-router-dom";
 import LoadFields from 'digimaker-ui/LoadFields';
 import {FetchWithAuth} from 'digimaker-ui/util';
+import util from 'digimaker-ui/util';
+
 
 export default class Create extends React.Component<{parent:number, contenttype:string, afterAction:any}, {validation:{}}> {
 
@@ -33,7 +35,7 @@ export default class Create extends React.Component<{parent:number, contenttype:
                 this.props.afterAction(1, data);           
             }else{
                 //todo: check error code to distigush network error vs normal error
-                window.alert(data.data.message);
+                util.alert(data.data.message, 'error');
                 this.setState( {validation: data.data.detail} )
             }
         });
