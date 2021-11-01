@@ -29,8 +29,9 @@ export default class SetPriority extends React.Component<{from:any, content:any,
       .then((data:any)=>{
         if( data.error === false ){
           let priority = this.priortyStep;
-          if( data.list.length > 0 ){
-              let topPriority = data.list[0].priority;
+          let list = data.data;
+          if( list.length > 0 ){
+              let topPriority = list[0].priority;
               priority = topPriority+this.priortyStep;
           }
           this.setPriority( content.id, priority );
