@@ -54,6 +54,7 @@ export default class Treemenu extends React.Component<{ config: any, current:any
               <i className={this.props.config.icon}></i> {this.state.data.name}
             </NavLink>
 
+            {this.state.data.children&&          
             <span className="right">
             {this.props.config.is_site &&
               <a className="select-site" href="#" data-tip="Site list"><i className="fas fa-list"></i></a>}
@@ -61,7 +62,7 @@ export default class Treemenu extends React.Component<{ config: any, current:any
                 <i className={"foldable fas fa-chevron-right"+(this.state.open?' open':'')}>
               </i></a>
               <ReactTooltip effect="solid" />
-            </span>
+            </span>}
           </div>
 
           <Collapse in={isOpen}>
