@@ -262,9 +262,7 @@
               "pagination":10,
               "sort_default":[["priority", "desc"],["name", "asc"]],
               "sort":{"priority":"desc", "name":"asc", "modified":"desc", "id":"desc"},
-              "actions": [{
-                  "com": "action:filter"
-              }],
+              "actions": [],
               "columns": ["id","title", "modified","priority"]
             },
            "image": {

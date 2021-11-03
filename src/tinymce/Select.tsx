@@ -3,7 +3,6 @@ import {Redirect} from 'react-router-dom';
 import List from 'digimaker-ui/List';
 import DMInit from 'digimaker-ui/DMInit';
 import Browse from 'digimaker-ui/Browse';
-import Config from '../dm.json';
 import util from 'digimaker-ui/util';
 import {FetchWithAuth} from 'digimaker-ui/util';
 import { env } from 'process';
@@ -49,7 +48,7 @@ export default class Select extends React.Component<{data:string}, {contenttype:
 
 
     render(){
-        let browseConfig = Config.browse;                
+        let browseConfig = util.getConfig().browse;
         return <DMInit>            
             <Browse contenttype={[this.state.contenttype]} selected={this.state.selected} trigger={true} inline={true} multi={false} config={browseConfig}  onConfirm={(selected)=>{this.selectImage(selected)}} />            
             <div className="tinymce-image-settings">

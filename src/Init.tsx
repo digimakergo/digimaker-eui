@@ -13,6 +13,7 @@ import Treemenu from './leftmenu/menutype/Treemenu'
 import Listmenu from './leftmenu/menutype/Listmenu'
 
 import Copy from './actions/Copy';
+import Filter from './actions/Filter';
 import Delete from './actions/Delete'
 import Move from './actions/Move'
 import SetPriority from './actions/SetPriority'
@@ -24,6 +25,8 @@ Registry.register( 'action', 'delete', Delete );
 Registry.register( 'action', 'move', Move );
 Registry.register( 'action', 'set_priority', SetPriority );
 Registry.register( 'action', 'assign_role', AssignRole );
+Registry.register( 'action', 'filter', Filter );
+
 
 Registry.register( 'leftmenu', 'treemenu', Treemenu );
 Registry.register( 'leftmenu', 'listmenu', Listmenu );
