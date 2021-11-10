@@ -15,9 +15,7 @@ export default class SetPriority extends React.Component<{from:any, content:any,
 
     input = (e)=>{
         let inputStr = e.target.value;
-        if( parseInt( inputStr ).toString() == inputStr ){
-            this.setState({value: inputStr});
-        }
+        this.setState({value: inputStr});
     }
 
     submit = ()=>{
@@ -34,8 +32,9 @@ export default class SetPriority extends React.Component<{from:any, content:any,
         <a href="#" onClick={this.showDialog} title="Set priority"><i className="fas fa-sort-amount-down"></i> {this.state.newValue}</a>
         {this.state.dialog&&
          <Dialog title={"Set priority"} onSubmit={this.submit}>
+             <label>New priority: </label>
              <div>
-                <input type="text"  className="form-control" value={this.state.value} onChange={this.input} />
+                <input type="number"  className="form-control" value={this.state.value} onChange={this.input} />
              </div>
         </Dialog>}
         </>;
