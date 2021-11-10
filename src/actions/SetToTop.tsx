@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {FetchWithAuth} from 'digimaker-ui/util';
 
-export default class SetPriority extends React.Component<{from:any, content:any, afterAction:any}, {}> {
+export default class SetToTop extends React.Component<{from:any, content:any, afterAction:any}, {}> {
   private priortyStep = 100;
 
   constructor(props: any) {
@@ -29,7 +29,7 @@ export default class SetPriority extends React.Component<{from:any, content:any,
       .then((data:any)=>{
         if( data.error === false ){
           let priority = this.priortyStep;
-          let list = data.data;
+          let list = data.data.list;
           if( list.length > 0 ){
               let topPriority = list[0].priority;
               priority = topPriority+this.priortyStep;
