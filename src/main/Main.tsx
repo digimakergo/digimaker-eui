@@ -56,6 +56,10 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
       }
     }
 
+    componentWillUnmount(){
+      
+    }
+
     afterAction(refresh:boolean, jumpToParent: boolean){
       if(jumpToParent){
         window.location.href = process.env.PUBLIC_URL + '/main/'+this.state.content.parent_id; //todo: use better way for redirection.

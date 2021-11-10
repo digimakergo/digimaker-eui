@@ -6,18 +6,18 @@ import Select from 'react-select';
 import TreeNode from 'digimaker-ui/TreeNode';
 import { Collapse } from 'react-bootstrap';
 
-export default class Treemenu extends React.Component<{ config: any, current:any }, { current:any, open:boolean, data: any }> {
+export default class Treemenu extends React.Component<{ config: any, current:any }, { rotating:boolean, current:any, open:boolean, data: any }> {
 
   constructor(props: any) {
     super(props);
-    this.state = { current:'',open: props.config.open?true:false, data: '' };
+    this.state = { current:'', rotating: false,open: props.config.open?true:false, data: '' };
   }
 
   fetchData() {
     FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/treemenu/' + this.props.config.root + '?type='+this.props.config.contenttype.join(','))
       .then((data) => {
         if( data.error === false ){
-          this.setState({ data: data.data });
+          this.setState({ data: data.data, rotating: false });
         }
       })
   }
@@ -29,6 +29,12 @@ export default class Treemenu extends React.Component<{ config: any, current:any
 
   treenodeChange(e, data){
     this.setState({current: data});
+  }
+
+  async refresh(e){
+    e.preventDefault();
+    this.setState({rotating: true});
+    this.fetchData();
   }
 
   render() {
@@ -56,6 +62,7 @@ export default class Treemenu extends React.Component<{ config: any, current:any
 
             {this.state.data.children&&          
             <span className="right">
+            {this.props.config.refresh&&<a href="#" onClick={(e)=>this.refresh(e)} style={{marginRight:'15px'}}><i className={"fas fa-sync"+(this.state.rotating?' rotate':'')}></i></a>}
             {this.props.config.is_site &&
               <a className="select-site" href="#" data-tip="Site list"><i className="fas fa-list"></i></a>}
               <a href="#" onClick={(e:any)=>{e.preventDefault();this.setState({open:!this.state.open})}}>

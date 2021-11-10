@@ -17,7 +17,7 @@ let fetchPermissionData = async ()=>{
         FetchWithAuth(process.env.REACT_APP_REMOTE_URL +"/util/limitations/eui_all")
         .then((data)=>{
           resolves.forEach(resolve => {
-            permissionData = data
+            permissionData = data.data
             resolve(permissionData);
           });
         });
