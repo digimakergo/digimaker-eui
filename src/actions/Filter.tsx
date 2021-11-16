@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Collapse, Button } from 'react-bootstrap';
+import util from 'digimaker-ui/util';
 import DateTime from 'react-datetime';
-import moment from 'moment';
-import Config from '../dm.json';
-class Filter extends React.Component<{handleFilter:any,afterAction:any},{query?:any,filter:any,open:boolean,selectedFilter:string}> {
+import moment from 'moment'
+
+class Filter extends React.Component<{parameters:any,afterAction:any},{query?:any,filter:any,open:boolean,selectedFilter:string}> {
 
  filterSet:any={};
  filterList:any=[];
@@ -16,7 +17,9 @@ class Filter extends React.Component<{handleFilter:any,afterAction:any},{query?:
       open: false,
       selectedFilter: "0"
     }
-    this.filterList= Config.list.article["filter_columns"];
+    let cType = props.parameters['contenttype'];
+    let config = util.getConfig();
+    this.filterList= config.list[cType]["filter_columns"];
     if(this.filterList.includes("created")){
      this.filterSet["created"]={from:'',to:''};
     }
@@ -71,10 +74,8 @@ deleteFilter=(key?:string)=>{
  }
 
  submit=()=>{
-  let filterQuery=""
   if(this.searchText.value){
-    this.state.filter["name"]="contain:"+this.searchText.value;
-    filterQuery="?name=contain:"+this.searchText.value;
+    this.state.filter[this.filterList[0]]="contain:"+this.searchText.value;
   }
   const filterData= {filter:{...this.state.filter}};
   this.props.afterAction(true,filterData);
@@ -139,8 +140,8 @@ deleteFilter=(key?:string)=>{
     {this.state.filter&&<div className="block">
     {Object.keys(this.state.filter).map((key:any,index:number)=>
       <div key={index}>
-        {key+": "+this.state.filter[key]}&nbsp;
-        <a href="#" onClick={this.deleteFilter.bind(this,key)}><i className="fa fa-times" aria-hidden="true"></i></a>
+        <span>{key+": "+this.state.filter[key]}</span>
+        <Button variant="link" onClick={this.deleteFilter.bind(this,key)}><i className="fa fa-times" aria-hidden="true"></i></Button>
       </div>)}
     </div>}
 
