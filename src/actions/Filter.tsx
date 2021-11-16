@@ -75,7 +75,7 @@ deleteFilter=(key?:string)=>{
 
  submit=()=>{
   if(this.searchText.value){
-    this.state.filter[this.filterList[0]]="contain:"+this.searchText.value;
+    this.state.filter[this.filterList[0]]="contain:"+ encodeURIComponent(this.searchText.value);
   }
   const filterData= {filter:{...this.state.filter}};
   this.props.afterAction(true,filterData);
