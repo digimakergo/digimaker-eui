@@ -6,12 +6,19 @@ import { Permission } from './Permission';
 import { useState, useContext } from 'react';
 
 //A menu container which list all the menus from top to down.
-export const MenuList = (props) => {
+export const MenuList = (props:{config:any, index:number}) => {
     const current = useContext(ContentContext).data;
 
     let location = useLocation();
     let path = location.pathname;
-    let menus: any = getCurrentMenu(path, current, props.config);
+
+    let menus:any = null;
+    if( props.index == null){
+      menus = getCurrentMenu(path, current, props.config);
+    }else{
+      menus = props.config[props.index].menu;
+    }
+
     
     let menuKey = '';
     for( let menu of menus ){

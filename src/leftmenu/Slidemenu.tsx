@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 
-export default class Slidemenu extends React.Component<{config: any }, { show: boolean }> {
+export default class Slidemenu extends React.Component<{config: any, onSelect?:any }, { show: boolean }> {
 
     constructor(props: any) {
         super(props);
@@ -13,7 +13,12 @@ export default class Slidemenu extends React.Component<{config: any }, { show: b
     //     }
     // }
 
-    slide() {
+    slide(i:number) {
+        if( this.props.onSelect ){
+            if( i != -1 ){
+                this.props.onSelect(i);
+            }
+        }
         this.setState({ show: !this.state.show });
     }
 
@@ -23,19 +28,19 @@ export default class Slidemenu extends React.Component<{config: any }, { show: b
         return (
             <>
             {this.props.children&&
-            <span onClick={(e)=>{this.slide()}}>
+            <span onClick={(e)=>{this.slide(-1)}}>
                     {this.props.children}
             </span>}
             <div className={"slidemenu" + (this.state.show ? '' : ' hide')}>
                 <ul>
                     <li>
-                        <a className="logo" href="#" onClick={(e) => { e.preventDefault(); this.slide(); }}>
+                        <a className="logo" href="#" onClick={(e) => { e.preventDefault(); this.slide(-1); }}>
                             <img src={process.env.PUBLIC_URL+"/images/logo.png"} />
                         </a>
                     </li>
                     {sidemenus.map((menu:any, i:number) => {
                         return (<li key={menu.path}>
-                              <NavLink to={menu.path} onClick={()=>{this.slide();}} className={menu.identifier} activeClassName="selected">
+                              <NavLink to={menu.path} onClick={()=>{this.slide(i);}} className={menu.identifier} activeClassName="selected">
                                 <i className={"fas "+menu.icon}></i>
                               <div>{menu.name}</div>
                               </NavLink>
