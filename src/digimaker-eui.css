@@ -42,7 +42,8 @@ a:hover, .left a:hover{
 }
 
 .left{
-  overflow-y:auto
+  overflow-y:auto;
+  z-index: 1000;
 }
 
 .treemenu{
