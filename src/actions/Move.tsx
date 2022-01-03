@@ -3,11 +3,11 @@ import {FetchWithAuth} from 'digimaker-ui/util';
 import Browse from 'digimaker-ui/Browse';
 import util from 'digimaker-ui/util';
 
-export default class Move extends React.Component<{content:any, from:any, counter:number, afterAction:any; selected?:any}, {operating:boolean}> {
+export default class Move extends React.Component<{config:any, content:any, from:any, counter:number, afterAction:any; selected?:any}, {shown:boolean, operating:boolean}> {
 
   constructor(props: any) {
       super(props);
-      this.state = {operating:false};
+      this.state = {shown:false, operating:false};
   }
 
   getContainerTypes(contenttype:string){
@@ -28,12 +28,15 @@ export default class Move extends React.Component<{content:any, from:any, counte
               }
             })
       }
+    this.setState({shown: false});
   }
 
   render(){
     return <div>
+        <a href="javascript:void(0)" onClick={()=>this.setState({shown:true})}>
+        <i className={this.props.config['icon']}></i>{this.props.config['name']}</a>
         {this.state.operating&&<div>Loading...</div>}
-        <Browse key={this.props.counter} trigger={true} config={util.getConfig().browse} contenttype={this.getContainerTypes(this.props.content.content_type)} onConfirm={(target:any)=>{this.selectedTarget(target)}} />
+        {this.state.shown&&<Browse key={this.props.counter} trigger={true} config={util.getConfig().browse} contenttype={this.getContainerTypes(this.props.content.content_type)} onConfirm={(target:any)=>{this.selectedTarget(target)}} onCancel={()=>this.setState({shown:false})} />}
         </div>
   }
 }

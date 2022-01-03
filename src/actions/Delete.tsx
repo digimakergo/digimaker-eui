@@ -1,9 +1,8 @@
 import * as React from 'react';
-import {useEffect} from 'react';
 import { FetchWithAuth, useDialog, Dialog, getDefinition } from 'digimaker-ui/util';
 
 const Delete = (props) => {
-
+  const [shown, setShown] = React.useState(false);
   const selected = props.selected;
   const def = getDefinition(selected.content_type);
 
@@ -41,9 +40,11 @@ const Delete = (props) => {
   }
 
   return (
-    <Dialog key={props.counter} title={"Delete "+def.name} onSubmit={submit}>
+    <div className='action-item'>
+    <a href="javascript:void(0)" onClick={()=>setShown(true)}><i className="fas fa-trash"></i>{props.config['name']}</a>
+    {shown&&<Dialog key={props.counter} title={"Delete "+def.name} onClose={()=>setShown(false)} onSubmit={submit}>
       {body()}
-    </Dialog>
+    </Dialog>}</div>
   );
 };
 

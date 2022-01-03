@@ -29,7 +29,7 @@ export default class SetPriority extends React.Component<{from:any, content:any,
 
     render(){
         return <>
-        <a href="#" onClick={this.showDialog} title="Set priority"><i className="fas fa-sort-amount-down"></i> {this.state.newValue}</a>
+        <a href="javascript:void(0)" onClick={this.showDialog} title="Set priority"><i className="fas fa-sort-amount-down"></i> {this.state.newValue}</a>
         {this.state.dialog&&
          <Dialog title={"Set priority"} onSubmit={this.submit}>
              <label>New priority: </label>

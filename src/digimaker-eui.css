@@ -1109,6 +1109,10 @@ div.field-viewmode-inline{
  position:relative
 }
 
+.actions > *{
+  display: inline-block;
+}
+
 .list h3 > .icon-contenttype{
   margin-right: 0.3rem
 }
