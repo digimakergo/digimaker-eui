@@ -374,6 +374,23 @@ div.loading{
 
 }
 
+.container-title.container-close + .children{
+  display: none;
+}
+
+.container-close .closable i{
+  transform: rotate(270deg);
+}
+
+.container-title + .children{
+  display: block;
+}
+
+.container-title:hover .container-title:hover a {
+  color: #0099c8;
+  cursor: pointer;
+}
+
 .field.edit{
    margin-top: 10px;
 }
