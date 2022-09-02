@@ -5,6 +5,7 @@ import { Link, Redirect } from "react-router-dom";
 import LoadFields from 'digimaker-ui/LoadFields';
 import Registry from 'digimaker-ui/Registry';
 import {FetchWithAuth} from 'digimaker-ui/util';
+import util from 'digimaker-ui/util';
 
 export default class Edit extends React.Component<{id:number, contenttype?:string, afterAction:any}, {content:any,validation:{}}> {
 
@@ -86,10 +87,10 @@ export default class Edit extends React.Component<{id:number, contenttype?:strin
                     </div>
 
                     <div className="form-main">
-                        <h2>Edit {content.name}</h2>
+                        <h2>Edit {/*util.getName(content)*/}</h2>
                         {Com!=null?<Com />:''}
 
-                        <LoadFields mode='edit' type={content.content_type} data={content} validation={this.state.validation}  />
+                        <LoadFields mode='edit' type={content.metadata.contenttype} data={content} validation={this.state.validation}  />
                     </div>
                 </form>
             </div>

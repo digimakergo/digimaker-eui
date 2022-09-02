@@ -4,7 +4,7 @@ import { FetchWithAuth, useDialog, Dialog, getDefinition } from 'digimaker-ui/ut
 const Delete = (props) => {
   const [shown, setShown] = React.useState(false);
   const selected = props.selected;
-  const def = getDefinition(selected.content_type);
+  const def = getDefinition(selected.metadata.contenttype);
 
   const body = () => {
     if( def.has_location ){
@@ -24,7 +24,7 @@ const Delete = (props) => {
     if( def.has_location ){
       params = 'id='+idStr;
     }else{
-      params = 'cid='+idStr+'&type='+ props.selected.content_type
+      params = 'cid='+idStr+'&type='+ props.selected.metadata.contenttype
     }
     FetchWithAuth(process.env.REACT_APP_REMOTE_URL + '/content/delete?'+params)
       .then((data) => {

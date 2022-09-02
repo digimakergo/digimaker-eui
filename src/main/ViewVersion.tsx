@@ -58,7 +58,7 @@ export default class ViewContent extends React.Component<RouteProps,{version:any
        <div>
             <h2>{data.name}</h2>
             <div className="metainfo">Version {version.version} by {version.author} on <Moment unix format="DD.MM.YYYY HH:mm">{version.created}</Moment></div>
-            <LoadFields type={version.content_type} validation='' mode='view' data={data} afterField={()=>{}} />
+            <LoadFields type={version.metadata.contenttype} validation='' mode='view' data={data} afterField={()=>{}} />
        </div>
     );
   }

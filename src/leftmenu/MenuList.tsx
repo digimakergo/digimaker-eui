@@ -21,8 +21,8 @@ export const MenuList = (props:{config:any, index:number}) => {
 
     
     let menuKey = '';
-    for( let menu of menus ){
-      menuKey = menuKey + '-' + menu.name;
+    for( let i in menus ){
+      menuKey = menuKey + '-' + i + '-' + menus[i].name;
     }
 
     return (<React.Suspense fallback="..."><div key={menuKey}>
@@ -66,7 +66,7 @@ function getCurrentMenu(path: string, content:any, leftmenuConfig: any) {
               }
               else if(menuitem.root)
               {
-                  if( content && content.hierarchy && content.hierarchy.split( '/' ).includes( menuitem.root.toString() ) )
+                  if( content && content.location.hierarchy && content.location.hierarchy.split( '/' ).includes( menuitem.root.toString() ) )
                   {
                     result =menus;
                     break;

@@ -40,7 +40,7 @@ export default class Listmenu extends React.Component<{ config: any }, { open:bo
             <div className="menuitem-content">
             <ul className="listmenu">
             {this.state.data.map((item)=>{
-              return <li><NavLink to={'/main/'+item.id}><i className={"nodeicon far icon-" + item.content_type + " " + item.folder_type}></i>{item.name}</NavLink></li>
+              return <li><NavLink to={'/main/'+item.id}><i className={"nodeicon far icon-" + item.metadata.contenttype + " " + item.folder_type}></i>{item.name}</NavLink></li>
             })}
             </ul>
             </div>

@@ -107,7 +107,7 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
                   {newTypes.length>0&&<div className="action-create">
                    <label>Create</label>
                    {newTypes.map((contenttype:any)=>{return (
-                       <Link key={contenttype} to={`/create/${this.state.content.id}/${contenttype}`} data-place='bottom' data-tip={getDefinition(contenttype).name}>
+                       <Link key={contenttype} to={`/create/${this.state.content.id}/${contenttype}`} data-place='bottom' data-tip={getDefinition(contenttype)?getDefinition(contenttype).name:''}>
                            <i className={"icon icon-contenttype icon-"+contenttype}></i>
                        </Link>
                       )})}
@@ -157,6 +157,9 @@ export default class Main extends React.Component<{id:number, contenttype?:strin
                 <div className="list">
                 {
                     listContenttypes.map((subtype)=>{
+                        if(!getDefinition(subtype)){
+                          return <></>;
+                        }
                         let config = util.getSettings(this.props.listConfig, subtype, 'list')
                         if( config['fieldtypes'] == undefined ){
                           config['fieldtypes'] = getFields( getDefinition(subtype) );

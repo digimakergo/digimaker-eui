@@ -36,7 +36,7 @@ export default class Move extends React.Component<{config:any, content:any, from
         <a href="javascript:void(0)" onClick={()=>this.setState({shown:true})}>
         <i className={this.props.config['icon']}></i>{this.props.config['name']}</a>
         {this.state.operating&&<div>Loading...</div>}
-        {this.state.shown&&<Browse key={this.props.counter} trigger={true} config={util.getConfig().browse} contenttype={this.getContainerTypes(this.props.content.content_type)} onConfirm={(target:any)=>{this.selectedTarget(target)}} onCancel={()=>this.setState({shown:false})} />}
+        {this.state.shown&&<Browse key={this.props.counter} trigger={true} config={util.getConfig().browse} contenttype={this.getContainerTypes(this.props.content.metadata.contenttype)} onConfirm={(target:any)=>{this.selectedTarget(target)}} onCancel={()=>this.setState({shown:false})} />}
         </div>
   }
 }
